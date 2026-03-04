@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0e61b4;
+  --color-secondary: #fbbf24;
+  --color-background-light: #f6f7f8;
+  --color-background-dark: #101922;
+  --font-display: "Inter", sans-serif;
+}
+
+@utility diagonal-divider {
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+@utility diagonal-divider-reverse {
+  clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Animations */
+@keyframes underlineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes spring {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes rotateWords {
+
+  0%,
+  20% {
+    transform: translateY(0);
+  }
+
+  25%,
+  45% {
+    transform: translateY(-25%);
+  }
+
+  50%,
+  70% {
+    transform: translateY(-50%);
+  }
+
+  75%,
+  95% {
+    transform: translateY(-75%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Highlighting and rotating words */
+.yellow-highlight {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.5rem;
+}
+
+.yellow-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #fbbf24;
+  z-index: 0;
+  transform-origin: left;
+  animation: spring 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.highlight-text {
+  position: relative;
+  z-index: 10;
+  color: #101922;
+}
+
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+  /* Increased slightly for better fit */
+  vertical-align: middle;
+}
+
+.word-container {
+  display: flex;
+  flex-direction: column;
+  animation: rotateWords 8s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
+.rotating-word {
+  height: 1.2em;
+  line-height: 1.2em;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.blue-underline {
+  display: inline-block;
+  position: relative;
+}
+
+.blue-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  height: 15%;
+  width: 100%;
+  background-color: #0e61b4;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineGrow 0.8s ease-out 0.5s forwards;
+}
+
+.brand-logo {
+  @apply h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100;
+}
+
+/* Ensure the counter badge looks good over images */
+.works-counter-badge {
+  @apply absolute bottom-6 left-6 right-6 bg-white p-6 rounded-lg shadow-2xl border border-black/5 z-30 transition-all hover:scale-105;
+}
+
+.works-counter-badge p:first-child {
+  @apply text-primary font-black text-4xl mb-1;
+}
+
+.works-counter-badge p:last-child {
+  @apply text-slate-500 font-bold uppercase tracking-widest text-sm;
+}
