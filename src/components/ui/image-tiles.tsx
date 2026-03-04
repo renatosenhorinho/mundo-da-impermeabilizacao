@@ -62,11 +62,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const leftImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -8, x: -150, y: 10,
+            rotate: -10, x: -110, y: -30,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 1, x: -160, y: 0,
+            rotate: -5, x: -120, y: -45,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -74,11 +74,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const middleImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 6, x: 0, y: 0,
+            rotate: 4, x: 10, y: -50,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 0, x: 0, y: -10,
+            rotate: 0, x: 10, y: -60,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -86,11 +86,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const rightImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -6, x: 200, y: 20,
+            rotate: 8, x: 150, y: -20,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 3, x: 200, y: 10,
+            rotate: 5, x: 155, y: -35,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -106,11 +106,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
             >
                 {/* Left Image */}
                 <motion.div
-                    className="absolute w-72 h-72 origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
+                    className="absolute w-[330px] h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
                     variants={leftImageVariants}
                     whileHover="hover"
                     animate="animate"
-                    style={{ zIndex: 10 }}
+                    style={{ zIndex: 20 }}
                     onClick={() => setSelectedImage(leftImage)}
                 >
                     <img
@@ -122,11 +122,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
 
                 {/* Middle Image */}
                 <motion.div
-                    className="absolute w-72 h-72 origin-bottom-left overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
+                    className="absolute w-[330px] h-[330px] origin-bottom-left overflow-hidden rounded-xl shadow-2xl bg-white cursor-pointer"
                     variants={middleImageVariants}
                     whileHover="hover"
                     animate="animate"
-                    style={{ zIndex: 20 }}
+                    style={{ zIndex: 30 }}
                     onClick={() => setSelectedImage(middleImage)}
                 >
                     <img
@@ -138,11 +138,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
 
                 {/* Right Image */}
                 <motion.div
-                    className="absolute w-72 h-72 origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
+                    className="absolute w-[330px] h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
                     variants={rightImageVariants}
                     whileHover="hover"
                     animate="animate"
-                    style={{ zIndex: 30 }}
+                    style={{ zIndex: 10 }}
                     onClick={() => setSelectedImage(rightImage)}
                 >
                     <img

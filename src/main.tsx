@@ -11,8 +11,8 @@ if (imageContainer) {
         <React.StrictMode>
             <ImageReveal
                 leftImage="/Logos/leftimg.png"
-                middleImage="/Logos/midimg.png"
-                rightImage="/Logos/rightimg.png"
+                middleImage="/Logos/rightimg.png"
+                rightImage="/Logos/midimg.png"
             />
         </React.StrictMode>
     );

@@ -4,60 +4,64 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="/src/styles.css" />
 </head>
 
-<body class="font-display bg-background-dark text-white antialiased">
+<body class="font-display bg-background-light text-slate-900 antialiased">
 
-    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="./Logos/logo-main.png" alt="Mundo da Impermeabilização"
-                    class="h-12 md:h-16 w-auto object-contain" />
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="./index.html" class="flex items-center gap-3">
+                    <div class="bg-primary p-2 rounded text-white">
+                        <span class="material-symbols-outlined text-3xl">architecture</span>
+                    </div>
+                    <h2 class="text-primary text-xl font-black leading-tight tracking-tighter uppercase">
+                        Mundo da <br /><span class="text-slate-900">Impermeabilização</span>
+                    </h2>
+                </a>
+                <nav class="hidden md:flex items-center gap-10">
+                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                        href="./index.html">Início</a>
+                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                        href="./quem-somos.html">Quem Somos</a>
+                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                        href="#">Obras</a>
+                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
+                        href="./contato.html">Contato</a>
+                </nav>
+                <a href="https://wa.me/5581998008818" target="_blank"
+                    class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-black text-sm uppercase tracking-widest shadow-lg shadow-primary/20 transition-all">
+                    ORÇAMENTO
+                </a>
             </div>
-            <nav class="hidden md:flex gap-8">
-                <a href="#"
-                    class="text-slate-300 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors">Soluções</a>
-                <a href="#"
-                    class="text-slate-300 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors">Quem
-                    Somos</a>
-                <a href="#"
-                    class="text-slate-300 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors">Obras</a>
-                <a href="#"
-                    class="text-slate-300 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors">Contato</a>
-            </nav>
-            <button
-                class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-black text-sm uppercase tracking-widest shadow-lg shadow-primary/20 transition-all">
-                ORÇAMENTO
-            </button>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-background-dark overflow-hidden diagonal-divider pb-32 pt-40">
-        <div class="absolute inset-0 opacity-60">
-            <div class="w-full h-full bg-cover bg-center"
-                style="background-image: url('https://images.unsplash.com/photo-1541975017446-50ef12957303?q=80&w=2070&auto=format&fit=crop')">
-            </div>
+    <section class="relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16">
+        <div class="absolute inset-0 opacity-40">
             <div
-                class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/40 to-transparent z-10">
+                class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent z-10">
             </div>
+            <img src="/hero-bg.png" alt="Industrial construction site with waterproofing application"
+                class="w-full h-full object-cover object-center" />
         </div>
-        <div class="relative z-20 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-4xl">
                 <h1 class="text-white text-5xl md:text-7xl font-black leading-none tracking-tighter uppercase mb-8">
                     A <span class="yellow-highlight">
                         <span class="word-wrapper">
                             <span class="word-container">
-                                <span class="rotating-word highlight-text">20 ANOS</span>
-                                <span class="rotating-word highlight-text">MELHOR</span>
-                                <span class="rotating-word highlight-text">MAIOR</span>
-                                <span class="rotating-word highlight-text">20 ANOS</span>
+                                <span class="rotating-word">20 ANOS</span>
+                                <span class="rotating-word">MELHOR</span>
+                                <span class="rotating-word">MAIOOR</span>
+                                <span class="rotating-word">20 ANOS</span>
                             </span>
                         </span>
                     </span> <br />
@@ -65,20 +69,18 @@
                     A IMPERMEABILIZAÇÃO NO <br />
                     <span class="blue-underline">NORDESTE</span>.
                 </h1>
-
                 <p class="text-slate-300 text-xl md:text-2xl font-medium max-w-2xl mb-12">
                     Soluções completas em impermeabilização para quem exige segurança estrutural e durabilidade máxima.
                 </p>
-
-                <div class="flex flex-wrap gap-4 mt-8">
-                    <button
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/5581998008818" target="_blank"
                         class="bg-secondary hover:bg-secondary/90 text-background-dark px-10 py-5 rounded-lg font-black text-lg uppercase tracking-wider shadow-xl transition-all scale-100 hover:scale-105">
                         SOLICITAR ORÇAMENTO
-                    </button>
-                    <button
+                    </a>
+                    <a href="https://wa.me/5581996090068" target="_blank"
                         class="border-2 border-white/30 hover:border-white text-white px-10 py-5 rounded-lg font-black text-lg uppercase tracking-wider transition-all">
                         FALAR COM ESPECIALISTA
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -86,37 +88,73 @@
 
     <!-- Authority Strip -->
     <section class="relative -mt-16 z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="authority-strip-root"></div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div
+                class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-primary text-4xl mb-4">history</span>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Experiência</p>
+                <p class="text-slate-900 text-2xl font-black">+20 ANOS DE MERCADO</p>
+            </div>
+            <div
+                class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">verified</span>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Autoridade</p>
+                <p class="text-slate-900 text-2xl font-black">REFERÊNCIA REGIONAL</p>
+            </div>
+            <div
+                class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-primary text-4xl mb-4">inventory_2</span>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Logística</p>
+                <p class="text-slate-900 text-2xl font-black">ESTOQUE COMPLETO</p>
+            </div>
+            <div
+                class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-secondary text-4xl mb-4">engineering</span>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Suporte</p>
+                <p class="text-slate-900 text-2xl font-black">ATENDIMENTO TÉCNICO</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Strip -->
+    <section class="py-12 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="flex flex-wrap items-center justify-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                <img src="./Logos/sika.png" alt="Sika" class="brand-logo" />
+                <img src="./Logos/vedacit.png" alt="Vedacit" class="brand-logo" />
+                <img src="./Logos/viapol.png" alt="Viapol" class="brand-logo" />
+                <img src="./Logos/quartzolit.png" alt="Quartzolit" class="brand-logo" />
+            </div>
+        </div>
     </section>
 
     <!-- Positioning Section -->
-    <section class="py-24 bg-background-dark">
+    <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center gap-16">
                 <div class="w-full md:w-1/2">
                     <div class="relative">
                         <div class="absolute -top-4 -left-4 w-24 h-24 bg-secondary/20 rounded-full blur-3xl"></div>
-                        <h2 class="text-4xl md:text-6xl font-black text-white uppercase leading-none mb-8">
-                            Quando o assunto é <span
-                                class="text-primary underline decoration-8 underline-offset-8">impermeabilização</span>
-                            no Nordeste, somos referência.
+                        <h2 class="text-4xl md:text-6xl font-black text-slate-900 uppercase leading-none mb-8">
+                            Quando o assunto é <span class="text-primary blue-underline">impermeabilização</span>
+                            no Nordeste, somos <span class="yellow-underline">referência.</span>
                         </h2>
-                        <div class="h-2 w-32 bg-secondary mb-8"></div>
-                        <p class="text-lg text-slate-400 font-medium leading-relaxed mb-8">
+                        <p class="text-lg text-slate-600 font-medium leading-relaxed mb-8">
                             Liderança consolidada com autoridade técnica e as melhores soluções do mercado regional.
                             Atendemos grandes construtoras, indústrias e residências de alto padrão com tecnologia de
                             ponta.
                         </p>
                         <ul class="space-y-4 mb-10">
-                            <li class="flex items-center gap-3 font-bold text-slate-200 uppercase tracking-tight">
+                            <li class="flex items-center gap-3 font-bold text-slate-800 uppercase tracking-tight">
                                 <span class="material-symbols-outlined text-primary font-black">check_circle</span>
                                 Assessoria técnica presencial
                             </li>
-                            <li class="flex items-center gap-3 font-bold text-slate-200 uppercase tracking-tight">
+                            <li class="flex items-center gap-3 font-bold text-slate-800 uppercase tracking-tight">
                                 <span class="material-symbols-outlined text-primary font-black">check_circle</span>
                                 Produtos certificados e normatizados
                             </li>
-                            <li class="flex items-center gap-3 font-bold text-slate-200 uppercase tracking-tight">
+                            <li class="flex items-center gap-3 font-bold text-slate-800 uppercase tracking-tight">
                                 <span class="material-symbols-outlined text-primary font-black">check_circle</span>
                                 Garantia real de estanqueidade
                             </li>
@@ -125,62 +163,81 @@
                 </div>
                 <div class="w-full md:w-1/2">
                     <div class="relative group">
-                        <div id="image-reveal-root" class="w-full h-[500px]"></div>
+                        <div id="image-reveal-root" class="w-full h-[500px] relative"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Brands Section -->
-    <section class="py-12 bg-background-light dark:bg-slate-900 border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-xl font-black uppercase text-slate-900 dark:text-slate-100 mb-12">Marcas com que Trabalhamos
-            </h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-items-center">
-                <img src="/logos/vedacit.png" alt="Vedacit" class="brand-logo" />
-                <img src="/logos/sika.png" alt="Sika" class="brand-logo h-16" />
-                <img src="/logos/viapol.png" alt="Viapol" class="brand-logo" />
-                <img src="/logos/quartzolit.png" alt="Quartzolit" class="brand-logo" />
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="py-24 bg-black diagonal-divider-reverse">
+    <!-- Solutions Section -->
+    <section class="py-24 bg-background-light diagonal-divider-reverse">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <span class="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4 block">Nossos
                     Serviços</span>
-                <h2 class="text-4xl md:text-5xl font-black text-white uppercase">Soluções Especializadas</h2>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 uppercase">Soluções Especializadas</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
                 <div
-                    class="group bg-background-dark rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-white/10">
+                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
+                    <div class="h-64 overflow-hidden relative">
+                        <img alt="Apartment building"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL4c6daGqfNsIbHcreWHV5heLBH-xNr4aFT1w2Potfx48QAasZBf9BEJFqCRpbSQmlP-7tMNG5pIE6uPqlK4JqU25CKIpmUOqnq4PxXRFsK_tqjpkmNO0O28QEE36xZa7Nxeb1dkC_2mvA8_NXy4b9QQImqCB8LQII0BOEaRkOPPGx2N6s6L1YYmXOWtKZvwwDiaqcn77qne3ASXjrr6EG_06WPpvKExQEI1IOh3pUGl4RyVaFlUZAYCQQigjwLGatmEB3maUrceM" />
+                        <div
+                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
+                                Detalhes</button>
+                        </div>
+                    </div>
                     <div class="p-8">
-                        <span class="material-symbols-outlined text-primary text-4xl mb-4">apartment</span>
-                        <h3 class="text-2xl font-black text-white uppercase mb-4">Impermeabilização Predial</h3>
-                        <p class="text-slate-400 mb-6">Proteção completa para lajes, piscinas, caixas d'água e fachadas
+                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Impermeabilização Predial</h3>
+                        <p class="text-slate-600 mb-6">Proteção completa para lajes, piscinas, caixas d'água e fachadas
                             em condomínios.</p>
                         <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
                     </div>
                 </div>
+                <!-- Card 2 -->
                 <div
-                    class="group bg-background-dark rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-white/10">
+                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
+                    <div class="h-64 overflow-hidden relative">
+                        <img alt="Industrial plant"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIUrmb7Rh3mkuPnufVk2tVjqUNhkNUzSFNRRXjPbzIrAJKowoeoddDMHEbKBQCeECS8TK9Jbf1Pq-0Mw23_IUEaMEMWa-CzsisXIv6VUbCVs_ktnYIGvTxXtOb23PaJuB-O1gzJzAXOmFyrp90TTg6IsW6-R3lLTKshrnmMyW0bQlP1QcoQWPHxrBRdY97AZEUllNY4bNol1PsDVyIH9IDC5G7GWLgooWcxTQ0uZBnENuFgupXUP7XTPPZOvZHi0kydOSNsWrAGoc" />
+                        <div
+                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
+                                Detalhes</button>
+                        </div>
+                    </div>
                     <div class="p-8">
-                        <span class="material-symbols-outlined text-primary text-4xl mb-4">factory</span>
-                        <h3 class="text-2xl font-black text-white uppercase mb-4">Obras Industriais</h3>
-                        <p class="text-slate-400 mb-6">Sistemas de alta resistência química e mecânica para pisos e
+                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Obras Industriais</h3>
+                        <p class="text-slate-600 mb-6">Sistemas de alta resistência química e mecânica para pisos e
                             estruturas industriais.</p>
                         <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
                     </div>
                 </div>
+                <!-- Card 3 -->
                 <div
-                    class="group bg-background-dark rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-white/10">
+                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
+                    <div class="h-64 overflow-hidden relative">
+                        <img alt="Residential house"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgElLyYQjMJpoGOuDNeUYxSZ6_WohZkV2dQWuAKgfJCD6T9UvkoqRMyyq6gjj794NN4IhXqAOpqYT799kzgKaMCeE2bBIYT2mDBbrE1_dCpgbSknLhtu3oEq8jknsiqFMxLyPSRRmcisLblVfHQpSebywXcHK6_2Eq51sT6DSbqMisyBqfAnHNNleUuQ1dhl4KfZ5XtorEsukZAKdouH2vww2GBitV4l5QpM-KAAynABNnq88AQMk3D_AxXMwG8TeQkCNfD4hLBwk" />
+                        <div
+                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
+                                Detalhes</button>
+                        </div>
+                    </div>
                     <div class="p-8">
-                        <span class="material-symbols-outlined text-primary text-4xl mb-4">house</span>
-                        <h3 class="text-2xl font-black text-white uppercase mb-4">Soluções Residenciais</h3>
-                        <p class="text-slate-400 mb-6">Eliminação definitiva de infiltrações em banheiros, varandas e
+                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Soluções Residenciais</h3>
+                        <p class="text-slate-600 mb-6">Eliminação definitiva de infiltrações em banheiros, varandas e
                             coberturas.</p>
                         <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
                     </div>
@@ -204,11 +261,11 @@
                 <p class="text-white/80 text-xl font-medium mb-12 max-w-2xl mx-auto uppercase tracking-widest">
                     Solicite agora um diagnóstico técnico gratuito para o seu projeto.
                 </p>
-                <button
+                <a href="https://wa.me/5581998008818" target="_blank"
                     class="bg-secondary hover:bg-white text-background-dark px-12 py-6 rounded-lg font-black text-xl uppercase tracking-tighter shadow-2xl transition-all scale-100 hover:scale-105 inline-flex items-center gap-4">
                     Fale com o Mundo da Impermeabilização
                     <span class="material-symbols-outlined font-black">arrow_forward</span>
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -218,7 +275,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-6">
+                    <div class="flex items-center gap-3 mb-6">
                         <img src="./Logos/logo-main.png" alt="Mundo da Impermeabilização"
                             class="h-16 w-auto object-contain brightness-0 invert opacity-90" />
                     </div>
@@ -238,14 +295,14 @@
                 </div>
                 <div>
                     <h4 class="text-white font-black uppercase tracking-widest mb-6">Contato</h4>
-                    <ul class="space-y-4 text-sm font-bold">
+                    <ul class="space-y-4 text-sm">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-primary text-xl">location_on</span>
-                            <span>Av. Principal da Construção, 1000<br />Recife - PE, 50000-000</span>
+                            <span>Av. Recife, 2220 - Ipsep<br />Recife - PE, 51350-670</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary text-xl">call</span>
-                            <span>0800 000 0000</span>
+                            <span>(81) 3339-0124</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary text-xl">mail</span>
@@ -258,8 +315,10 @@
                 <p class="text-xs uppercase font-bold tracking-widest">© 2024 Mundo da Impermeabilização. Todos os
                     direitos reservados.</p>
                 <div class="flex gap-6">
-                    <a class="text-slate-500 hover:text-white transition-colors" href="#"><span
-                            class="material-symbols-outlined">social_leaderboard</span></a>
+                    <a class="text-slate-500 hover:text-white transition-colors"
+                        href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank">
+                        <span class="material-symbols-outlined">social_leaderboard</span>
+                    </a>
                     <a class="text-slate-500 hover:text-white transition-colors" href="#"><span
                             class="material-symbols-outlined">share</span></a>
                     <a class="text-slate-500 hover:text-white transition-colors" href="#"><span
@@ -271,7 +330,7 @@
 
     <!-- Floating WhatsApp Button -->
     <a class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
-        href="#">
+        href="https://wa.me/5581998008818" target="_blank">
         <span class="material-symbols-outlined text-4xl font-bold">chat</span>
         <span
             class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Falar
