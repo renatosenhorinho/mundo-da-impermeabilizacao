@@ -1,26 +1,28 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
-import ImageReveal from './components/ui/image-tiles';
-import AuthorityStrip from './components/ui/authority-strip';
 import { Header } from './components/ui/header-2';
 
-// Mount Image Reveal
+import ImageReveal from './components/ui/image-tiles';
+import SpecializedSolutions from './components/ui/specialized-solutions';
+import ContactPage from './components/ui/contact-page';
+import QuemSomosSections from './components/ui/quem-somos-sections';
+
+// Mount Image Reveal (Index Only)
 const imageContainer = document.getElementById('image-reveal-root');
 if (imageContainer) {
     createRoot(imageContainer).render(
         <React.StrictMode>
             <ImageReveal
-                leftImage="/Logos/leftimg.png"
-                middleImage="/Logos/rightimg.png"
-                rightImage="/Logos/midimg.png"
+                leftImage="/Logos/leftimg.webp"
+                middleImage="/Logos/rightimg.webp"
+                rightImage="/Logos/midimg.webp"
             />
         </React.StrictMode>
     );
 }
 
-// Mount Specialized Solutions
-import SpecializedSolutions from './components/ui/specialized-solutions';
+// Mount Specialized Solutions (Index Only)
 const specializedSolutionsContainer = document.getElementById('specialized-solutions-root');
 if (specializedSolutionsContainer) {
     createRoot(specializedSolutionsContainer).render(
@@ -30,17 +32,27 @@ if (specializedSolutionsContainer) {
     );
 }
 
-// Mount Authority Strip
-const authorityContainer = document.getElementById('authority-strip-root');
-if (authorityContainer) {
-    createRoot(authorityContainer).render(
+// Mount Contact Page (Contato Only)
+const contactContainer = document.getElementById('contact-root');
+if (contactContainer) {
+    createRoot(contactContainer).render(
         <React.StrictMode>
-            <AuthorityStrip />
+            <ContactPage />
         </React.StrictMode>
     );
 }
 
-// Mount Header
+// Mount Quem Somos Sections (Quem Somos Only)
+const quemSomosContainer = document.getElementById('quem-somos-root');
+if (quemSomosContainer) {
+    createRoot(quemSomosContainer).render(
+        <React.StrictMode>
+            <QuemSomosSections />
+        </React.StrictMode>
+    );
+}
+
+// Mount Header (All Pages)
 const headerContainer = document.getElementById('header-root');
 if (headerContainer) {
     createRoot(headerContainer).render(

@@ -64,7 +64,7 @@ ${formData.message}`;
             {/* Hero Section */}
             <section className="bg-background-dark py-24 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
-                    <img src="/hero-bg.png" alt="Background" className="w-full h-full object-cover" />
+                    <img src="/hero-bg.webp" alt="Background" width="1920" height="400" className="w-full h-full object-cover" />
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <motion.div
@@ -72,7 +72,7 @@ ${formData.message}`;
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h1 className="text-4xl md:text-6xl font-black text-white uppercase mb-6 tracking-tighter">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white uppercase mb-6 tracking-tighter leading-tight">
                             Fale com um <span className="text-secondary">Especialista</span>
                         </h1>
                         <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto font-medium mb-8">
@@ -96,7 +96,7 @@ ${formData.message}`;
                             className="space-y-12"
                         >
                             <motion.div variants={itemVariants}>
-                                <h2 className="text-3xl font-black text-slate-900 uppercase mb-8 leading-none">
+                                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase mb-8 leading-tight">
                                     Informações de <span className="text-primary blue-underline">Contato</span>
                                 </h2>
                                 <p className="text-slate-600 text-lg font-medium leading-relaxed mb-10">
@@ -164,7 +164,7 @@ ${formData.message}`;
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100"
+                            className="bg-white p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100"
                         >
                             <h3 className="text-2xl font-black text-slate-900 uppercase mb-8">Envie sua Mensagem</h3>
 
@@ -237,7 +237,7 @@ ${formData.message}`;
                                 <button
                                     disabled={status === "loading"}
                                     type="submit"
-                                    className="w-full bg-primary hover:bg-primary/95 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 transition-all disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95"
+                                    className="w-full bg-primary hover:bg-primary/95 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 transition-all disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95 mb-8 sm:mb-0"
                                 >
                                     {status === "loading" ? "Enviando..." : status === "success" ? "Mensagem Enviada!" : "Enviar Mensagem"}
                                     <Send size={18} />

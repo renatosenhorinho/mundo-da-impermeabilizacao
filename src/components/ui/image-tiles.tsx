@@ -12,7 +12,7 @@ function Counter({ targetValue, duration }: { targetValue: number; duration: num
     const rounded = useTransform(count, (latest) => Math.round(latest));
     const displayValue = useTransform(rounded, (latest) => `+${latest.toLocaleString('pt-BR')}`);
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const isInView = useInView(ref, { once: true, margin: "-20px" });
 
     useEffect(() => {
         if (isInView) {
@@ -34,6 +34,14 @@ function Counter({ targetValue, duration }: { targetValue: number; duration: num
 
 export default function ImageReveal({ leftImage, middleImage, rightImage }: ImageRevealProps) {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const closeModal = useCallback(() => setSelectedImage(null), []);
 
@@ -62,11 +70,15 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const leftImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -10, x: -160, y: -30,
+            rotate: -10,
+            x: isMobile ? -60 : -160,
+            y: -30,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: -20, x: -200, y: -45,
+            rotate: -20,
+            x: isMobile ? -80 : -200,
+            y: -45,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -86,11 +98,15 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const rightImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 20, x: 250, y: 50,
+            rotate: 20,
+            x: isMobile ? 80 : 250,
+            y: 50,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 23, x: 250, y: 50,
+            rotate: 23,
+            x: isMobile ? 100 : 250,
+            y: 50,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -98,15 +114,15 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     return (
         <>
             <motion.div
-                className="relative flex items-center justify-center w-full h-[500px]"
+                className="relative flex items-center justify-center w-full h-[300px] sm:h-[500px] overflow-hidden sm:overflow-visible"
                 variants={containerVariants}
                 initial="initial"
                 whileInView="animate"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-20px" }}
             >
                 {/* Left Image */}
                 <motion.div
-                    className="absolute w-[330px] h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
+                    className="absolute w-[180px] h-[180px] sm:w-[330px] sm:h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
                     variants={leftImageVariants}
                     whileHover="hover"
                     animate="animate"
@@ -115,14 +131,18 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
                 >
                     <img
                         src={leftImage}
-                        alt="Left image"
+                        alt="Soluções em Impermeabilização 1"
+                        width="330"
+                        height="330"
+                        loading="lazy"
+                        decoding="async"
                         className="object-contain w-full h-full p-2 rounded-xl"
                     />
                 </motion.div>
 
                 {/* Middle Image */}
                 <motion.div
-                    className="absolute w-[330px] h-[330px] origin-bottom-left overflow-hidden rounded-xl shadow-2xl bg-white cursor-pointer"
+                    className="absolute w-[180px] h-[180px] sm:w-[330px] sm:h-[330px] origin-bottom-left overflow-hidden rounded-xl shadow-2xl bg-white cursor-pointer"
                     variants={middleImageVariants}
                     whileHover="hover"
                     animate="animate"
@@ -131,14 +151,18 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
                 >
                     <img
                         src={middleImage}
-                        alt="Middle image"
+                        alt="Soluções em Impermeabilização 2"
+                        width="330"
+                        height="330"
+                        loading="lazy"
+                        decoding="async"
                         className="object-contain w-full h-full p-2 rounded-2xl"
                     />
                 </motion.div>
 
                 {/* Right Image */}
                 <motion.div
-                    className="absolute w-[330px] h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
+                    className="absolute w-[180px] h-[180px] sm:w-[330px] sm:h-[330px] origin-bottom-right overflow-hidden rounded-xl shadow-lg bg-white cursor-pointer"
                     variants={rightImageVariants}
                     whileHover="hover"
                     animate="animate"
@@ -147,7 +171,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
                 >
                     <img
                         src={rightImage}
-                        alt="Right image"
+                        alt="Soluções em Impermeabilização 3"
+                        width="330"
+                        height="330"
+                        loading="lazy"
+                        decoding="async"
                         className="object-contain w-full h-full p-2 rounded-2xl"
                     />
                 </motion.div>

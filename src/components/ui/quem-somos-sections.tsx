@@ -89,7 +89,7 @@ function SolutionCard({
 }
 
 // --- Main Component ---
-export function QuemSomosSections() {
+export default function QuemSomosSections() {
     const cards = [
         {
             icon: ShieldCheck,
@@ -137,7 +137,7 @@ export function QuemSomosSections() {
                     {/* Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {cards.map((card, i) => (
-                            <SolutionCard key={i} delay={i * 100} {...card} />
+                            <SolutionCard key={i} delay={i * 100} {...card} aria-hidden="true" />
                         ))}
                     </div>
                 </div>

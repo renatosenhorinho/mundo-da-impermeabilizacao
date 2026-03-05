@@ -6,25 +6,25 @@ const SpecializedSolutions = () => {
             title: 'Impermeabilização Predial',
             description: 'Soluções completas para lajes, piscinas, reservatórios, fachadas e áreas molhadas.',
             icon: ShieldCheck,
-            image: '/images/specialized/impermeabilizacao-predial.png'
+            image: '/images/specialized/impermeabilizacao-predial.webp'
         },
         {
             title: 'Recuperação Estrutural',
             description: 'Tratamento de fissuras, corrosão de armaduras e reforço estrutural em concreto.',
             icon: Building,
-            image: '/images/specialized/recuperacao-estrutural.png'
+            image: '/images/specialized/recuperacao-estrutural.webp'
         },
         {
             title: 'Impermeabilização de Lajes e Coberturas',
             description: 'Sistemas com manta asfáltica, membranas líquidas e proteção térmica.',
             icon: Layers,
-            image: '/images/specialized/impermeabilizacao-de-lajes-e-coberturas.png'
+            image: '/images/specialized/impermeabilizacao-de-lajes-e-coberturas.webp'
         },
         {
             title: 'Soluções Industriais',
             description: 'Sistemas de impermeabilização e proteção para ambientes industriais e estruturas expostas.',
             icon: Factory,
-            image: '/images/specialized/solucoes-industriais.png'
+            image: '/images/specialized/solucoes-industriais.webp'
         }
     ];
 
@@ -33,7 +33,7 @@ const SpecializedSolutions = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <p className="text-secondary font-black uppercase tracking-[0.3em] text-sm mb-4">Nossos Serviços</p>
-                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase mb-6">Soluções Especializadas</h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase mb-6 leading-tight">Soluções Especializadas</h2>
                     <p className="text-slate-600 text-lg max-w-2xl mx-auto font-medium">Distribuição de sistemas técnicos de impermeabilização e recuperação estrutural para todos os tipos de projeto.</p>
                 </div>
 
@@ -47,6 +47,10 @@ const SpecializedSolutions = () => {
                                 <img
                                     src={service.image}
                                     alt={service.title}
+                                    width="600"
+                                    height="400"
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -64,11 +68,11 @@ const SpecializedSolutions = () => {
                                 <div className="mt-auto">
                                     <a href="/contato.html#contact-info" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group/link">
                                         Saiba mais
-                                        <span className="material-symbols-outlined text-xl group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                                        <span className="material-symbols-outlined text-xl group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
                                     </a>
                                 </div>
 
-                                <div className="absolute text-[8rem] font-black text-slate-50 right-4 bottom-0 leading-none -z-10 select-none group-hover:text-primary/5 transition-colors">
+                                <div className="absolute text-[5rem] sm:text-[8rem] font-black text-slate-50 right-4 bottom-0 leading-none -z-10 select-none group-hover:text-primary/5 transition-colors">
                                     0{index + 1}
                                 </div>
                             </div>

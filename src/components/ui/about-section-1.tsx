@@ -17,7 +17,7 @@ export default function AboutSection1() {
             },
         }),
         hidden: {
-            filter: "blur(10px)",
+            filter: "blur(0px)",
             y: 40,
             opacity: 0,
         },
@@ -34,7 +34,7 @@ export default function AboutSection1() {
             },
         }),
         hidden: {
-            filter: "blur(10px)",
+            filter: "blur(0px)",
             y: -40,
             opacity: 0,
         },
@@ -170,8 +170,12 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-squiggle)" }}
                 >
                     <img
-                        src="/Logos/quemsomos1.png"
+                        src="/Logos/quemsomos1.webp"
                         alt="Engenheiro analisando obra"
+                        width="800"
+                        height="600"
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
@@ -185,8 +189,12 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#differentone16)" }}
                 >
                     <img
-                        src="/Logos/quemsomos2.png"
+                        src="/Logos/quemsomos2.webp"
                         alt="Estrutura de concreto"
+                        width="800"
+                        height="600"
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
@@ -217,8 +225,12 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-rect)" }}
                 >
                     <img
-                        src="/Logos/quem somos 4.png"
+                        src="/Logos/quemsomos4.webp"
                         alt="Impermeabilização"
+                        width="800"
+                        height="600"
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>

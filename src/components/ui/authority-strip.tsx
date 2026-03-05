@@ -34,6 +34,7 @@ export default function AuthorityStrip() {
                             <span
                                 className="material-symbols-outlined text-4xl mb-4 block"
                                 style={{ color: c.text }}
+                                aria-hidden="true"
                             >
                                 {f.icon}
                             </span>
