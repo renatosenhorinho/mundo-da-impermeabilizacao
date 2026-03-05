@@ -6,25 +6,25 @@ const SpecializedSolutions = () => {
             title: 'Impermeabilização Predial',
             description: 'Soluções completas para lajes, piscinas, reservatórios, fachadas e áreas molhadas.',
             icon: ShieldCheck,
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAL4c6daGqfNsIbHcreWHV5heLBH-xNr4aFT1w2Potfx48QAasZBf9BEJFqCRpbSQmlP-7tMNG5pIE6uPqlK4JqU25CKIpmUOqnq4PxXRFsK_tqjpkmNO0O28QEE36xZa7Nxeb1dkC_2mvA8_NXy4b9QQImqCB8LQII0BOEaRkOPPGx2N6s6L1YYmXOWtKZvwwDiaqcn77qne3ASXjrr6EG_06WPpvKExQEI1IOh3pUGl4RyVaFlUZAYCQQigjwLGatmEB3maUrceM'
+            image: '/images/specialized/impermeabilizacao-predial.png'
         },
         {
             title: 'Recuperação Estrutural',
             description: 'Tratamento de fissuras, corrosão de armaduras e reforço estrutural em concreto.',
             icon: Building,
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIUrmb7Rh3mkuPnufVk2tVjqUNhkNUzSFNRRXjPbzIrAJKowoeoddDMHEbKBQCeECS8TK9Jbf1Pq-0Mw23_IUEaMEMWa-CzsisXIv6VUbCVs_ktnYIGvTxXtOb23PaJuB-O1gzJzAXOmFyrp90TTg6IsW6-R3lLTKshrnmMyW0bQlP1QcoQWPHxrBRdY97AZEUllNY4bNol1PsDVyIH9IDC5G7GWLgooWcxTQ0uZBnENuFgupXUP7XTPPZOvZHi0kydOSNsWrAGoc'
+            image: '/images/specialized/recuperacao-estrutural.png'
         },
         {
             title: 'Impermeabilização de Lajes e Coberturas',
             description: 'Sistemas com manta asfáltica, membranas líquidas e proteção térmica.',
             icon: Layers,
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgElLyYQjMJpoGOuDNeUYxSZ6_WohZkV2dQWuAKgfJCD6T9UvkoqRMyyq6gjj794NN4IhXqAOpqYT799kzgKaMCeE2bBIYT2mDBbrE1_dCpgbSknLhtu3oEq8jknsiqFMxLyPSRRmcisLblVfHQpSebywXcHK6_2Eq51sT6DSbqMisyBqfAnHNNleUuQ1dhl4KfZ5XtorEsukZAKdouH2vww2GBitV4l5QpM-KAAynABNnq88AQMk3D_AxXMwG8TeQkCNfD4hLBwk'
+            image: '/images/specialized/impermeabilizacao-de-lajes-e-cobeturas.png'
         },
         {
             title: 'Soluções Industriais',
             description: 'Sistemas de impermeabilização e proteção para ambientes industriais e estruturas expostas.',
             icon: Factory,
-            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIUrmb7Rh3mkuPnufVk2tVjqUNhkNUzSFNRRXjPbzIrAJKowoeoddDMHEbKBQCeECS8TK9Jbf1Pq-0Mw23_IUEaMEMWa-CzsisXIv6VUbCVs_ktnYIGvTxXtOb23PaJuB-O1gzJzAXOmFyrp90TTg6IsW6-R3lLTKshrnmMyW0bQlP1QcoQWPHxrBRdY97AZEUllNY4bNol1PsDVyIH9IDC5G7GWLgooWcxTQ0uZBnENuFgupXUP7XTPPZOvZHi0kydOSNsWrAGoc'
+            image: '/images/specialized/solucoes-industriais.png'
         }
     ];
 

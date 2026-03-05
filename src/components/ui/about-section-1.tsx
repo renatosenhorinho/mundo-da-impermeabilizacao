@@ -56,9 +56,11 @@ export default function AboutSection1() {
 
     return (
         <section
-            className="relative py-24 md:py-32 px-4 bg-background-light overflow-hidden"
+            className="relative pt-12 pb-24 md:pt-16 md:pb-32 px-4 overflow-hidden bg-gradient-to-b from-white via-blue-50 to-white"
             ref={heroRef}
         >
+            {/* Glow decorativo */}
+            <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-100 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
             <svg className="absolute -top-[999px] -left-[999px] w-0 h-0">
                 <defs>
                     <clipPath id="clip-squiggle" clipPathUnits="objectBoundingBox">
@@ -109,11 +111,13 @@ export default function AboutSection1() {
             />
             {/* Content */}
             <div className="relative z-10 max-w-3xl mx-auto">
-                <div className="text-secondary text-sm font-black tracking-widest uppercase mb-6 flex items-center justify-center gap-2">
-                    Quem Somos
+                <div className="flex justify-center mb-6">
+                    <span className="text-secondary text-lg font-black tracking-widest uppercase drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]">
+                        Quem Somos ?
+                    </span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 uppercase">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
                     <VerticalCutReveal
                         splitBy="words"
                         staggerDuration={0.2}
@@ -135,7 +139,7 @@ export default function AboutSection1() {
                     animationNum={0}
                     customVariants={revealVariants}
                     timelineRef={heroRef}
-                    className="text-slate-600 text-center sm:text-lg text-base mb-8 leading-relaxed font-medium space-y-6"
+                    className="text-slate-700 text-center sm:text-lg text-base mb-8 leading-relaxed font-semibold space-y-6"
                 >
                     <p>Há duas décadas, nós do Mundo da Impermeabilização somos um dos principais distribuidores de materiais para impermeabilização no Nordeste.</p>
                     <p>Com mais de 20 anos de experiência no mercado, atuamos no fornecimento de produtos de alta qualidade para construtoras, engenheiros, arquitetos e profissionais da construção.</p>
@@ -166,7 +170,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-squiggle)" }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1541888086225-f64112eb4db6?q=80&w=687&auto=format&fit=crop"
+                        src="./Logos/quemsomos1.png"
                         alt="Engenheiro analisando obra"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
@@ -181,7 +185,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#differentone16)" }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=687&auto=format&fit=crop"
+                        src="./Logos/quemsomos2.png"
                         alt="Estrutura de concreto"
                         className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
@@ -213,7 +217,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-rect)" }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=687&auto=format&fit=crop"
+                        src="./Logos/quem somos 4.png"
                         alt="Impermeabilização"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
