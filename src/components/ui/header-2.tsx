@@ -28,7 +28,7 @@ export function Header() {
                 <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-14 items-center justify-between">
 
                     {/* Logo */}
-                    <a href="/index.html" className="shrink-0">
+                    <a href="/index.html" className="shrink-0" aria-label="Mundo da Impermeabilização - Página Inicial">
                         <img
                             src="/Logos/logo-main.webp"
                             alt="Mundo da Impermeabilização Logo"
@@ -64,7 +64,7 @@ export function Header() {
                     <button
                         onClick={() => setOpen(!open)}
                         className="md:hidden h-9 w-9 flex items-center justify-center text-white"
-                        aria-label="Abrir menu"
+                        aria-label={open ? "Fechar menu" : "Abrir menu"}
                     >
                         <MenuToggleIcon open={open} className="size-6" duration={300} />
                     </button>

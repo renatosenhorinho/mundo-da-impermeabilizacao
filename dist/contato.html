@@ -11,10 +11,10 @@
     <link rel="preload" href="/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-  <script type="module" crossorigin src="/assets/contato-Ddzds_k-.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/header-2-mLo2-fjj.js">
-  <link rel="modulepreload" crossorigin href="/assets/contact-page-BXR1LolN.js">
-  <link rel="stylesheet" crossorigin href="/assets/header-2-LRSVJNKx.css">
+  <script type="module" crossorigin src="/assets/contato-DG-PsCJK.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/header-2-DGcXlb6t.js">
+  <link rel="modulepreload" crossorigin href="/assets/contact-page-BkRs7YT3.js">
+  <link rel="stylesheet" crossorigin href="/assets/header-2-Bhp40fF_.css">
 </head>
 
 <body class="font-display bg-background-light text-slate-900 antialiased pt-14">
@@ -22,15 +22,19 @@
     <!-- Top Navigation -->
     <div id="header-root"></div>
 
-    <!-- React Root for Contact Page -->
-    <div id="contact-root"></div>
+    <!-- Main Content Landmark -->
+    <main id="main-content">
+        <!-- React Root for Contact Page -->
+        <div id="contact-root"></div>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-background-dark text-slate-400 py-16 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
-                    <a href="./index.html" class="flex items-center gap-3 mb-6">
+                    <a href="./index.html" class="flex items-center gap-3 mb-6"
+                        aria-label="Mundo da Impermeabilização - Página Inicial">
                         <img src="/Logos/logo-main.webp" alt="Mundo da Impermeabilização Footer Logo" width="240"
                             height="160" loading="lazy" class="h-40 w-auto object-contain opacity-90" />
                     </a>
@@ -100,7 +104,7 @@
 
     <!-- Floating WhatsApp Button -->
     <a class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 bg-[#25D366] text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
-        href="https://wa.me/5581998008818" target="_blank">
+        href="https://wa.me/5581998008818" target="_blank" aria-label="Falar com especialista pelo WhatsApp">
         <img src="/Logos/WhatsApp.webp" alt="WhatsApp Floating Button" width="40" height="40" loading="lazy"
             class="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
         <span

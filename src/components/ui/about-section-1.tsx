@@ -112,8 +112,8 @@ export default function AboutSection1() {
             {/* Content */}
             <div className="relative z-10 max-w-3xl mx-auto">
                 <div className="flex justify-center mb-6">
-                    <span className="text-secondary text-lg font-black tracking-widest uppercase drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]">
-                        Quem Somos ?
+                    <span className="text-primary text-lg font-black tracking-widest uppercase bg-primary/5 px-4 py-1 rounded-full">
+                        Quem Somos?
                     </span>
                 </div>
 

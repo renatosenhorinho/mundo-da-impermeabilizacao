@@ -137,7 +137,7 @@ export default function QuemSomosSections() {
                     {/* Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {cards.map((card, i) => (
-                            <SolutionCard key={i} delay={i * 100} {...card} aria-hidden="true" />
+                            <SolutionCard key={i} delay={i * 100} {...card} />
                         ))}
                     </div>
                 </div>

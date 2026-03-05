@@ -66,7 +66,11 @@ const SpecializedSolutions = () => {
                                 </div>
 
                                 <div className="mt-auto">
-                                    <a href="/contato.html#contact-info" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group/link">
+                                    <a
+                                        href="/contato.html#contact-info"
+                                        className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm group/link"
+                                        aria-label={`Saiba mais sobre ${service.title}`}
+                                    >
                                         Saiba mais
                                         <span className="material-symbols-outlined text-xl group-hover/link:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
                                     </a>

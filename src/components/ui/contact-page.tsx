@@ -171,9 +171,10 @@ ${formData.message}`;
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase text-slate-400 ml-1">Seu Nome</label>
+                                        <label htmlFor="name" className="text-xs font-black uppercase text-slate-500 ml-1">Seu Nome</label>
                                         <input
                                             required
+                                            id="name"
                                             type="text"
                                             className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-300"
                                             placeholder="Nome Completo"
@@ -182,9 +183,10 @@ ${formData.message}`;
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase text-slate-400 ml-1">Seu E-mail</label>
+                                        <label htmlFor="email" className="text-xs font-black uppercase text-slate-500 ml-1">Seu E-mail</label>
                                         <input
                                             required
+                                            id="email"
                                             type="email"
                                             className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-300"
                                             placeholder="email@exemplo.com"
@@ -196,9 +198,10 @@ ${formData.message}`;
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase text-slate-400 ml-1">WhatsApp</label>
+                                        <label htmlFor="phone" className="text-xs font-black uppercase text-slate-500 ml-1">WhatsApp</label>
                                         <input
                                             required
+                                            id="phone"
                                             type="tel"
                                             className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-300"
                                             placeholder="(81) 00000-0000"
@@ -207,8 +210,9 @@ ${formData.message}`;
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase text-slate-400 ml-1">Assunto</label>
+                                        <label htmlFor="subject" className="text-xs font-black uppercase text-slate-500 ml-1">Assunto</label>
                                         <select
+                                            id="subject"
                                             className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all"
                                             value={formData.subject}
                                             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
@@ -223,9 +227,10 @@ ${formData.message}`;
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase text-slate-400 ml-1">Mensagem</label>
+                                    <label htmlFor="message" className="text-xs font-black uppercase text-slate-500 ml-1">Mensagem</label>
                                     <textarea
                                         required
+                                        id="message"
                                         rows={4}
                                         className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-300 resize-none"
                                         placeholder="Como podemos ajudar sua obra?"
