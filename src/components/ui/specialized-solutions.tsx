@@ -18,7 +18,7 @@ const SpecializedSolutions = () => {
             title: 'Impermeabilização de Lajes e Coberturas',
             description: 'Sistemas com manta asfáltica, membranas líquidas e proteção térmica.',
             icon: Layers,
-            image: '/images/specialized/impermeabilizacao-de-lajes-e-cobeturas.png'
+            image: '/images/specialized/impermeabilizacao-de-lajes-e-coberturas.png'
         },
         {
             title: 'Soluções Industriais',

@@ -170,7 +170,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-squiggle)" }}
                 >
                     <img
-                        src="./Logos/quemsomos1.png"
+                        src="/Logos/quemsomos1.png"
                         alt="Engenheiro analisando obra"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
@@ -185,7 +185,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#differentone16)" }}
                 >
                     <img
-                        src="./Logos/quemsomos2.png"
+                        src="/Logos/quemsomos2.png"
                         alt="Estrutura de concreto"
                         className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
@@ -217,7 +217,7 @@ export default function AboutSection1() {
                     style={{ clipPath: "url(#clip-rect)" }}
                 >
                     <img
-                        src="./Logos/quem somos 4.png"
+                        src="/Logos/quem somos 4.png"
                         alt="Impermeabilização"
                         className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
