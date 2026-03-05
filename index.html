@@ -14,34 +14,7 @@
 <body class="font-display bg-background-light text-slate-900 antialiased">
 
     <!-- Top Navigation -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-primary/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="./index.html" class="flex items-center gap-3">
-                    <div class="bg-primary p-2 rounded text-white">
-                        <span class="material-symbols-outlined text-3xl">architecture</span>
-                    </div>
-                    <h2 class="text-primary text-xl font-black leading-tight tracking-tighter uppercase">
-                        Mundo da <br /><span class="text-slate-900">Impermeabilização</span>
-                    </h2>
-                </a>
-                <nav class="hidden md:flex items-center gap-10">
-                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
-                        href="./index.html">Início</a>
-                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
-                        href="./quem-somos.html">Quem Somos</a>
-                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
-                        href="#">Obras</a>
-                    <a class="text-slate-700 text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors"
-                        href="./contato.html">Contato</a>
-                </nav>
-                <a href="https://wa.me/5581998008818" target="_blank"
-                    class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-black text-sm uppercase tracking-widest shadow-lg shadow-primary/20 transition-all">
-                    ORÇAMENTO
-                </a>
-            </div>
-        </div>
-    </header>
+    <div id="header-root"></div>
 
     <!-- Hero Section -->
     <section class="relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16">
@@ -55,7 +28,7 @@
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-4xl">
                 <h1 class="text-white text-5xl md:text-7xl font-black leading-none tracking-tighter uppercase mb-8">
-                    A <span class="yellow-highlight">
+                    A <span class="yellow-highlight -translate-y-2 inline-block">
                         <span class="word-wrapper">
                             <span class="word-container">
                                 <span class="rotating-word">20 ANOS</span>
@@ -121,10 +94,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
                 class="flex flex-wrap items-center justify-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                <img src="./Logos/sika.png" alt="Sika" class="brand-logo" />
-                <img src="./Logos/vedacit.png" alt="Vedacit" class="brand-logo" />
-                <img src="./Logos/viapol.png" alt="Viapol" class="brand-logo" />
-                <img src="./Logos/quartzolit.png" alt="Quartzolit" class="brand-logo" />
+                <img src="./Logos/vedacit.png" alt="Vedacit" class="brand-logo scale-[1.5] ml-5" />
+                <img src="./Logos/viapol.png" alt="Viapol" class="brand-logo scale-[1.2] ml-5" />
+                <img src="./Logos/dryko.png" alt="Dryko" class="brand-logo ml-5" />
+                <img src="./Logos/soprema.png" alt="Soprema" class="brand-logo scale-[2.0] ml-5" />
+                <img src="./Logos/qborg.png" alt="Qborg" class="brand-logo scale-[3.0] ml-9" />
+                <img src="./Logos/quartzolit.png" alt="Quartzolit" class="brand-logo scale-[1.2] ml-5" />
             </div>
         </div>
     </section>
@@ -148,7 +123,7 @@
                         <ul class="space-y-4 mb-10">
                             <li class="flex items-center gap-3 font-bold text-slate-800 uppercase tracking-tight">
                                 <span class="material-symbols-outlined text-primary font-black">check_circle</span>
-                                Assessoria técnica presencial
+                                Atendimento Profissional e Especializado!
                             </li>
                             <li class="flex items-center gap-3 font-bold text-slate-800 uppercase tracking-tight">
                                 <span class="material-symbols-outlined text-primary font-black">check_circle</span>
@@ -170,81 +145,8 @@
         </div>
     </section>
 
-    <!-- Solutions Section -->
-    <section class="py-24 bg-background-light diagonal-divider-reverse">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4 block">Nossos
-                    Serviços</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 uppercase">Soluções Especializadas</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
-                    <div class="h-64 overflow-hidden relative">
-                        <img alt="Apartment building"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL4c6daGqfNsIbHcreWHV5heLBH-xNr4aFT1w2Potfx48QAasZBf9BEJFqCRpbSQmlP-7tMNG5pIE6uPqlK4JqU25CKIpmUOqnq4PxXRFsK_tqjpkmNO0O28QEE36xZa7Nxeb1dkC_2mvA8_NXy4b9QQImqCB8LQII0BOEaRkOPPGx2N6s6L1YYmXOWtKZvwwDiaqcn77qne3ASXjrr6EG_06WPpvKExQEI1IOh3pUGl4RyVaFlUZAYCQQigjwLGatmEB3maUrceM" />
-                        <div
-                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button
-                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
-                                Detalhes</button>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Impermeabilização Predial</h3>
-                        <p class="text-slate-600 mb-6">Proteção completa para lajes, piscinas, caixas d'água e fachadas
-                            em condomínios.</p>
-                        <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
-                    <div class="h-64 overflow-hidden relative">
-                        <img alt="Industrial plant"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIUrmb7Rh3mkuPnufVk2tVjqUNhkNUzSFNRRXjPbzIrAJKowoeoddDMHEbKBQCeECS8TK9Jbf1Pq-0Mw23_IUEaMEMWa-CzsisXIv6VUbCVs_ktnYIGvTxXtOb23PaJuB-O1gzJzAXOmFyrp90TTg6IsW6-R3lLTKshrnmMyW0bQlP1QcoQWPHxrBRdY97AZEUllNY4bNol1PsDVyIH9IDC5G7GWLgooWcxTQ0uZBnENuFgupXUP7XTPPZOvZHi0kydOSNsWrAGoc" />
-                        <div
-                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button
-                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
-                                Detalhes</button>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Obras Industriais</h3>
-                        <p class="text-slate-600 mb-6">Sistemas de alta resistência química e mecânica para pisos e
-                            estruturas industriais.</p>
-                        <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all border border-slate-200">
-                    <div class="h-64 overflow-hidden relative">
-                        <img alt="Residential house"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgElLyYQjMJpoGOuDNeUYxSZ6_WohZkV2dQWuAKgfJCD6T9UvkoqRMyyq6gjj794NN4IhXqAOpqYT799kzgKaMCeE2bBIYT2mDBbrE1_dCpgbSknLhtu3oEq8jknsiqFMxLyPSRRmcisLblVfHQpSebywXcHK6_2Eq51sT6DSbqMisyBqfAnHNNleUuQ1dhl4KfZ5XtorEsukZAKdouH2vww2GBitV4l5QpM-KAAynABNnq88AQMk3D_AxXMwG8TeQkCNfD4hLBwk" />
-                        <div
-                            class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button
-                                class="bg-white text-primary px-6 py-2 font-bold rounded-full uppercase text-xs tracking-widest">Ver
-                                Detalhes</button>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-black text-slate-900 uppercase mb-4">Soluções Residenciais</h3>
-                        <p class="text-slate-600 mb-6">Eliminação definitiva de infiltrações em banheiros, varandas e
-                            coberturas.</p>
-                        <div class="h-1 w-12 bg-primary group-hover:w-full transition-all duration-300"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Solutions Section (React Mounted) -->
+    <div id="specialized-solutions-root"></div>
 
     <!-- Final CTA -->
     <section class="py-24 bg-primary relative overflow-hidden">
@@ -276,20 +178,21 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="./Logos/logo-main.png" alt="Mundo da Impermeabilização"
-                            class="h-16 w-auto object-contain brightness-0 invert opacity-90" />
+                        <img src="/Logos/logo-main.png" alt="Mundo da Impermeabilização"
+                            class="h-30 w-auto object-contain opacity-90" />
                     </div>
                     <p class="max-w-md text-slate-500 font-medium">
-                        Líder em soluções técnicas para impermeabilização no Nordeste. Mais de duas décadas protegendo o
+                        Líder distribuidor de materiais de impermeabilização no Nordeste. Mais de duas décadas
+                        protegendo o
                         patrimônio e as estruturas da nossa região.
                     </p>
                 </div>
                 <div>
                     <h4 class="text-white font-black uppercase tracking-widest mb-6">Links Rápidos</h4>
                     <ul class="space-y-4 font-bold text-sm">
-                        <li><a class="hover:text-primary transition-colors" href="#">Soluções Prediais</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Portfólio de Obras</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Blog Técnico</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./index.html">Soluções</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./quem-somos.html">Quem Somos</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./contato.html">Contato</a></li>
                         <li><a class="hover:text-primary transition-colors" href="#">Trabalhe Conosco</a></li>
                     </ul>
                 </div>
@@ -329,6 +232,20 @@
     </footer>
 
     <!-- Floating WhatsApp Button -->
+    <a class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
+        href="https://wa.me/5581998008818" target="_blank">
+        <span class="material-symbols-outlined text-4xl font-bold">chat</span>
+        <span
+            class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Falar
+            com especialista</span>
+    </a>
+    <a class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
+        href="https://wa.me/5581998008818" target="_blank">
+        <span class="material-symbols-outlined text-4xl font-bold">chat</span>
+        <span
+            class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Falar
+            com especialista</span>
+    </a>
     <a class="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
         href="https://wa.me/5581998008818" target="_blank">
         <span class="material-symbols-outlined text-4xl font-bold">chat</span>

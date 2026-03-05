@@ -131,13 +131,15 @@ export default function AboutSection1() {
                 </h1>
 
                 <TimelineContent
-                    as="p"
+                    as="div"
                     animationNum={0}
                     customVariants={revealVariants}
                     timelineRef={heroRef}
-                    className="text-slate-600 text-center sm:text-lg text-base mb-8 leading-relaxed font-medium"
+                    className="text-slate-600 text-center sm:text-lg text-base mb-8 leading-relaxed font-medium space-y-6"
                 >
-                    Há duas décadas, o Mundo da Impermeabilização atua como distribuidor especializado de soluções para construção civil no Nordeste. Trabalhamos com sistemas de impermeabilização, recuperação estrutural e aditivos para concreto e argamassa, atendendo construtoras, engenheiros, arquitetos e clientes finais com suporte técnico qualificado e produtos de alta performance.
+                    <p>Há duas décadas, nós do Mundo da Impermeabilização somos um dos principais distribuidores de materiais para impermeabilização no Nordeste.</p>
+                    <p>Com mais de 20 anos de experiência no mercado, atuamos no fornecimento de produtos de alta qualidade para construtoras, engenheiros, arquitetos e profissionais da construção.</p>
+                    <p>Trabalhamos com as principais marcas do setor e oferecemos estoque completo, logística eficiente e atendimento especializado, garantindo aos nossos clientes as melhores soluções para cada tipo de obra.</p>
                 </TimelineContent>
 
                 <TimelineContent

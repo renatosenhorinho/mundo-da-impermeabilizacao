@@ -74,14 +74,14 @@ export function QuemSomosSections() {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-bl-full -z-10 group-hover:bg-secondary/20 transition-colors"></div>
                             <h3 className="text-2xl font-black text-primary uppercase mb-4">Missão</h3>
                             <p className="text-slate-700 font-medium text-lg leading-relaxed">
-                                Facilitar a execução de obras oferecendo soluções técnicas confiáveis e duráveis.
+                                Fornecer as melhores soluções técnicas e materiais de alta performance, garantindo suporte especializado para o sucesso de cada obra.
                             </p>
                         </div>
 
                         <div className="bg-primary p-10 rounded-2xl shadow-xl shadow-primary/20 rotate-1 md:-translate-y-4 hover:rotate-0 transition-transform">
                             <h3 className="text-2xl font-black text-secondary uppercase mb-4">Visão</h3>
                             <p className="text-white font-medium text-lg leading-relaxed">
-                                Ser referência no Nordeste em impermeabilização e recuperação estrutural.
+                                Ser Distribuidor referência no Nordeste em impermeabilização e recuperação estrutural.
                             </p>
                         </div>
 

@@ -1,5 +1,5 @@
 import { motion, Variants, AnimatePresence, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface ImageRevealProps {
     leftImage: string;
@@ -27,7 +27,7 @@ function Counter({ targetValue, duration }: { targetValue: number; duration: num
     return (
         <div ref={ref} className="works-counter-badge">
             <motion.p>{displayValue}</motion.p>
-            <p>Obras executadas com sucesso</p>
+            <p>Soluções técnicas para obras em todo o Nordeste!</p>
         </div>
     );
 }
@@ -62,11 +62,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const leftImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: -10, x: -110, y: -30,
+            rotate: -10, x: -160, y: -30,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: -5, x: -120, y: -45,
+            rotate: -20, x: -200, y: -45,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -74,11 +74,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const middleImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 4, x: 10, y: -50,
+            rotate: 4, x: 10, y: -40,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 0, x: 10, y: -60,
+            rotate: 0, x: 10, y: -50,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };
@@ -86,11 +86,11 @@ export default function ImageReveal({ leftImage, middleImage, rightImage }: Imag
     const rightImageVariants: Variants = {
         initial: { rotate: 0, x: 0, y: 0 },
         animate: {
-            rotate: 8, x: 150, y: -20,
+            rotate: 20, x: 250, y: 50,
             transition: { type: "spring" as const, stiffness: 120, damping: 12 }
         },
         hover: {
-            rotate: 5, x: 155, y: -35,
+            rotate: 23, x: 250, y: 50,
             transition: { type: "spring" as const, stiffness: 200, damping: 15 }
         }
     };

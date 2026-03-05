@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { GlowingShadow } from './glowing-shadow'
 
 interface FeatureBox {
