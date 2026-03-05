@@ -211,6 +211,10 @@ export default function AboutSection1() {
                     <img
                         src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=735&auto=format&fit=crop"
                         alt="Obras e construção"
+                        width="735"
+                        height="490"
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>

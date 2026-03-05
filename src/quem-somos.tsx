@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
-import AboutSection1 from './components/ui/about-section-1';
-import QuemSomosSections from './components/ui/quem-somos-sections';
 import { Header } from './components/ui/header-2';
+
+const AboutSection1 = lazy(() => import('./components/ui/about-section-1'));
+const QuemSomosSections = lazy(() => import('./components/ui/quem-somos-sections'));
 
 const rootElement = document.getElementById('quem-somos-root');
 if (rootElement) {
     createRoot(rootElement).render(
         <React.StrictMode>
-            <AboutSection1 />
-            <QuemSomosSections />
+            <Suspense fallback={<div className="min-h-screen bg-background-light animate-pulse" />}>
+                <AboutSection1 />
+                <QuemSomosSections />
+            </Suspense>
         </React.StrictMode>
     );
 }

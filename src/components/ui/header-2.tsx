@@ -1,18 +1,38 @@
 'use client';
 import React from 'react';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
-import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
+
+// Inline SVG X icon to avoid pulling lucide-react into the header bundle
+const XIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+    </svg>
+);
+
+// Lazy-load motion components — only fetched when mobile menu opens
+const LazyMotionDiv = React.lazy(() =>
+    import('framer-motion').then(mod => ({ default: mod.motion.div }))
+);
+const LazyAnimatePresence = React.lazy(() =>
+    import('framer-motion').then(mod => ({ default: mod.AnimatePresence }))
+);
 
 export function Header() {
     const [open, setOpen] = React.useState(false);
+    // Track if menu was ever opened to trigger the lazy load
+    const [hasOpened, setHasOpened] = React.useState(false);
 
     const links = [
         { label: "Início", href: "/index.html" },
         { label: "Quem Somos", href: "/quem-somos.html" },
         { label: "Contato", href: "/contato.html" }
     ];
+
+    const handleToggle = () => {
+        if (!open && !hasOpened) setHasOpened(true);
+        setOpen(!open);
+    };
 
     React.useEffect(() => {
         document.body.style.overflow = open ? 'hidden' : '';
@@ -62,7 +82,7 @@ export function Header() {
 
                     {/* Mobile Button */}
                     <button
-                        onClick={() => setOpen(!open)}
+                        onClick={handleToggle}
                         className="md:hidden h-9 w-9 flex items-center justify-center text-white"
                         aria-label={open ? "Fechar menu" : "Abrir menu"}
                     >
@@ -71,71 +91,76 @@ export function Header() {
                 </nav>
             </header>
 
-            {/* Mobile Overlay - Moved outside <header> to avoid containing block clipping from backdrop-blur */}
-            <AnimatePresence>
-                {open && (
-                    <>
-                        {/* Backdrop Dimmer */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setOpen(false)}
-                            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9990] md:hidden"
-                        />
-
-                        {/* Side Drawer */}
-                        <motion.div
-                            initial={{ opacity: 0, x: '100%' }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: '100%' }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed inset-y-0 right-0 w-[300px] md:hidden flex flex-col pt-24 z-[9991]"
-                            style={{
-                                backgroundColor: '#0a1018',
-                                boxShadow: '-10px 0 30px rgba(0,0,0,0.5)',
-                                borderLeft: '1px solid rgba(255,255,255,0.05)'
-                            }}
-                        >
-                            {/* Close Button Inside Drawer */}
-                            <button
-                                onClick={() => setOpen(false)}
-                                className="absolute top-6 right-6 h-10 w-10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
-                                aria-label="Fechar menu"
-                            >
-                                <X className="size-8" />
-                            </button>
-
-                            <div className="flex flex-col p-8 gap-1">
-                                {links.map((link) => (
-                                    <a
-                                        key={link.label}
-                                        href={link.href}
-                                        className="text-2xl font-black uppercase tracking-tight text-white hover:text-secondary transition-colors py-5 border-b border-white/5 last:border-0"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        {link.label}
-                                    </a>
-                                ))}
-
-                                <a
-                                    href="https://wa.me/5581998008818"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="mt-8 py-5 bg-secondary text-slate-900 rounded-xl font-black text-center text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-xl"
+            {/* Mobile Overlay — lazy loaded, only rendered after first open */}
+            {hasOpened && (
+                <React.Suspense fallback={null}>
+                    <LazyAnimatePresence>
+                        {open && (
+                            <>
+                                {/* Backdrop Dimmer */}
+                                <LazyMotionDiv
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
                                     onClick={() => setOpen(false)}
-                                >
-                                    Solicitar Orçamento
-                                </a>
+                                    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9990] md:hidden"
+                                />
 
-                                <p className="mt-auto text-[10px] text-white/20 uppercase font-bold tracking-[0.2em] text-center">
-                                    Mundo da Impermeabilização
-                                </p>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                                {/* Side Drawer */}
+                                <LazyMotionDiv
+                                    initial={{ opacity: 0, x: '100%' }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: '100%' }}
+                                    transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                    className="fixed inset-y-0 right-0 w-[300px] md:hidden flex flex-col pt-24 z-[9991]"
+                                    style={{
+                                        backgroundColor: '#0a1018',
+                                        boxShadow: '-10px 0 30px rgba(0,0,0,0.5)',
+                                        borderLeft: '1px solid rgba(255,255,255,0.05)'
+                                    }}
+                                >
+                                    {/* Close Button Inside Drawer */}
+                                    <button
+                                        onClick={() => setOpen(false)}
+                                        className="absolute top-6 right-6 h-10 w-10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+                                        aria-label="Fechar menu"
+                                    >
+                                        <XIcon />
+                                    </button>
+
+                                    <div className="flex flex-col p-8 gap-1">
+                                        {links.map((link) => (
+                                            <a
+                                                key={link.label}
+                                                href={link.href}
+                                                className="text-2xl font-black uppercase tracking-tight text-white hover:text-secondary transition-colors py-5 border-b border-white/5 last:border-0"
+                                                onClick={() => setOpen(false)}
+                                            >
+                                                {link.label}
+                                            </a>
+                                        ))}
+
+                                        <a
+                                            href="https://wa.me/5581998008818"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-8 py-5 bg-secondary text-slate-900 rounded-xl font-black text-center text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-xl"
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            Solicitar Orçamento
+                                        </a>
+
+                                        <p className="mt-auto text-[10px] text-white/20 uppercase font-bold tracking-[0.2em] text-center">
+                                            Mundo da Impermeabilização
+                                        </p>
+                                    </div>
+                                </LazyMotionDiv>
+                            </>
+                        )}
+                    </LazyAnimatePresence>
+                </React.Suspense>
+            )}
         </>
     );
 }
+
