@@ -29,7 +29,7 @@ const SpecializedSolutions = () => {
     ];
 
     return (
-        <section className="py-24 bg-background-light diagonal-divider-reverse">
+        <section className="pt-32 pb-20 bg-background-light diagonal-divider-reverse">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <p className="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4">Nossos Serviços</p>

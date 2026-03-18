@@ -76,7 +76,7 @@
         }
 
         .diagonal-divider {
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4rem), 0 100%);
         }
 
         .yellow-highlight {
@@ -94,7 +94,7 @@
             }
         }
     </style>
-    <link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" />
+    <link rel="preload" as="image" href="/hero-bg.webp" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="/src/styles.css" />
 </head>
 
@@ -112,7 +112,7 @@
                     class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent z-10">
                 </div>
                 <img src="/hero-bg.webp" alt="Canteiro de obras industrial com aplicação de impermeabilização"
-                    width="1920" height="1080" fetchpriority="high" class="w-full h-full object-cover object-center" />
+                    width="1920" height="1080" fetchpriority="high" loading="eager" decoding="sync" class="w-full h-full object-cover object-center" />
             </div>
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-4xl">
@@ -244,7 +244,7 @@
                     </div>
                     <div class="w-full md:w-2/5">
                         <div class="relative group">
-                            <div id="image-reveal-root" class="w-full h-[500px] relative"></div>
+                            <div id="image-reveal-root" class="w-full h-[400px] lg:h-[450px] relative"></div>
                         </div>
                     </div>
                 </div>
