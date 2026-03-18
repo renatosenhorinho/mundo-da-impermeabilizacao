@@ -36,6 +36,9 @@ export default defineConfig({
         passes: 2,
       },
     },
+    modulePreload: {
+      polyfill: true,
+    },
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
@@ -43,10 +46,12 @@ export default defineConfig({
         contato: resolve(__dirname, 'contato.html')
       },
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-framer': ['framer-motion'],
-          'vendor-utils': ['clsx', 'tailwind-merge'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            // Group UI core and vendors to reduce request count while isolating heavy animations
+            if (id.includes('framer-motion')) return 'vendor-framer';
+            return 'vendor-core';
+          }
         },
       },
     },

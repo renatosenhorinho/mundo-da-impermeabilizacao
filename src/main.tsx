@@ -9,10 +9,12 @@ const SpecializedSolutions = lazy(() => import('./components/ui/specialized-solu
 const ContactPage = lazy(() => import('./components/ui/contact-page'));
 const QuemSomosSections = lazy(() => import('./components/ui/quem-somos-sections'));
 
-// Helper for mounting components with Suspense
+// Helper for mounting components with Suspense - Deferred to idle time
 const mountWithSuspense = (containerId: string, Component: React.ComponentType) => {
     const container = document.getElementById(containerId);
-    if (container) {
+    if (!container) return;
+
+    const mount = () => {
         createRoot(container).render(
             <React.StrictMode>
                 <Suspense fallback={<div className="min-h-screen bg-background-dark/5 animate-pulse" />}>
@@ -20,6 +22,13 @@ const mountWithSuspense = (containerId: string, Component: React.ComponentType) 
                 </Suspense>
             </React.StrictMode>
         );
+    };
+
+    // Use requestIdleCallback with a timeout to ensure it eventually runs
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => mount(), { timeout: 2000 });
+    } else {
+        setTimeout(mount, 1);
     }
 };
 
@@ -36,13 +45,24 @@ if (headerContainer) {
 // Conditional mounts
 if (document.getElementById('image-reveal-root')) {
     const ImageRevealWrapper = () => (
-        <ImageReveal
-            leftImage="/Logos/leftimg.webp"
-            middleImage="/Logos/rightimg.webp"
-            rightImage="/Logos/midimg.webp"
-        />
+        <React.Suspense fallback={<div className="h-[500px] animate-pulse bg-slate-50 rounded-2xl" />}>
+            <ImageReveal
+                leftImage="/Logos/leftimg.webp"
+                middleImage="/Logos/rightimg.webp"
+                rightImage="/Logos/midimg.webp"
+            />
+        </React.Suspense>
     );
-    mountWithSuspense('image-reveal-root', ImageRevealWrapper);
+    
+    // Mount ImageReveal eagerly as it may be near the fold on desktop
+    const container = document.getElementById('image-reveal-root');
+    if (container) {
+        createRoot(container).render(
+            <React.StrictMode>
+                <ImageRevealWrapper />
+            </React.StrictMode>
+        );
+    }
 }
 
 if (document.getElementById('specialized-solutions-root')) {

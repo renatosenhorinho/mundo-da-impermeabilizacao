@@ -159,24 +159,24 @@ export default function AboutSection1() {
                 </TimelineContent>
             </div>
 
-            <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 pt-20 lg:h-[26rem] md:h-[22rem] sm:h-[16rem] h-[14rem]">
+            <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 pt-20 lg:h-[26rem] md:h-[22rem] h-auto">
                 {/* Top Left Image */}
                 <TimelineContent
                     as="figure"
                     animationNum={2}
                     timelineRef={heroRef}
                     customVariants={revealVariants}
-                    className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
+                    className="w-full h-full aspect-square md:aspect-auto rounded-xl overflow-hidden shadow-2xl"
                     style={{ clipPath: "url(#clip-squiggle)" }}
                 >
                     <img
                         src="/Logos/quemsomos1.webp"
                         alt="Engenheiro analisando obra"
-                        width="800"
-                        height="600"
+                        width="400"
+                        height="400"
                         loading="lazy"
                         decoding="async"
-                        className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
+                        className="object-cover object-center w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
                 {/* Top Right Image */}
@@ -185,17 +185,17 @@ export default function AboutSection1() {
                     animationNum={3}
                     timelineRef={heroRef}
                     customVariants={revealVariants2}
-                    className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
+                    className="w-full h-full aspect-square md:aspect-auto rounded-xl overflow-hidden shadow-2xl"
                     style={{ clipPath: "url(#differentone16)" }}
                 >
                     <img
                         src="/Logos/quemsomos2.webp"
                         alt="Estrutura de concreto"
-                        width="800"
-                        height="600"
+                        width="400"
+                        height="400"
                         loading="lazy"
                         decoding="async"
-                        className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
+                        className="object-cover object-center w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
 
@@ -205,17 +205,17 @@ export default function AboutSection1() {
                     animationNum={4}
                     timelineRef={heroRef}
                     customVariants={revealVariants2}
-                    className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
+                    className="w-full h-full aspect-square md:aspect-auto rounded-xl overflow-hidden shadow-2xl"
                     style={{ clipPath: "url(#differentone8)" }}
                 >
                     <img
                         src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=735&auto=format&fit=crop"
                         alt="Obras e construção"
-                        width="735"
-                        height="490"
+                        width="400"
+                        height="400"
                         loading="lazy"
                         decoding="async"
-                        className="object-cover w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
+                        className="object-cover object-center w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
 
@@ -225,17 +225,17 @@ export default function AboutSection1() {
                     animationNum={5}
                     timelineRef={heroRef}
                     customVariants={revealVariants2}
-                    className="w-full h-full rounded-xl overflow-hidden shadow-2xl"
+                    className="w-full h-full aspect-square md:aspect-auto rounded-xl overflow-hidden shadow-2xl"
                     style={{ clipPath: "url(#clip-rect)" }}
                 >
                     <img
                         src="/Logos/quemsomos4.webp"
                         alt="Impermeabilização"
-                        width="800"
-                        height="600"
+                        width="400"
+                        height="400"
                         loading="lazy"
                         decoding="async"
-                        className="object-cover w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
+                        className="object-cover object-center w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
             </div>

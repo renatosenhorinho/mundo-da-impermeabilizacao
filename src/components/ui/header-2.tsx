@@ -35,8 +35,14 @@ export function Header() {
     };
 
     React.useEffect(() => {
-        document.body.style.overflow = open ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
+        const style = open ? 'hidden' : '';
+        const rafId = requestAnimationFrame(() => {
+            document.body.style.overflow = style;
+        });
+        return () => {
+            cancelAnimationFrame(rafId);
+            document.body.style.overflow = '';
+        };
     }, [open]);
 
     return (
