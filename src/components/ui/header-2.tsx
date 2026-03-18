@@ -50,10 +50,13 @@ export function Header() {
                     {/* Logo */}
                     <a href="/index.html" className="shrink-0" aria-label="Mundo da Impermeabilização - Página Inicial">
                         <img
-                            src="/Logos/logo-main.webp"
+                            src="/Logos/logo-main-180w.webp"
+                            srcSet="/Logos/logo-main-180w.webp 180w, /Logos/logo-main-360w.webp 360w"
+                            sizes="(max-width: 768px) 160px, 160px"
                             alt="Mundo da Impermeabilização Logo"
                             width="160"
                             height="64"
+                            fetchPriority="high"
                             className="h-16 w-auto object-contain"
                         />
                     </a>

@@ -29,7 +29,7 @@ const SpecializedSolutions = () => {
     ];
 
     return (
-        <section className="pt-32 pb-20 bg-background-light diagonal-divider-reverse">
+        <section className="py-24 bg-background-light diagonal-divider-reverse">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <p className="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4">Nossos Serviços</p>
@@ -45,10 +45,12 @@ const SpecializedSolutions = () => {
                         >
                             <div className="sm:w-2/5 h-64 sm:h-auto overflow-hidden relative">
                                 <img
-                                    src={service.image}
+                                    src={service.image.replace('.webp', '-404w.webp')}
+                                    srcSet={`${service.image.replace('.webp', '-404w.webp')} 404w, ${service.image.replace('.webp', '-808w.webp')} 808w`}
+                                    sizes="(max-width: 768px) 100vw, 400px"
                                     alt={service.title}
-                                    width="600"
-                                    height="400"
+                                    width="404"
+                                    height="269"
                                     loading="lazy"
                                     decoding="async"
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
