@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mundodaimpermeabilizacao.com.br/sitemap.xml

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quem Somos | Mundo da Impermeabilização</title>
+    <meta name="description"
+        content="Conheça a história e a autoridade do Mundo da Impermeabilização. Mais de 20 anos de experiência protegendo estruturas e garantindo estanqueidade no Nordeste." />
+    <!-- SEO: Garantir indexação explícita -->
+    <meta name="robots" content="index, follow" />
+    <style>
+        :root {
+            --primary: #0e61b4;
+            --secondary: #fbbf24;
+            --bg-dark: #101922;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Black.woff2') format('woff2');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .font-display {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .bg-background-dark {
+            background-color: var(--bg-dark);
+        }
+
+        .text-white {
+            color: #fff;
+        }
+        
+        .blue-underline::after, .yellow-underline::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            height: 14%;
+            width: 100%;
+        }
+        .blue-underline::after { background-color: #0e61b4; }
+        .yellow-underline::after { background-color: #fbbf24; }
+    </style>
+    <link rel="stylesheet" href="/src/styles.css" />
+</head>
+
+<body class="font-display bg-background-light text-slate-900 antialiased pt-14">
+
+    <!-- Top Navigation -->
+    <div id="header-root"></div>
+
+    <!-- Main Content Landmark -->
+    <main id="main-content">
+        <!-- React Root for Quem Somos Page -->
+        <div id="quem-somos-root"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-dark text-slate-400 py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="./index.html" class="inline-block mb-6">
+                        <img src="/Logos/logo-main.webp" alt="Mundo da Impermeabilização - Página Inicial" width="240"
+                            height="160" loading="lazy" class="h-40 w-auto object-contain opacity-90" />
+                    </a>
+                    <p class="max-w-md text-slate-400 font-bold">
+                        Líder distribuidor de materiais de impermeabilização no Nordeste. Mais de duas décadas
+                        protegendo o
+                        patrimônio e as estruturas da nossa região.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white font-black uppercase tracking-widest mb-6">Links Rápidos</h3>
+                    <ul class="space-y-4 font-bold text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="./index.html">Início</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./quem-somos.html">Quem Somos</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./contato.html">Contato</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./contato.html">Trabalhe Conosco</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-black uppercase tracking-widest mb-6">Contato</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                            <span>Av. Recife, 2220 - Ipsep<br />Recife - PE, 51350-670</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">call</span>
+                            <span>(81) 3339-0124</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                            <span>contato@mundodaimpermeabilizacao.com.br</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="text-primary w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                            <a href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="hover:text-primary transition-colors">@mundodaimpermeabilizacao</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs uppercase font-bold tracking-widest">© 2024 Mundo da Impermeabilização. Todos os
+                    direitos reservados.</p>
+                <div class="flex gap-6">
+                    <a class="text-slate-500 hover:text-primary transition-colors"
+                        href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
+                        rel="noopener noreferrer" aria-label="Siga-nos no Instagram">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 font-medium mt-6 text-center">
+                Site desenvolvido por
+                <a href="https://www.instagram.com/clicko_br" target="_blank" rel="noopener noreferrer"
+                    aria-label="Desenvolvido por Clickô"
+                    class="hover:opacity-100 transition font-bold">Clickô</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 bg-[#25D366] text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
+        href="https://wa.me/5581998008818" target="_blank" aria-label="Falar com especialista pelo WhatsApp">
+        <img src="/Logos/WhatsApp.webp" alt="" width="40" height="40" loading="lazy"
+            class="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+        <span
+            class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all shadow-xl pointer-events-none hidden sm:block">Falar
+            com especialista</span>
+    </a>
+
+    <script type="module" src="/src/quem-somos.tsx"></script>
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+html,
+body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-primary: #0e61b4;
+  --color-secondary: #fbbf24;
+  --color-background-light: #f6f7f8;
+  --color-background-dark: #101922;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@utility diagonal-divider {
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+@utility diagonal-divider-reverse {
+  clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Rotating word animation */
+@keyframes rotateWords {
+
+  0%,
+  20% {
+    transform: translateY(0);
+  }
+
+  25%,
+  45% {
+    transform: translateY(-25%);
+  }
+
+  50%,
+  70% {
+    transform: translateY(-50%);
+  }
+
+  75%,
+  95% {
+    transform: translateY(-75%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Yellow highlight wrapper – solid block (matches reference design) */
+.yellow-highlight {
+  background-color: #fbbf24;
+  color: #101922;
+  padding: 0 0.8rem 0 0.8rem;
+  padding-right: calc(0.8rem + 1px);
+  display: inline-block;
+  position: relative;
+}
+
+/* Word carousel inside the yellow highlight */
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+.word-container {
+  display: flex;
+  flex-direction: column;
+  animation: rotateWords 8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.rotating-word {
+  height: 1.2em;
+  line-height: 1.2em;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  color: #101922;
+}
+
+/* Blue underline – animated grow from left */
+@keyframes underlineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.blue-underline,
+.yellow-underline {
+  display: inline-block;
+  position: relative;
+  line-height: 0.9;
+}
+
+.blue-underline::after,
+.yellow-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 14%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineGrow 0.8s ease-out 0.8s forwards;
+}
+
+.blue-underline::after {
+  background-color: #0e61b4;
+}
+
+.yellow-underline::after {
+  background-color: #fbbf24;
+}
+
+/* Brand logos in the brands strip */
+.brand-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.brand-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+
+/* Counter badge rendered by the ImageReveal React component */
+.works-counter-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  background: white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.works-counter-badge:hover {
+  transform: scale(1.03);
+}
+
+.works-counter-badge p:first-child {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #0e61b4;
+  margin-bottom: 0.25rem;
+  line-height: 1;
+}
+
+.works-counter-badge p:last-child {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #475569;
+}
+
+/* Scroll-based animation utilities */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.3s ease-out forwards;
+}
