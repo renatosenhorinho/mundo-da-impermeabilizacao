@@ -1,11 +1,23 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+const asyncCssPlugin = () => ({
+  name: 'async-css',
+  transformIndexHtml(html) {
+    return html.replace(
+      /<link rel="stylesheet" (.*?)href="(.*?)">/g,
+      '<link rel="preload" as="style" href="$2" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="$2"></noscript>'
+    );
+  }
+});
 
 export default defineConfig({
   root: '.',
   base: '/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    asyncCssPlugin(),
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
@@ -34,7 +46,7 @@ export default defineConfig({
         manualChunks: {
           'vendor-react': ['react', 'react-dom'],
           'vendor-framer': ['framer-motion'],
-          'vendor-icons': ['lucide-react'],
+          'vendor-utils': ['clsx', 'tailwind-merge'],
         },
       },
     },

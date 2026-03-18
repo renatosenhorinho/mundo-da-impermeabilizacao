@@ -126,7 +126,6 @@ export default function QuemSomosSections() {
                         </span>
                         <h2 className="text-3xl md:text-5xl font-black text-slate-900 uppercase leading-tight mb-4">
                             Soluções Técnicas para <br className="hidden md:block" />
-                            <span className="text-primary drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">Construção</span> {" "}
                             <span className="text-primary blue-underline inline-block mt-2 md:mt-0">Impermeabilização</span>
                         </h2>
                         <p className="text-slate-600 text-lg font-medium leading-relaxed">

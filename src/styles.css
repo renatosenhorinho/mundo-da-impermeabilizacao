@@ -147,7 +147,6 @@ body {
 
 /* Brand logos in the brands strip */
 .brand-logo {
-  height: 50px;
   width: auto;
   object-fit: contain;
   filter: grayscale(100%);

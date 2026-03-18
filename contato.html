@@ -9,6 +9,21 @@
         content="Entre em contato com o Mundo da Impermeabilização. Atendimento especializado em Recife e todo o Nordeste para soluções técnicas em construção." />
     <!-- SEO: Garantir indexação explícita -->
     <meta name="robots" content="index, follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://wa.me" />
+    <link rel="preload" href="/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Material Symbols: loaded async to avoid render blocking -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+            rel="stylesheet" />
+    </noscript>
     <style>
         :root {
             --primary: #0e61b4;
@@ -83,8 +98,8 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <a href="./index.html" class="inline-block mb-6">
-                        <img src="/Logos/logo-main.webp" alt="Mundo da Impermeabilização - Página Inicial" width="240"
-                            height="160" loading="lazy" class="h-40 w-auto object-contain opacity-90" />
+                        <img src="/Logos/logo-main-180w.webp" srcset="/Logos/logo-main-180w.webp 180w, /Logos/logo-main-360w.webp 360w" sizes="(max-width: 768px) 180px, 240px" alt="Mundo da Impermeabilização - Página Inicial" width="240"
+                            height="160" loading="lazy" decoding="async" class="h-30 w-auto object-contain opacity-90" />
                     </a>
                     <p class="max-w-md text-slate-400 font-bold">
                         Líder distribuidor de materiais de impermeabilização no Nordeste. Mais de duas décadas

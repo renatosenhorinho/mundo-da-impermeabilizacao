@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://wa.me" />
     <link rel="preload" href="/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <!-- Material Symbols: loaded async to avoid render blocking -->
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
@@ -114,7 +114,8 @@
                 <picture>
                     <source media="(max-width: 768px)" srcset="/hero-bg-800w.webp" />
                     <img src="/hero-bg.webp" alt="Canteiro de obras industrial com aplicação de impermeabilização"
-                        width="1920" height="1080" fetchpriority="high" loading="eager" decoding="sync" class="w-full h-full object-cover object-center" />
+                        width="1920" height="1080" fetchpriority="high" loading="eager" decoding="sync"
+                        class="w-full h-full object-cover object-center" />
                 </picture>
             </div>
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,7 +150,9 @@
                         </a>
                         <a href="https://wa.me/5581996090068" target="_blank"
                             class="border-2 border-white/30 hover:border-white text-white px-10 py-5 rounded-lg font-black text-lg uppercase tracking-wider transition-all flex items-center gap-4 group/btn">
-                            <img src="/Logos/WhatsApp-48w.webp" srcset="/Logos/WhatsApp-48w.webp 48w, /Logos/WhatsApp-64w.webp 64w, /Logos/WhatsApp-96w.webp 96w" sizes="(max-width: 768px) 48px, 64px" alt="WhatsApp" width="24" height="24"
+                            <img src="/Logos/WhatsApp-48w.webp"
+                                srcset="/Logos/WhatsApp-48w.webp 48w, /Logos/WhatsApp-64w.webp 64w, /Logos/WhatsApp-96w.webp 96w"
+                                sizes="(max-width: 768px) 48px, 64px" alt="WhatsApp" width="24" height="24"
                                 class="w-6 h-6 object-contain brightness-0 invert group-hover/btn:brightness-100 group-hover/btn:invert-0 transition-all" />
                             FALAR COM ESPECIALISTA
                         </a>
@@ -159,7 +162,7 @@
         </section>
 
         <!-- Authority Strip -->
-        <section class="relative -mt-16 z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="relative -mt-6 md:-mt-16 z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
@@ -195,19 +198,29 @@
         <section class="py-12 bg-white border-b border-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                    class="flex flex-wrap items-center justify-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                    <img src="/Logos/vedacit-150w.webp" srcset="/Logos/vedacit-150w.webp 150w, /Logos/vedacit-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Vedacit" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo scale-[1.5] ml-5" />
-                    <img src="/Logos/viapol-150w.webp" srcset="/Logos/viapol-150w.webp 150w, /Logos/viapol-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Viapol" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo scale-[1.2] ml-5" />
-                    <img src="/Logos/dryko-150w.webp" srcset="/Logos/dryko-150w.webp 150w, /Logos/dryko-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Dryko" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo ml-5" />
-                    <img src="/Logos/soprema-150w.webp" srcset="/Logos/soprema-150w.webp 150w, /Logos/soprema-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Soprema" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo scale-[2.0] ml-5" />
-                    <img src="/Logos/qborg-150w.webp" srcset="/Logos/qborg-150w.webp 150w, /Logos/qborg-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Qborg" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo scale-[3.0] ml-9" />
-                    <img src="/Logos/quartzolit-150w.webp" srcset="/Logos/quartzolit-150w.webp 150w, /Logos/quartzolit-300w.webp 300w" sizes="(max-width: 768px) 80px, 120px" alt="Quartzolit" width="120" height="60" loading="lazy" decoding="async"
-                        class="brand-logo scale-[1.2] ml-5" />
+                    class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                    <img src="/Logos/vedacit-150w.webp"
+                        srcset="/Logos/vedacit-150w.webp 150w, /Logos/vedacit-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Vedacit" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
+                    <img src="/Logos/viapol-150w.webp"
+                        srcset="/Logos/viapol-150w.webp 150w, /Logos/viapol-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Viapol" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
+                    <img src="/Logos/dryko-150w.webp" srcset="/Logos/dryko-150w.webp 150w, /Logos/dryko-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Dryko" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
+                    <img src="/Logos/soprema-150w.webp"
+                        srcset="/Logos/soprema-150w.webp 150w, /Logos/soprema-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Soprema" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-16 md:h-24 w-auto object-contain" />
+                    <img src="/Logos/qborg-150w.webp" srcset="/Logos/qborg-150w.webp 150w, /Logos/qborg-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Qborg" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-32 md:h-44 w-auto object-contain" />
+                    <img src="/Logos/quartzolit-150w.webp"
+                        srcset="/Logos/quartzolit-150w.webp 150w, /Logos/quartzolit-300w.webp 300w"
+                        sizes="(max-width: 768px) 80px, 120px" alt="Quartzolit" width="120" height="60" loading="lazy"
+                        decoding="async" class="brand-logo h-10 md:h-14 w-auto object-contain" />
                 </div>
             </div>
         </section>
@@ -272,7 +285,8 @@
                     <p class="text-white/80 text-xl font-medium mb-12 max-w-2xl mx-auto uppercase tracking-widest">
                         Solicite agora um diagnóstico técnico gratuito para o seu projeto.
                     </p>
-                    <a href="https://wa.me/5581998008818" target="_blank" aria-label="Falar com o Mundo da Impermeabilização via WhatsApp"
+                    <a href="https://wa.me/5581998008818" target="_blank"
+                        aria-label="Falar com o Mundo da Impermeabilização via WhatsApp"
                         class="bg-secondary hover:bg-white text-background-dark px-12 py-6 rounded-lg font-black text-xl uppercase tracking-tighter shadow-2xl transition-all scale-100 hover:scale-105 inline-flex items-center gap-4">
                         Fale com o Mundo da Impermeabilização
                         <span class="material-symbols-outlined font-black" aria-hidden="true">arrow_forward</span>
@@ -289,8 +303,11 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <a href="./index.html" class="inline-block mb-6">
-                        <img src="/Logos/logo-main-180w.webp" srcset="/Logos/logo-main-180w.webp 180w, /Logos/logo-main-360w.webp 360w" sizes="(max-width: 768px) 180px, 240px" alt="Mundo da Impermeabilização - Página Inicial" width="240"
-                            height="160" loading="lazy" decoding="async" class="h-30 w-auto object-contain opacity-90" />
+                        <img src="/Logos/logo-main-180w.webp"
+                            srcset="/Logos/logo-main-180w.webp 180w, /Logos/logo-main-360w.webp 360w"
+                            sizes="(max-width: 768px) 180px, 240px" alt="Mundo da Impermeabilização - Página Inicial"
+                            width="240" height="160" loading="lazy" decoding="async"
+                            class="h-30 w-auto object-contain opacity-90" />
                     </a>
                     <p class="max-w-md text-slate-400 font-bold">
                         Líder distribuidor de materiais de impermeabilização no Nordeste. Mais de duas décadas
@@ -298,72 +315,74 @@
                         patrimônio e as estruturas da nossa região.
                     </p>
                 </div>
-            <div>
-                <h3 class="text-white font-black uppercase tracking-widest mb-6">Links Rápidos</h3>
-                <ul class="space-y-4 font-bold text-sm">
-                    <li><a class="hover:text-primary transition-colors" href="./index.html">Soluções</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="./quem-somos.html">Quem Somos</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="./contato.html">Contato</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="./contato.html">Trabalhe Conosco</a>
-                    </li>
-                </ul>
+                <div>
+                    <h3 class="text-white font-black uppercase tracking-widest mb-6">Links Rápidos</h3>
+                    <ul class="space-y-4 font-bold text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="./index.html">Soluções</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./quem-somos.html">Quem Somos</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./contato.html">Contato</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="./contato.html">Trabalhe Conosco</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-black uppercase tracking-widest mb-6">Contato</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                            <span>Av. Recife, 2220 - Ipsep<br />Recife - PE, 51350-670</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">call</span>
+                            <span>(81) 3339-0124</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                            <span>contato@mundodaimpermeabilizacao.com.br</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="text-primary w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                            <a href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="hover:text-primary transition-colors">@mundodaimpermeabilizacao</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3 class="text-white font-black uppercase tracking-widest mb-6">Contato</h3>
-                <ul class="space-y-4 text-sm">
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">location_on</span>
-                        <span>Av. Recife, 2220 - Ipsep<br />Recife - PE, 51350-670</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">call</span>
-                        <span>(81) 3339-0124</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">mail</span>
-                        <span>contato@mundodaimpermeabilizacao.com.br</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <svg class="text-primary w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-xs uppercase font-bold tracking-widest">© 2024 Mundo da Impermeabilização. Todos os
+                    direitos reservados.</p>
+                <div class="flex gap-6">
+                    <a class="text-slate-400 hover:text-primary transition-colors"
+                        href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
+                        rel="noopener noreferrer" aria-label="Siga-nos no Instagram">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
                             <path
                                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                         </svg>
-                        <a href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
-                            rel="noopener noreferrer"
-                            class="hover:text-primary transition-colors">@mundodaimpermeabilizacao</a>
-                    </li>
-                </ul>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-xs uppercase font-bold tracking-widest">© 2024 Mundo da Impermeabilização. Todos os
-                direitos reservados.</p>
-            <div class="flex gap-6">
-                <a class="text-slate-400 hover:text-primary transition-colors"
-                    href="https://www.instagram.com/mundodaimpermeabilizacao/" target="_blank"
-                    rel="noopener noreferrer" aria-label="Siga-nos no Instagram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path
-                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-        <p class="text-xs text-slate-400 font-medium mt-6 text-center">
-            Site desenvolvido por
-            <a href="https://www.instagram.com/clicko_br" target="_blank" rel="noopener noreferrer"
-                aria-label="Desenvolvido por Clickô"
-                class="hover:opacity-100 transition font-bold">Clickô ©</a>
-        </p>
+            <p class="text-xs text-slate-400 font-medium mt-6 text-center">
+                Site desenvolvido por
+                <a href="https://www.instagram.com/clicko_br" target="_blank" rel="noopener noreferrer"
+                    aria-label="Desenvolvido por Clickô" class="hover:opacity-100 transition font-bold">Clickô ©</a>
+            </p>
         </div>
     </footer>
 
     <!-- Floating WhatsApp Button -->
     <a class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 bg-[#25D366] text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
         href="https://wa.me/5581998008818" target="_blank" aria-label="Falar com especialista pelo WhatsApp">
-        <img src="/Logos/WhatsApp-48w.webp" srcset="/Logos/WhatsApp-48w.webp 48w, /Logos/WhatsApp-64w.webp 64w, /Logos/WhatsApp-96w.webp 96w" sizes="(max-width: 768px) 40px, 48px" alt="WhatsApp Imagem" width="40" height="40" loading="lazy" decoding="async"
-            class="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+        <img src="/Logos/WhatsApp-48w.webp"
+            srcset="/Logos/WhatsApp-48w.webp 48w, /Logos/WhatsApp-64w.webp 64w, /Logos/WhatsApp-96w.webp 96w"
+            sizes="(max-width: 768px) 40px, 48px" alt="WhatsApp Imagem" width="40" height="40" loading="lazy"
+            decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
         <span
             class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all shadow-xl pointer-events-none hidden sm:block">Falar
             com especialista</span>
