@@ -84,7 +84,10 @@
 <body class="font-display bg-background-light text-slate-900 antialiased pt-14">
 
     <!-- Top Navigation -->
-    <div id="header-root"></div>
+    <div id="header-root" class="min-h-[70px] md:min-h-[80px]">
+        <!-- Static header placeholder to prevent CLS -->
+        <div class="fixed top-0 left-0 w-full h-[70px] md:h-[80px] bg-background-dark/95 backdrop-blur-md z-50"></div>
+    </div>
 
     <!-- Main Content Landmark -->
     <main id="main-content">
@@ -121,15 +124,15 @@
                     <h3 class="text-white font-black uppercase tracking-widest mb-6">Contato</h3>
                     <ul class="space-y-4 text-sm">
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                            <span class="material-symbols-outlined text-primary text-xl inline-block w-[24px] h-[24px] overflow-hidden">location_on</span>
                             <span>Av. Recife, 2220 - Ipsep<br />Recife - PE, 51350-670</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary text-xl">call</span>
+                            <span class="material-symbols-outlined text-primary text-xl inline-block w-[24px] h-[24px] overflow-hidden">call</span>
                             <span>(81) 3339-0124</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary text-xl">mail</span>
+                            <span class="material-symbols-outlined text-primary text-xl inline-block w-[24px] h-[24px] overflow-hidden">mail</span>
                             <span>contato@mundodaimpermeabilizacao.com.br</span>
                         </li>
                         <li class="flex items-center gap-3">

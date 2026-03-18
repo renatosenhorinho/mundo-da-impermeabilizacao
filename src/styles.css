@@ -32,13 +32,23 @@ body {
   font-display: swap;
 }
 
+/* Fallback font to match Inter metrics and minimize CLS */
+@font-face {
+  font-family: "Inter-Fallback";
+  src: local("Arial");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-primary: #0e61b4;
   --color-secondary: #fbbf24;
   --color-background-light: #f6f7f8;
   --color-background-dark: #101922;
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Inter", "Inter-Fallback", system-ui, sans-serif;
+  --font-sans: "Inter", "Inter-Fallback", system-ui, sans-serif;
 }
 
 @utility diagonal-divider {

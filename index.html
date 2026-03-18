@@ -101,12 +101,15 @@
 <body class="font-display bg-background-light text-slate-900 antialiased">
 
     <!-- Top Navigation -->
-    <div id="header-root"></div>
+    <div id="header-root" class="min-h-[70px] md:min-h-[80px]">
+        <!-- Static header placeholder to prevent CLS -->
+        <div class="fixed top-0 left-0 w-full h-[70px] md:h-[80px] bg-background-dark/95 backdrop-blur-md z-50"></div>
+    </div>
 
     <!-- Main Content Landmark -->
     <main id="main-content">
         <!-- Hero Section -->
-        <section class="hero-section relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16">
+        <section class="hero-section relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16 min-h-[500px] md:min-h-[600px] flex items-center">
             <div class="absolute inset-0 opacity-40">
                 <div
                     class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent z-10">
@@ -166,27 +169,27 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4" aria-hidden="true">history</span>
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden" aria-hidden="true">history</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Experiência</p>
                     <p class="text-slate-900 text-2xl font-black">+20 ANOS DE MERCADO</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-secondary text-4xl mb-4"
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">verified</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Autoridade</p>
                     <p class="text-slate-900 text-2xl font-black">REFERÊNCIA REGIONAL</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4"
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">inventory_2</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Logística</p>
                     <p class="text-slate-900 text-2xl font-black">ESTOQUE COMPLETO</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-secondary text-4xl mb-4"
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">engineering</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Suporte</p>
                     <p class="text-slate-900 text-2xl font-black">ATENDIMENTO TÉCNICO</p>
