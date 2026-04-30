@@ -62,8 +62,8 @@ const SpecializedSolutions = () => {
                             <div className="sm:w-2/5 h-64 sm:h-auto overflow-hidden relative">
                                 <img
                                     src={service.image.replace('.webp', '-404w.webp')}
-                                    srcSet={`${service.image.replace('.webp', '-404w.webp')} 404w, ${service.image.replace('.webp', '-808w.webp')} 808w`}
-                                    sizes="(max-width: 768px) 100vw, 400px"
+                                    srcSet={`${service.image.replace('.webp', '-320w.webp')} 320w, ${service.image.replace('.webp', '-404w.webp')} 404w, ${service.image.replace('.webp', '-808w.webp')} 808w`}
+                                    sizes="(max-width: 640px) 95vw, (max-width: 1024px) 45vw, 400px"
                                     alt={service.title}
                                     width="404"
                                     height="269"

@@ -1,0 +1,446 @@
+[
+  {
+    "name": "compound adesivo epoxi cj 1kg",
+    "brand": "viapol",
+    "slug": "viapol-compound-adesivo-epoxi-1kg",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "monopol pu sache 800g cinza",
+    "brand": "viapol",
+    "slug": "viapol-monopol-pu-sache-800g-cinza",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "vedacit pro adesivo epoxi compound 1 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-adesivo-epoxi-compound-1kg",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "vedacit pro bianco adesivo resina 18 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-bianco-adesivo-resina-18l",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "vedacit pro bianco adesivo resina 3,6 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-bianco-adesivo-resina-3-6l",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "vedacit pro bianco adesivo resina 1 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-bianco-adesivo-resina-1l",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "viabril galao 3,6l",
+    "brand": "viapol",
+    "slug": "viapol-viabril-resina-plastificante-3-6l",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "maxcola galao 3,6 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxcola-adesivo-resina-3-6kg",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "maxfix balde 18 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxfix-adesivo-epoxi-18kg",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "maxfix cj 1 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxfix-adesivo-epoxi-1kg",
+    "category": "adesivos-e-epoxi"
+  },
+  {
+    "name": "vedacit pro aditivo impermeabilizante 18 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-aditivo-impermeabilizante-18l",
+    "category": "aditivos"
+  },
+  {
+    "name": "sika 1 aditivo impermeabilizante 18l",
+    "brand": "sika",
+    "slug": "sika-1-aditivo-impermeabilizante-18l",
+    "category": "aditivos"
+  },
+  {
+    "name": "maxcit balde 18 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxcit-aditivo-impermeabilizante-18kg",
+    "category": "aditivos"
+  },
+  {
+    "name": "maxcit galao 3,6 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxcit-aditivo-impermeabilizante-3-6kg",
+    "category": "aditivos"
+  },
+  {
+    "name": "vedacit pro aditivo impermeabilizante 3,6 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-aditivo-impermeabilizante-3-6l",
+    "category": "aditivos"
+  },
+  {
+    "name": "vedacit pro aditivo impermeabilizante 1 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-aditivo-impermeabilizante-1l",
+    "category": "aditivos"
+  },
+  {
+    "name": "vedacit aditivo acelerador de pega 18 l",
+    "brand": "vedacit",
+    "slug": "vedacit-aditivo-acelerador-de-pega-18l",
+    "category": "aditivos"
+  },
+  {
+    "name": "desforma madeira galao 3,6l",
+    "brand": "viapol",
+    "slug": "viapol-desforma-madeira-3-6l",
+    "category": "desmoldantes-e-cura"
+  },
+  {
+    "name": "viacura bd 18l",
+    "brand": "viapol",
+    "slug": "viapol-viacura-agente-quimico-18l",
+    "category": "desmoldantes-e-cura"
+  },
+  {
+    "name": "vedacit pro desmoldante madeira 18 l",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-desmoldante-madeira-18l",
+    "category": "desmoldantes-e-cura"
+  },
+  {
+    "name": "manta geotextil bidim vp-01 rl 2,30x100",
+    "brand": "bidim",
+    "slug": "bidim-manta-geotextil-vp-01-230x100",
+    "category": "drenagem-e-geotexteis"
+  },
+  {
+    "name": "manta geotextil bidim rt-07 rl 2,30x100",
+    "brand": "bidim",
+    "slug": "bidim-manta-geotextil-rt-07-230x100",
+    "category": "drenagem-e-geotexteis"
+  },
+  {
+    "name": "dreno corrugado 2.1/2 (65 mm) rl 50m",
+    "brand": "marca nao informada",
+    "slug": "dreno-corrugado-65mm-50m",
+    "category": "drenagem-e-geotexteis"
+  },
+  {
+    "name": "dreno corrugado 4 (100 mm) rl 50m",
+    "brand": "marca nao informada",
+    "slug": "dreno-corrugado-100mm-50m",
+    "category": "drenagem-e-geotexteis"
+  },
+  {
+    "name": "macarico para manta asfaltica (pulverizador)",
+    "brand": "marca nao informada",
+    "slug": "macarico-manta-asfaltica-pulverizador",
+    "category": "ferramentas-e-acessorios"
+  },
+  {
+    "name": "ralo ab desliza 100mm branco",
+    "brand": "marca nao informada",
+    "slug": "ralo-desliza-100mm-branco",
+    "category": "ferramentas-e-acessorios"
+  },
+  {
+    "name": "ralo ab desliza 150mm branco",
+    "brand": "marca nao informada",
+    "slug": "ralo-desliza-150mm-branco",
+    "category": "ferramentas-e-acessorios"
+  },
+  {
+    "name": "ralo ab articulado 100mm branco",
+    "brand": "marca nao informada",
+    "slug": "ralo-articulado-100mm-branco",
+    "category": "ferramentas-e-acessorios"
+  },
+  {
+    "name": "viaflex fita aluminio 10cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-10cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "viaflex fita aluminio 15cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-15cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "viaflex fita aluminio 20cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-20cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "viaflex fita aluminio 30cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-30cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "viaflex fita aluminio 45cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-45cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "viaflex fita aluminio 90cm rl 10m",
+    "brand": "viapol",
+    "slug": "viapol-viaflex-fita-aluminio-90cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 10cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-10cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 15cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-15cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 20cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-20cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 30cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-30cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 45cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-45cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "maxfita aluminio 90cm rl 10m",
+    "brand": "maxton",
+    "slug": "maxton-maxfita-aluminio-90cm-10m",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 10 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-10cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 15 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-15cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 20 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-20cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 30 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-30cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 45 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-45cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "vedacit pro fita multiuso autoadesiva 90 cm",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-fita-multiuso-90cm",
+    "category": "fitas-aluminizadas"
+  },
+  {
+    "name": "graute quartzolit sc 25kg",
+    "brand": "quartzolit",
+    "slug": "quartzolit-graute-25kg",
+    "category": "graute-e-reparacao-estrutural"
+  },
+  {
+    "name": "vedacit pro graute 25 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-graute-25kg",
+    "category": "graute-e-reparacao-estrutural"
+  },
+  {
+    "name": "sikagrout 212 sc 25kg",
+    "brand": "sika",
+    "slug": "sika-sikagrout-212-25kg",
+    "category": "graute-e-reparacao-estrutural"
+  },
+  {
+    "name": "maxgraute sc 25 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxgraute-25kg",
+    "category": "graute-e-reparacao-estrutural"
+  },
+  {
+    "name": "viaplus 1000 cx 18kg",
+    "brand": "viapol",
+    "slug": "viapol-viaplus-1000-argamassa-polimerica-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "viaplus 1000 balde 18kg",
+    "brand": "viapol",
+    "slug": "viapol-viaplus-1000-argamassa-polimerica-balde-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "viaplus 5000 cx 18kg",
+    "brand": "viapol",
+    "slug": "viapol-viaplus-5000-argamassa-polimerica-flexivel-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "viaplus 7000 fibras cx 18kg",
+    "brand": "viapol",
+    "slug": "viapol-viaplus-7000-fibras-argamassa-polimerica-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "vedacit pro vedatop 12 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-vedatop-12kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "vedacit pro vedatop 18 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-vedatop-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "vedacit pro vedatop flex 18 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-vedatop-flex-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "vedacit pro vedacit fast 18 kg",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-vedacit-fast-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "maxtop balde 18 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxtop-argamassa-polimerica-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "maxtop flex balde 18 kg",
+    "brand": "maxton",
+    "slug": "maxton-maxtop-flex-argamassa-polimerica-flexivel-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "sikatop 100 cx 18kg",
+    "brand": "sika",
+    "slug": "sika-sikatop-100-argamassa-polimerica-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "sikatop 107 balde 18kg",
+    "brand": "sika",
+    "slug": "sika-sikatop-107-argamassa-polimerica-balde-18kg",
+    "category": "impermeabilizantes-cimenticios"
+  },
+  {
+    "name": "vedacit manta asfaltica estruturada 3mm",
+    "brand": "vedacit",
+    "slug": "manta-asfaltica-vedacit-3mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "vedacit manta asfaltica estruturada 4mm",
+    "brand": "vedacit",
+    "slug": "manta-asfaltica-vedacit-4mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "viapol manta asfaltica premium 4mm",
+    "brand": "viapol",
+    "slug": "manta-asfaltica-viapol-4mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "betumanta 3 pp",
+    "brand": "viapol",
+    "slug": "viapol-betumanta-3-pp-manta-asfaltica",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "betumanta 2 e",
+    "brand": "viapol",
+    "slug": "viapol-betumanta-2-e-manta-asfaltica",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "manta asfaltica torodin 3500 3pp",
+    "brand": "viapol",
+    "slug": "viapol-torodin-3500-3-pp-manta-asfaltica",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "manta premium pol ardosiado 3mm cinza",
+    "brand": "viapol",
+    "slug": "viapol-manta-premium-ardosia-cinza-3mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "manta premium pol ardosiado 3mm verde",
+    "brand": "viapol",
+    "slug": "viapol-manta-premium-ardosia-verde-3mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "manta premium pol ardosiado 3mm vermelho",
+    "brand": "viapol",
+    "slug": "viapol-manta-premium-ardosia-vermelho-3mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "manta premium pol ardosiado 4mm verde",
+    "brand": "viapol",
+    "slug": "viapol-manta-premium-ardosia-verde-4mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "vedacit v pro ii b poliester 3mm rl 10 m2",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-ii-b-poliester-3mm",
+    "category": "manta-asfaltica"
+  },
+  {
+    "name": "vedacit v pro ii b poliester 4 mm pp rl 10 m2",
+    "brand": "vedacit",
+    "slug": "vedacit-pro-ii-b-poliester-4mm",
+    "category": "manta-asfaltica"
+  }
+]

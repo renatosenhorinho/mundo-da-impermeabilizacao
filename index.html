@@ -11,8 +11,7 @@
     <meta name="robots" content="index, follow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://wa.me" />
-    <link rel="dns-prefetch" href="https://wa.me" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -103,21 +102,22 @@
 <body class="font-display bg-background-light text-slate-900 antialiased">
 
     <!-- Top Navigation -->
-    <div id="header-root" class="min-h-[70px] md:min-h-[80px]">
+    <div id="header-root" class="min-h-[68px]">
         <!-- Static header placeholder to prevent CLS -->
-        <div class="fixed top-0 left-0 w-full h-[70px] md:h-[80px] bg-background-dark/95 backdrop-blur-md z-50"></div>
+        <div class="fixed top-0 left-0 w-full h-[68px] bg-background-dark/92 backdrop-blur-md z-50"></div>
     </div>
 
     <!-- Main Content Landmark -->
     <main id="main-content">
         <!-- Hero Section -->
-        <section class="hero-section relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16 min-h-[500px] md:min-h-[600px] flex items-center">
+        <section
+            class="hero-section relative bg-background-dark overflow-hidden diagonal-divider pb-24 pt-16 min-h-[500px] md:min-h-[600px] flex items-center">
             <div class="absolute inset-0 opacity-40">
                 <div
                     class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent z-10">
                 </div>
                 <picture>
-                    <source media="(max-width: 768px)" srcset="/hero-bg-800w.webp" />
+                    <source media="(max-width: 640px)" srcset="/hero-bg-800w.webp" />
                     <img src="/hero-bg.webp" alt="Canteiro de obras industrial com aplicação de impermeabilização"
                         width="1920" height="1080" fetchpriority="high" loading="eager" decoding="sync"
                         class="w-full h-full object-cover object-center" />
@@ -134,7 +134,7 @@
                                     <span class="word-container">
                                         <span class="rotating-word">20 ANOS</span>
                                         <span class="rotating-word">MELHOR</span>
-                                        <span class="rotating-word">MAIOR</span>
+                                        <span class="rotating-word">MAIOOOR</span>
                                         <span class="rotating-word">20 ANOS</span>
                                     </span>
                                 </span>
@@ -171,27 +171,32 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden" aria-hidden="true">history</span>
+                    <span
+                        class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
+                        aria-hidden="true">history</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Experiência</p>
                     <p class="text-slate-900 text-2xl font-black">+20 ANOS DE MERCADO</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
+                    <span
+                        class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">verified</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Autoridade</p>
                     <p class="text-slate-900 text-2xl font-black">REFERÊNCIA REGIONAL</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-primary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
+                    <span
+                        class="material-symbols-outlined text-primary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">inventory_2</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Logística</p>
                     <p class="text-slate-900 text-2xl font-black">ESTOQUE COMPLETO</p>
                 </div>
                 <div
                     class="bg-white p-8 shadow-2xl rounded-xl border-b-8 border-secondary group hover:-translate-y-2 transition-transform">
-                    <span class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
+                    <span
+                        class="material-symbols-outlined text-secondary text-4xl mb-4 inline-block w-[36px] h-[36px] overflow-hidden"
                         aria-hidden="true">engineering</span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Suporte</p>
                     <p class="text-slate-900 text-2xl font-black">ATENDIMENTO TÉCNICO</p>
@@ -199,33 +204,108 @@
             </div>
         </section>
 
+        <!-- Featured Products (React Mounted) -->
+        <div id="featured-products-root"></div>
+
         <!-- Brands Strip -->
-        <section class="py-12 bg-white border-b border-slate-100">
+        <section class="py-16 md:py-24 bg-white border-y border-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Título e Subtítulo -->
+                <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight mb-4">Marcas que
+                        trabalhamos</h2>
+                    <p class="text-lg text-slate-500 font-medium">Trabalhamos com as melhores marcas do mercado para
+                        garantir qualidade e segurança em todos os nossos produtos.</p>
+                </div>
+
+                <!-- Grid de Marcas -->
                 <div
-                    class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                    <img src="/Logos/vedacit-150w.webp"
-                        srcset="/Logos/vedacit-150w.webp 150w, /Logos/vedacit-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Vedacit" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
-                    <img src="/Logos/viapol-150w.webp"
-                        srcset="/Logos/viapol-150w.webp 150w, /Logos/viapol-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Viapol" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
-                    <img src="/Logos/dryko-150w.webp" srcset="/Logos/dryko-150w.webp 150w, /Logos/dryko-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Dryko" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-8 md:h-12 w-auto object-contain" />
-                    <img src="/Logos/soprema-150w.webp"
-                        srcset="/Logos/soprema-150w.webp 150w, /Logos/soprema-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Soprema" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-16 md:h-24 w-auto object-contain" />
-                    <img src="/Logos/qborg-150w.webp" srcset="/Logos/qborg-150w.webp 150w, /Logos/qborg-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Qborg" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-32 md:h-44 w-auto object-contain" />
-                    <img src="/Logos/quartzolit-150w.webp"
-                        srcset="/Logos/quartzolit-150w.webp 150w, /Logos/quartzolit-300w.webp 300w"
-                        sizes="(max-width: 768px) 80px, 120px" alt="Quartzolit" width="120" height="60" loading="lazy"
-                        decoding="async" class="brand-logo h-10 md:h-14 w-auto object-contain" />
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-slate-200 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+
+                    <!-- Vedacit -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/vedacit-150w.webp"
+                                srcset="/Logos/vedacit-150w.webp 150w, /Logos/vedacit-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Vedacit" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Vedacit</span>
+                    </div>
+
+                    <!-- Viapol -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/viapol-150w.webp"
+                                srcset="/Logos/viapol-150w.webp 150w, /Logos/viapol-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Viapol" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Viapol</span>
+                    </div>
+
+                    <!-- Dryko -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/dryko-150w.webp"
+                                srcset="/Logos/dryko-150w.webp 150w, /Logos/dryko-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Dryko" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Dryko</span>
+                    </div>
+
+                    <!-- Soprema -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/soprema-150w.webp"
+                                srcset="/Logos/soprema-150w.webp 150w, /Logos/soprema-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Soprema" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Soprema</span>
+                    </div>
+
+                    <!-- Qborg -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/qborg-150w.webp"
+                                srcset="/Logos/qborg-150w.webp 150w, /Logos/qborg-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Q-Borg Systems" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Q-Borg
+                            Systems</span>
+                    </div>
+
+                    <!-- Quartzolit -->
+                    <div
+                        class="bg-white flex flex-col items-center justify-center p-8 lg:p-10 group transition-all duration-300 hover:bg-slate-50">
+                        <div class="w-full h-12 lg:h-16 flex items-center justify-center">
+                            <img src="/Logos/quartzolit-150w.webp"
+                                srcset="/Logos/quartzolit-150w.webp 150w, /Logos/quartzolit-300w.webp 300w"
+                                sizes="(max-width: 768px) 80px, 120px" alt="Quartzolit" width="120" height="60"
+                                loading="lazy" decoding="async"
+                                class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                        </div>
+                        <span
+                            class="mt-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-700 transition-colors">Quartzolit</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -381,17 +461,6 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 bg-[#25D366] text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group"
-        href="https://wa.me/5581998008818" target="_blank" aria-label="Falar com especialista pelo WhatsApp">
-        <img src="/Logos/WhatsApp-48w.webp"
-            srcset="/Logos/WhatsApp-48w.webp 48w, /Logos/WhatsApp-64w.webp 64w, /Logos/WhatsApp-96w.webp 96w"
-            sizes="(max-width: 768px) 40px, 48px" alt="WhatsApp Imagem" width="40" height="40" loading="lazy"
-            decoding="async" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
-        <span
-            class="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all shadow-xl pointer-events-none hidden sm:block">Falar
-            com especialista</span>
-    </a>
 
     <script type="module" src="/src/main.tsx"></script>
 </body>

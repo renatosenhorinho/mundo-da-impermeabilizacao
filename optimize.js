@@ -27,7 +27,7 @@ const jobs = [
     },
     {
         pattern: /\.webp$/,
-        sizes: [404, 808],
+        sizes: [320, 404, 808],
         dir: 'images/specialized'
     }
 ];
@@ -53,7 +53,7 @@ async function optimizeImages() {
                 const outputPath = path.join(fullDir, `${fileNameWithoutExt}-${size}w.webp`);
                 const buffer = await sharp(inputBuffer)
                     .resize({ width: size, withoutEnlargement: true })
-                    .webp({ quality: 80, effort: 6 })
+                    .webp({ quality: 75, effort: 6 })
                     .toBuffer();
                 fs.writeFileSync(outputPath, buffer);
                 console.log(`  -> Created ${outputPath}`);
@@ -63,7 +63,7 @@ async function optimizeImages() {
             const maxSize = job.sizes[job.sizes.length - 1];
             const fallbackBuffer = await sharp(inputBuffer)
                 .resize({ width: maxSize, withoutEnlargement: true })
-                .webp({ quality: 80, effort: 6 })
+                .webp({ quality: 75, effort: 6 })
                 .toBuffer();
             
             fs.writeFileSync(inputPath, fallbackBuffer);

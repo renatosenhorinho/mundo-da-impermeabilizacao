@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
-import { cn } from '@/lib/utils';
+import { WhatsAppFloating } from './whatsapp-floating';
+import { useScroll } from './use-scroll';
 
 // Inline SVG X icon to avoid pulling lucide-react into the header bundle
 const XIcon = () => (
@@ -22,9 +23,11 @@ export function Header() {
     const [open, setOpen] = React.useState(false);
     // Track if menu was ever opened to trigger the lazy load
     const [hasOpened, setHasOpened] = React.useState(false);
+    const scrolled = useScroll(20);
 
     const links = [
         { label: "Início", href: "/index.html" },
+        { label: "Produtos", href: "/produtos" },
         { label: "Quem Somos", href: "/quem-somos.html" },
         { label: "Contato", href: "/contato.html" }
     ];
@@ -47,11 +50,21 @@ export function Header() {
 
     return (
         <>
-            <header className={cn(
-                "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300",
-                open ? "bg-background-dark/95 backdrop-blur-md border-b border-white/10" : "bg-transparent backdrop-blur-sm"
-            )}>
-                <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-14 items-center justify-between">
+            <header
+                className="fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300"
+                style={{
+                    backgroundColor: open
+                        ? 'rgba(16, 25, 34, 0.98)'
+                        : scrolled
+                            ? 'rgba(16, 25, 34, 0.97)'
+                            : 'rgba(16, 25, 34, 0.92)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderBottom: scrolled || open ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
+                    boxShadow: scrolled || open ? '0 4px 24px rgba(0,0,0,0.35)' : 'none',
+                }}
+            >
+                <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-[68px] items-center justify-between">
 
                     {/* Logo */}
                     <a href="/index.html" className="shrink-0" aria-label="Mundo da Impermeabilização - Página Inicial">
@@ -63,7 +76,7 @@ export function Header() {
                             width="160"
                             height="64"
                             fetchPriority="high"
-                            className="h-16 w-auto object-contain"
+                            className="h-14 w-auto object-contain"
                         />
                     </a>
 
@@ -73,7 +86,7 @@ export function Header() {
                             <a
                                 key={i}
                                 href={link.href}
-                                className="px-4 py-1.5 font-bold text-sm uppercase tracking-wider text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+                                className="px-4 py-2 font-bold text-sm uppercase tracking-wider text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
                             >
                                 {link.label}
                             </a>
@@ -83,7 +96,7 @@ export function Header() {
                             href="https://wa.me/5581998008818"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="ml-4 px-5 py-2 bg-secondary text-slate-900 font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-secondary/30 hover:brightness-110 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+                            className="ml-5 px-6 py-2.5 bg-secondary text-slate-900 font-black text-xs uppercase tracking-widest rounded-xl shadow-[0_4px_16px_rgba(251,191,36,0.35)] hover:shadow-[0_6px_20px_rgba(251,191,36,0.5)] hover:brightness-110 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200"
                         >
                             Orçamento
                         </a>
@@ -169,6 +182,9 @@ export function Header() {
                     </LazyAnimatePresence>
                 </React.Suspense>
             )}
+            
+            {/* Global WhatsApp CTA */}
+            <WhatsAppFloating />
         </>
     );
 }

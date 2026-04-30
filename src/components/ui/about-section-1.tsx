@@ -176,6 +176,7 @@ export default function AboutSection1() {
                         height="400"
                         loading="lazy"
                         decoding="async"
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 300px"
                         className="object-cover object-center w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
@@ -195,6 +196,7 @@ export default function AboutSection1() {
                         height="400"
                         loading="lazy"
                         decoding="async"
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 300px"
                         className="object-cover object-center w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
@@ -215,6 +217,7 @@ export default function AboutSection1() {
                         height="400"
                         loading="lazy"
                         decoding="async"
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 300px"
                         className="object-cover object-center w-full h-full -rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>
@@ -235,6 +238,7 @@ export default function AboutSection1() {
                         height="400"
                         loading="lazy"
                         decoding="async"
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 300px"
                         className="object-cover object-center w-full h-full rotate-6 hover:scale-110 transition-transform duration-700"
                     />
                 </TimelineContent>

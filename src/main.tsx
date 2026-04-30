@@ -1,13 +1,19 @@
 import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './styles.css';
 import { Header } from './components/ui/header-2';
+import { initAnalytics } from './lib/analytics';
+
+initAnalytics();
 
 // Lazy load page-specific components for better performance
 const ImageReveal = lazy(() => import('./components/ui/image-tiles'));
 const SpecializedSolutions = lazy(() => import('./components/ui/specialized-solutions'));
 const ContactPage = lazy(() => import('./components/ui/contact-page'));
 const QuemSomosSections = lazy(() => import('./components/ui/quem-somos-sections'));
+const FeaturedProducts = lazy(() => import('./components/ui/featured-products'));
+const HeatmapOverlay = lazy(() => import('./components/ui/heatmap-overlay').then(m => ({ default: m.HeatmapOverlay })));
 
 // Helper for mounting components with Suspense - Deferred to idle time
 const mountWithSuspense = (containerId: string, Component: React.ComponentType) => {
@@ -65,6 +71,21 @@ if (document.getElementById('image-reveal-root')) {
     }
 }
 
+if (document.getElementById('featured-products-root')) {
+    const container = document.getElementById('featured-products-root');
+    if (container) {
+        createRoot(container).render(
+            <React.StrictMode>
+                <Suspense fallback={<div className="h-64 animate-pulse bg-slate-50" />}>
+                    <BrowserRouter>
+                        <FeaturedProducts />
+                    </BrowserRouter>
+                </Suspense>
+            </React.StrictMode>
+        );
+    }
+}
+
 if (document.getElementById('specialized-solutions-root')) {
     mountWithSuspense('specialized-solutions-root', SpecializedSolutions);
 }
@@ -75,4 +96,19 @@ if (document.getElementById('contact-root')) {
 
 if (document.getElementById('quem-somos-root')) {
     mountWithSuspense('quem-somos-root', QuemSomosSections);
+}
+
+// Inject Heatmap if requested by Admin
+if (typeof window !== 'undefined' && sessionStorage.getItem('mdi_show_heatmap') === 'true') {
+    const heatmapRoot = document.createElement('div');
+    heatmapRoot.id = 'heatmap-root';
+    document.body.appendChild(heatmapRoot);
+    
+    createRoot(heatmapRoot).render(
+        <React.StrictMode>
+            <Suspense fallback={null}>
+                <HeatmapOverlay active={true} />
+            </Suspense>
+        </React.StrictMode>
+    );
 }

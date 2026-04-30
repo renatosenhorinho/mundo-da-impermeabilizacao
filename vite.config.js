@@ -11,12 +11,28 @@ const asyncCssPlugin = () => ({
   }
 });
 
+const mpaRewritePlugin = () => ({
+  name: 'mpa-rewrite',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url.startsWith('/produtos/') && !req.url.includes('.')) {
+        req.url = '/produtos.html';
+      }
+      if (req.url.startsWith('/admin')) {
+        req.url = '/admin.html';
+      }
+      next();
+    });
+  }
+});
+
 export default defineConfig({
   root: '.',
   base: '/',
   plugins: [
     react(),
     asyncCssPlugin(),
+    mpaRewritePlugin(),
   ],
   resolve: {
     alias: {
@@ -43,7 +59,9 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         quemsomos: resolve(__dirname, 'quem-somos.html'),
-        contato: resolve(__dirname, 'contato.html')
+        contato: resolve(__dirname, 'contato.html'),
+        produtos: resolve(__dirname, 'produtos.html'),
+        admin: resolve(__dirname, 'admin.html')
       },
       output: {
         manualChunks(id) {

@@ -1,0 +1,92 @@
+{
+  "manta-vedacit-rolo": {
+    "local": "/images/products/manta-asfaltica/manta-vedacit-rolo.webp",
+    "ok": false,
+    "error": "unable to verify the first certificate"
+  },
+  "manta-viapol-rolo": {
+    "local": "/images/products/manta-asfaltica/manta-viapol-rolo.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.viapol.com.br/media/490507/betumanta-flex-al-grande.png"
+  },
+  "manta-dryko-rolo": {
+    "local": "/images/products/manta-asfaltica/manta-dryko-rolo.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2021/01/Drykomanta-FlexTipo-II-PP-3mm.jpg"
+  },
+  "fita-aluminizada-rolo": {
+    "local": "/images/products/fitas-aluminizadas/fita-aluminizada-rolo.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2020/01/VEDATUDO-30CM.jpg"
+  },
+  "primer-asfaltico-lata": {
+    "local": "/images/products/primers/primer-asfaltico-lata.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2021/03/Drykoprimer-Eco.jpg"
+  },
+  "selante-pu-bisnaga": {
+    "local": "/images/products/selantes/selante-pu-bisnaga.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.qborg.com.br/files/%7B8D843616-FC02-4526-BC73-443D0B3BC320%7D_PU%20Q-40.jpg"
+  },
+  "epoxi-estrutural-kit": {
+    "local": "/images/products/adesivos-epoxi/epoxi-kit.webp",
+    "ok": false,
+    "error": "getaddrinfo ENOTFOUND quartzolit.weber.com.br"
+  },
+  "argamassa-polimerica-balde": {
+    "local": "/images/products/impermeabilizantes-cimenticios/argamassa-balde.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.viapol.com.br/media/490264/viaplus-1000-grande.png"
+  },
+  "manta-liquida-branca-balde": {
+    "local": "/images/products/manta-liquida/manta-liquida-branca.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2021/04/Drykolaje-Top-Branco-12-kg.jpg"
+  },
+  "manta-liquida-preta-balde": {
+    "local": "/images/products/manta-liquida/manta-liquida-preta.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2021/04/Drykolaje-Top-Preto-18-kg.jpg"
+  },
+  "aditivo-plastificante-galao": {
+    "local": "/images/products/aditivos/aditivo-galao.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.viapol.com.br/media/490264/viamix-grande.png"
+  },
+  "geotextil-manta": {
+    "local": "/images/products/drenagem-geotexteis/geotextil.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2020/01/geotextil.jpg"
+  },
+  "espuma-pu-frasco": {
+    "local": "/images/products/ferramentas-acessorios/espuma-pu.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2021/01/espuma-pu.jpg"
+  },
+  "backer-rod-rolo": {
+    "local": "/images/products/selamento-juntas/backer-rod.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2020/01/backer-rod.jpg"
+  },
+  "graute-saco": {
+    "local": "/images/products/graute-reparacao/graute-saco.webp",
+    "ok": false,
+    "error": "getaddrinfo ENOTFOUND quartzolit.weber.com.br"
+  },
+  "silicone-bisnaga": {
+    "local": "/images/products/selantes/silicone-bisnaga.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.qborg.com.br/files/products/silicone.jpg"
+  },
+  "xps-placa": {
+    "local": "/images/products/drenagem-geotexteis/xps-placa.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://dryko.com.br/wp-content/uploads/2020/01/xps.jpg"
+  },
+  "desmoldante-balde": {
+    "local": "/images/products/desmoldantes-cura/desmoldante.webp",
+    "ok": false,
+    "error": "HTTP 404 for https://www.viapol.com.br/media/490264/desmoldante-grande.png"
+  }
+}
