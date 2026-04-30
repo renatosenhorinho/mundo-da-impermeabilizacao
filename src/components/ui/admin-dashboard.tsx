@@ -18,6 +18,21 @@ interface Insight {
   action: string;
 }
 
+const renewSession = () => {
+  try {
+    const rawSession = localStorage.getItem("mdi_admin_session");
+    if (rawSession) {
+      const session = JSON.parse(rawSession);
+      if (session?.value) {
+        session.expiresAt = Date.now() + 1000 * 60 * 60 * 6; // Renova por +6h
+        localStorage.setItem("mdi_admin_session", JSON.stringify(session));
+      }
+    }
+  } catch (e) {
+    // Silencia erros de parse
+  }
+};
+
 export const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -80,16 +95,20 @@ export const AdminDashboard: React.FC = () => {
     const checkSession = async () => {
       try {
         if (!supabase) {
-          if (import.meta.env.DEV) {
-            // SAFE DEV MODE ONLY
-            console.warn('DEV MODE: Supabase not configured. Using local fallback.');
-            const localSession = localStorage.getItem('mdi_admin_session');
-            if (localSession) setIsAuthenticated(true);
-            setIsLoadingAuth(false);
-            return;
+          // LOCAL FALLBACK (Dev & Prod)
+          try {
+            const rawSession = localStorage.getItem('mdi_admin_session');
+            if (rawSession) {
+              const session = JSON.parse(rawSession);
+              if (session && session.value && session.expiresAt > Date.now()) {
+                setIsAuthenticated(true);
+              } else {
+                localStorage.removeItem('mdi_admin_session');
+              }
+            }
+          } catch (e) {
+            localStorage.removeItem('mdi_admin_session');
           }
-          // PRODUCTION BLOCK
-          setSystemError('Painel temporariamente indisponível. Tente novamente mais tarde.');
           setIsLoadingAuth(false);
           return;
         }
@@ -141,6 +160,38 @@ export const AdminDashboard: React.FC = () => {
     }
   }, [isAuthenticated]);
 
+  // Renovar sessão automaticamente quando o admin interage
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    
+    // Throttle para evitar escritas excessivas no localStorage
+    let throttleTimer: any = null;
+    const handleInteraction = () => {
+      if (throttleTimer) return;
+      throttleTimer = setTimeout(() => {
+        renewSession();
+        throttleTimer = null;
+      }, 60000); // Limita a 1 gravação por minuto
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        renewSession();
+      }
+    };
+
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+    document.addEventListener('visibilitychange', handleVisibility);
+    
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (throttleTimer) clearTimeout(throttleTimer);
+    };
+  }, [isAuthenticated]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
@@ -160,16 +211,17 @@ export const AdminDashboard: React.FC = () => {
         setIsLoadingAuth(false);
       }
     } else {
-      // Local fallback ONLY IN DEV
-      if (import.meta.env.DEV) {
-        if (password === 'admin123') {
-          localStorage.setItem('mdi_admin_session', JSON.stringify({ timestamp: Date.now() }));
-          setIsAuthenticated(true);
-        } else {
-          setLoginError('Senha local incorreta.');
-        }
+      // Sistema de login simples com variável de ambiente (fallback se Supabase falhar/não existir)
+      const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
+      if (ADMIN_KEY && password === ADMIN_KEY) {
+        localStorage.setItem('mdi_admin_session', JSON.stringify({
+          value: true,
+          expiresAt: Date.now() + 1000 * 60 * 60 * 6 // 6 horas
+        }));
+        setIsAuthenticated(true);
+        window.location.href = "/admin"; // Auto-redirect forçado se exigido
       } else {
-        setSystemError('Painel temporariamente indisponível. Tente novamente mais tarde.');
+        setLoginError('Senha incorreta.');
       }
     }
   };
@@ -177,10 +229,9 @@ export const AdminDashboard: React.FC = () => {
   const handleLogout = async () => {
     if (supabase) {
       await supabase.auth.signOut();
-    } else {
-      localStorage.removeItem('mdi_admin_session');
     }
-    setIsAuthenticated(false);
+    localStorage.removeItem('mdi_admin_session');
+    window.location.href = "/";
   };
 
   const toggleHeatmap = () => {
@@ -581,8 +632,8 @@ export const AdminDashboard: React.FC = () => {
 
           <div className="text-center mb-8 relative z-10">
             <span className="material-symbols-outlined text-5xl text-emerald-500 mb-4 block" aria-hidden="true">admin_panel_settings</span>
-            <h1 className="text-2xl font-black text-white tracking-wider">Workspace</h1>
-            <p className="text-slate-400 text-sm mt-2">Gestão e Analytics Seguros</p>
+            <h1 className="text-2xl font-black text-white tracking-wider">Painel Administrativo</h1>
+            <p className="text-emerald-500/80 text-xs font-bold uppercase tracking-widest mt-2">Mundo da Impermeabilização</p>
           </div>
 
           {loginError && (

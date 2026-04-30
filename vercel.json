@@ -4,6 +4,7 @@
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
     { "source": "/produtos", "destination": "/produtos.html" },
     { "source": "/produtos/:path*", "destination": "/produtos.html" },
+    { "source": "/admin", "destination": "/admin.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
