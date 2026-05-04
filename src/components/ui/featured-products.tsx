@@ -1,12 +1,38 @@
-import React, { useMemo, useSyncExternalStore } from 'react';
+import React, { useMemo, useSyncExternalStore, useState, useEffect } from 'react';
 import ProductCard from './product-card';
 import { catalogStore } from '@/data/products';
 import { useNavigate } from 'react-router-dom';
 import { MAX_DESTAQUE } from '@/config/constants';
 
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    let timeoutId: any;
+    const handleResize = () => {
+      // Debounce simples para evitar re-renders excessivos no resize
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsDesktop(window.innerWidth >= 1024);
+      }, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+  return isDesktop;
+}
+
 const FeaturedProducts: React.FC = () => {
   const navigate = useNavigate();
   const catalog = useSyncExternalStore(catalogStore.subscribe, catalogStore.getSnapshot);
+  const isDesktop = useIsDesktop();
 
   // Pegar até MAX_DESTAQUE produtos em destaque ou preencher inteligentemente
   const featuredProducts = useMemo(() => {
@@ -36,8 +62,12 @@ const FeaturedProducts: React.FC = () => {
       selected = [...selected, ...others].slice(0, MAX_DESTAQUE);
     }
     
-    return selected.slice(0, MAX_DESTAQUE); // Garante o limite exato
+    return selected.slice(0, MAX_DESTAQUE); // Garante limite máximo
   }, [catalog]);
+
+  const visibleProducts = useMemo(() => {
+    return featuredProducts.slice(0, isDesktop ? 8 : 6);
+  }, [featuredProducts, isDesktop]);
 
   return (
     <section className="py-24 bg-background-light relative z-20" id="featured-products">
@@ -53,9 +83,9 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </div>
 
-        {/* Grid de Produtos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
-          {featuredProducts.map((product) => (
+        {/* Grid de Produtos adaptável (Mobile: 2 cols x 3 rows = 6 itens | Desktop: 4 cols x 2 rows = 8 itens) */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-12">
+          {visibleProducts.map((product) => (
             <ProductCard key={product.slug} product={product} onClick={(slug) => navigate(`/produto/${slug}`)} />
           ))}
         </div>

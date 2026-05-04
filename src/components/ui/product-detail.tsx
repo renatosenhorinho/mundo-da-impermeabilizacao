@@ -3,11 +3,11 @@ import {
   getProductBySlug,
   getRelatedProducts,
   getVariacoes,
-  buildWhatsAppUrl,
-  WHATSAPP_NUMBER,
   products,
   catalogStore,
 } from '@/data/products';
+import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
+import { getSessionId } from '@/lib/analytics';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const ProductCard = React.lazy(() => import('./product-card'));
@@ -221,7 +221,8 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  const whatsappUrl = buildWhatsAppUrl(product);
+  const whatsappUrl = buildWhatsAppUrl(product.nome, getSessionId());
+  const isDisponivel = (product as any).disponivel !== false;
 
 
 
@@ -263,6 +264,17 @@ const ProductDetail: React.FC = () => {
             Voltar
           </button>
         </div>
+
+        {/* Banner de Indisponibilidade */}
+        {!isDisponivel && (
+          <div className="mb-8 flex items-center gap-3 bg-amber-50 border border-amber-200 text-amber-800 px-5 py-4 rounded-2xl shadow-sm">
+            <span className="material-symbols-outlined text-amber-500 text-2xl shrink-0" aria-hidden="true">warning</span>
+            <div>
+              <p className="font-black text-sm uppercase tracking-wide">Produto temporariamente indisponível</p>
+              <p className="text-xs font-medium mt-0.5">Estamos trabalhando para repor o estoque. Entre em contato para mais informações.</p>
+            </div>
+          </div>
+        )}
 
         {/* ── Main layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-16">
@@ -505,27 +517,37 @@ const ProductDetail: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-7xl mx-auto">
                 {/* Cotar via WhatsApp */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-[2] bg-emerald-500 hover:bg-emerald-600 text-white px-4 sm:px-8 py-3.5 sm:py-5 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_20px_rgba(16,185,129,0.25)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 sm:gap-4 group w-full"
-                  id="product-cta-whatsapp"
-                  data-track="true"
-                  data-type="whatsapp_click"
-                >
-                  <img
-                    src="/Logos/WhatsApp-48w.webp"
-                    alt=""
-                    width={28}
-                    height={28}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-6 h-6 sm:w-8 sm:h-8 object-contain group-hover:rotate-12 transition-transform"
-                    aria-hidden="true"
-                  />
-                  Receber Orçamento Agora
-                </a>
+                {isDisponivel ? (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-[2] bg-emerald-500 hover:bg-emerald-600 text-white px-4 sm:px-8 py-3.5 sm:py-5 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_20px_rgba(16,185,129,0.25)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 sm:gap-4 group w-full"
+                    id="product-cta-whatsapp"
+                    data-track="true"
+                    data-type="whatsapp_click"
+                  >
+                    <img
+                      src="/Logos/WhatsApp-48w.webp"
+                      alt=""
+                      width={28}
+                      height={28}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain group-hover:rotate-12 transition-transform"
+                      aria-hidden="true"
+                    />
+                    Receber Orçamento Agora
+                  </a>
+                ) : (
+                  <div
+                    className="flex-[2] bg-slate-200 text-slate-400 px-4 sm:px-8 py-3.5 sm:py-5 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-3 sm:gap-4 w-full cursor-not-allowed opacity-70"
+                    title="Produto indisponível no momento"
+                  >
+                    <span className="material-symbols-outlined text-slate-400" aria-hidden="true">block</span>
+                    Produto Indisponível
+                  </div>
+                )}
 
                 {/* Ficha Técnica — ONLY here, never auto-loads PDF */}
                 {product.fichaTecnica && (

@@ -2,6 +2,7 @@ import { TimelineContent } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import { WHATSAPP_NUMBER } from "@/config/constants";
 
 export default function AboutSection1() {
     const heroRef = useRef<HTMLDivElement>(null);
@@ -148,7 +149,7 @@ export default function AboutSection1() {
 
                 <TimelineContent
                     as="a"
-                    href="https://wa.me/5581996090068"
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
                     target="_blank"
                     animationNum={1}
                     customVariants={revealVariants3}

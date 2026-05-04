@@ -6,8 +6,15 @@ import {
 import { products, Product, saveCustomProducts, CATEGORIAS, generateSlug } from '@/data/products';
 import { supabase } from '@/lib/supabase';
 import { MAX_DESTAQUE } from '@/config/constants';
+import { DateRangeSelector } from '@/components/ui/date-range-selector';
+import {
+  DateRangeState,
+  filterEventsByDateRange,
+  formatRelativeDate,
+  nowISO,
+} from '@/utils/dateUtils';
 
-type Tab = 'dashboard' | 'cro' | 'catalogo' | 'leads' | 'heatmap' | 'produtos' | 'paginas' | 'conversao' | 'sessoes' | 'crm_intel';
+type Tab = 'dashboard' | 'catalogo' | 'heatmap' | 'produtos' | 'paginas' | 'conversao' | 'sessoes';
 
 interface Insight {
   id: string;
@@ -33,6 +40,45 @@ const renewSession = () => {
   }
 };
 
+const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        resolve(canvas.toDataURL('image/webp', 0.8));
+      };
+      img.onerror = error => reject(error);
+    };
+    reader.onerror = error => reject(error);
+  });
+};
+
 export const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -47,6 +93,9 @@ export const AdminDashboard: React.FC = () => {
   const [leadNoteDraft, setLeadNoteDraft] = useState('');
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
 
+  // Filtro global de período — persiste ao trocar de aba
+  const [dateRange, setDateRange] = useState<DateRangeState>({ key: '30d' });
+
   // Filters State for CRM
   const [leadSearchQuery, setLeadSearchQuery] = useState('');
   const [leadStatusFilter, setLeadStatusFilter] = useState<'todos' | Lead['status']>('todos');
@@ -58,6 +107,7 @@ export const AdminDashboard: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<Partial<Product> | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [saveToast, setSaveToast] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [catalogSearch, setCatalogSearch] = useState('');
   const [catalogSort, setCatalogSort] = useState<'recentes' | 'nome' | 'destaque'>('recentes');
@@ -249,12 +299,18 @@ export const AdminDashboard: React.FC = () => {
   // ----------------------------------------------------
   // INTELLIGENCE & METRICS CALCULATIONS
   // ----------------------------------------------------
+  // Eventos filtrados pelo período selecionado
+  const filteredEvents = useMemo(
+    () => filterEventsByDateRange(events, dateRange),
+    [events, dateRange]
+  );
+
   const metrics = useMemo(() => {
-    const pageviews = events.filter(e => e.type === 'pageview');
-    const clicks = events.filter(e => e.type === 'click');
-    const productClicks = events.filter(e => e.type === 'product_click');
-    const whatsappClicks = events.filter(e => e.type === 'whatsapp_click');
-    const timeEvents = events.filter(e => e.type === 'time_on_page');
+    const pageviews = filteredEvents.filter(e => e.type === 'pageview');
+    const clicks = filteredEvents.filter(e => e.type === 'click');
+    const productClicks = filteredEvents.filter(e => e.type === 'product_click');
+    const whatsappClicks = filteredEvents.filter(e => e.type === 'whatsapp_click');
+    const timeEvents = filteredEvents.filter(e => e.type === 'time_on_page');
 
     // Unique Sessions
     const uniqueSessions = new Set(events.map(e => e.sessionId)).size;
@@ -421,7 +477,18 @@ export const AdminDashboard: React.FC = () => {
         whatsapp: funnelWhatsappClicks
       }
     };
-  }, [events]);
+  }, [events, dateRange]);
+
+  // Última atualização do catálogo — produto com maior updated_at
+  const lastCatalogUpdate = useMemo(() => {
+    const withDate = catalogItems
+      .map(p => (p as any).updated_at)
+      .filter(Boolean)
+      .map((d: string) => new Date(d).getTime())
+      .filter((t: number) => !isNaN(t));
+    if (!withDate.length) return null;
+    return new Date(Math.max(...withDate));
+  }, [catalogItems]);
 
   const clearData = () => {
     if (confirm('Tem certeza que deseja apagar todos os dados de Analytics?')) {
@@ -433,6 +500,124 @@ export const AdminDashboard: React.FC = () => {
   // ----------------------------------------------------
   // CMS ACTIONS
   // ----------------------------------------------------
+  
+  /** Gera nome de arquivo \u00fanico para evitar sobrescrita e colisoes no bucket */
+  const generateUniqueFileName = () => {
+    const timestamp = Date.now();
+    const randomPart = Math.random().toString(36).substring(2, 10);
+    return `products/${timestamp}-${randomPart}.webp`;
+  };
+
+  /** Extrai o filePath relativo de uma URL p\u00fablica do Supabase para deletar */
+  const extractFilePathFromUrl = (url: string): string | null => {
+    if (!url || url.startsWith('data:')) return null;
+    try {
+      const match = url.match(/\/storage\/v1\/object\/public\/product-images\/(.+)/);
+      return match ? match[1] : null;
+    } catch {
+      return null;
+    }
+  };
+
+  /** Remove imagem antiga do Supabase Storage (sem bloquear fluxo em caso de erro) */
+  const deleteOldImage = async (oldUrl: string): Promise<void> => {
+    if (!supabase || !oldUrl) return;
+    const oldPath = extractFilePathFromUrl(oldUrl);
+    if (!oldPath) return;
+    try {
+      await supabase.storage.from('product-images').remove([oldPath]);
+    } catch (e) {
+      // Falha silenciosa: imagem antiga n\u00e3o bloqueia o fluxo
+      console.warn('N\u00e3o foi poss\u00edvel deletar imagem antiga:', oldPath);
+    }
+  };
+
+  /** 
+   * Upload principal: comprime \u2192 tenta Supabase \u2192 fallback base64 (s\u00f3 se arquivo pequeno)
+   * Retorna a URL final (CDN p\u00fablica ou base64) e lanca erro se nenhum funcionar.
+   */
+  const uploadImage = async (file: File, oldUrl?: string): Promise<string> => {
+    const MAX_BASE64_SIZE = 500_000; // 500KB limite para fallback local
+    
+    // 1. Comprimir primeiro (sempre)
+    const base64 = await compressImage(file);
+    
+    // 2. Tentar Supabase Storage
+    if (supabase) {
+      try {
+        const res = await fetch(base64);
+        const blob = await res.blob();
+        const filePath = generateUniqueFileName();
+
+        const { error } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, blob, {
+            contentType: 'image/webp',
+            upsert: false // Nunca sobrescrever, nome \u00fanico garante isso
+          });
+
+        if (error) throw new Error(error.message);
+
+        // 3. Sucesso no Supabase: deletar imagem antiga e retornar nova URL
+        if (oldUrl) await deleteOldImage(oldUrl);
+        
+        const { data } = supabase.storage.from('product-images').getPublicUrl(filePath);
+        return data.publicUrl;
+      } catch (e) {
+        console.error('Supabase upload falhou, tentando fallback:', e);
+        // Segue para fallback base64...
+      }
+    }
+    
+    // 4. Fallback base64 (apenas para arquivos pequenos)
+    if (file.size <= MAX_BASE64_SIZE) {
+      return base64;
+    }
+    
+    // 5. Arquivo grande + Supabase falhou = erro controlado
+    throw new Error(
+      `Imagem muito grande para fallback offline (${Math.round(file.size / 1024)}KB). ` +
+      'Verifique sua conex\u00e3o com o servidor e tente novamente.'
+    );
+  };
+
+  const handleMainImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Limpar input para permitir reselecionar o mesmo arquivo
+    e.target.value = '';
+    setIsUploadingImage(true);
+    try {
+      const oldUrl = editingProduct?.imagem || '';
+      const finalUrl = await uploadImage(file, oldUrl);
+      setEditingProduct(prev => ({ ...prev, imagem: finalUrl }));
+    } catch (error: any) {
+      setSaveToast({ type: 'error', msg: error.message || 'Erro ao processar imagem.' });
+      setTimeout(() => setSaveToast(null), 6000);
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleCarouselImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files);
+    e.target.value = '';
+    setIsUploadingImage(true);
+    try {
+      const urls = await Promise.all(files.map(f => uploadImage(f)));
+      setEditingProduct(prev => ({
+        ...prev,
+        imagens: [...(prev?.imagens || []), ...urls]
+      }));
+    } catch (error: any) {
+      setSaveToast({ type: 'error', msg: error.message || 'Erro ao processar imagens do carrossel.' });
+      setTimeout(() => setSaveToast(null), 6000);
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
   const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct || !editingProduct.nome) return;
@@ -443,7 +628,7 @@ export const AdminDashboard: React.FC = () => {
     if (editingProduct.destaque && isNew && destaqueCount >= MAX_DESTAQUE) {
       setSaveToast({
         type: 'error',
-        msg: `🚫 Limite atingido: já existem ${MAX_DESTAQUE} produtos em destaque. Remova um antes de adicionar outro.`
+        msg: `ðŸš« Limite atingido: já existem ${MAX_DESTAQUE} produtos em destaque. Remova um antes de adicionar outro.`
       });
       setTimeout(() => setSaveToast(null), 5000);
       return;
@@ -462,7 +647,8 @@ export const AdminDashboard: React.FC = () => {
         categoriaLabel: CATEGORIAS[editingProduct.categoria || 'manta-asfaltica']?.nome || editingProduct.categoria,
         ativo: true,
         ordem: editingProduct.ordem || 1,
-        isCustom: true
+        isCustom: true,
+        updated_at: nowISO(),
       };
 
       if (isNew) {
@@ -488,12 +674,45 @@ export const AdminDashboard: React.FC = () => {
   };
 
   const handleDeleteProduct = async (slug: string) => {
-    const updatedCatalog = catalogItems.map(p => p.slug === slug ? { ...p, ativo: false, isCustom: true } : p);
+    const updatedCatalog = catalogItems.map(p =>
+      p.slug === slug ? { ...p, ativo: false, isCustom: true, updated_at: nowISO() } : p
+    );
     setCatalogItems(updatedCatalog);
-
     const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
     await saveCustomProducts(dynamicOnly);
     setDeleteConfirmSlug(null);
+  };
+
+  /** Toggle de disponibilidade — update otimista imediato + salva em background */
+  const handleToggleDisponivel = async (slug: string, currentActive: boolean) => {
+    const novoEstado = !currentActive;
+    // Update otimista: UI muda instantaneamente
+    const updatedCatalog = catalogItems.map(p =>
+      p.slug === slug ? { ...p, disponivel: novoEstado, isCustom: true, updated_at: nowISO() } : p
+    );
+    setCatalogItems(updatedCatalog);
+
+    // Toast de feedback
+    setSaveToast({
+      type: novoEstado ? 'success' : 'error',
+      msg: novoEstado ? 'âœ… Produto reativado — visível no site.' : 'ðŸš« Produto desativado — oculto do site.'
+    });
+    setTimeout(() => setSaveToast(null), 3000);
+
+    // Persiste em background
+    try {
+      const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
+      await saveCustomProducts(dynamicOnly);
+
+      if (supabase) {
+        await supabase.from('products').update({ disponivel: novoEstado }).eq('slug', slug);
+      }
+    } catch (e) {
+      // Revert se falhar
+      setCatalogItems(catalogItems);
+      setSaveToast({ type: 'error', msg: 'Erro ao salvar. Tente novamente.' });
+      setTimeout(() => setSaveToast(null), 3000);
+    }
   };
 
   const openNewProductModal = () => {
@@ -660,7 +879,7 @@ export const AdminDashboard: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-[#0E1117] border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all"
-              placeholder="••••••••"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
             />
           </div>
           <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-emerald-900/50 relative z-10">
@@ -683,9 +902,7 @@ export const AdminDashboard: React.FC = () => {
 
   const navItems: { id: Tab; label: string; icon: string }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: 'monitoring' },
-    { id: 'crm_intel', label: 'CRM Inteligência', icon: 'psychology' },
     { id: 'catalogo', label: 'Gerenciar Produtos', icon: 'app_registration' },
-    { id: 'leads', label: 'Leads (Comercial)', icon: 'local_mall' },
     { id: 'heatmap', label: 'Heatmap', icon: 'local_fire_department' },
     { id: 'produtos', label: 'Insights de Produtos', icon: 'inventory_2' },
     { id: 'paginas', label: 'Páginas', icon: 'description' },
@@ -750,13 +967,13 @@ export const AdminDashboard: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 p-6 md:p-10 overflow-y-auto">
 
-        {/* 🔥 Hot Lead Alert Banner */}
+        {/* ðŸ”¥ Hot Lead Alert Banner */}
         {hotLeadAlert && (
           <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right duration-300 max-w-sm w-full">
             <div className="bg-rose-950 border border-rose-500 rounded-xl p-4 shadow-2xl shadow-rose-900/50">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">🔥</span>
+                  <span className="text-2xl">ðŸ”¥</span>
                   <div>
                     <p className="font-black text-white text-sm">Lead Quente Detectado!</p>
                     <p className="text-rose-300 text-xs mt-0.5 font-medium truncate max-w-[200px]">{hotLeadAlert.product_name}</p>
@@ -768,16 +985,16 @@ export const AdminDashboard: React.FC = () => {
                 </button>
               </div>
               <button
-                onClick={() => { setActiveTab('crm_intel'); setHotLeadAlert(null); }}
+                onClick={() => { setActiveTab('produtos'); setHotLeadAlert(null); }}
                 className="mt-3 w-full text-xs font-bold bg-rose-500 hover:bg-rose-400 text-white py-2 rounded-lg transition-colors"
               >
-                Ver no CRM →
+                Ver Insights â†’
               </button>
             </div>
           </div>
         )}
 
-        {/* 💰 Conversion Modal */}
+        {/* ðŸ’° Conversion Modal */}
         {conversionModalId && (
           <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
             <div className="bg-[#161B22] border border-slate-700 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
@@ -808,7 +1025,7 @@ export const AdminDashboard: React.FC = () => {
                   }}
                   className="flex-1 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3 rounded-xl transition-colors"
                 >
-                  ✓ Confirmar
+                  âœ“ Confirmar
                 </button>
                 <button
                   onClick={() => { setConversionModalId(null); setConversionValue(''); }}
@@ -824,15 +1041,16 @@ export const AdminDashboard: React.FC = () => {
         {/* TAB: DASHBOARD */}
         {activeTab === 'dashboard' && (
           <div className="space-y-6 animate-in fade-in duration-300">
-            <header className="flex justify-between items-end">
+            <header className="flex justify-between items-end flex-wrap gap-3">
               <div>
                 <h1 className="text-2xl font-bold text-white">Overview</h1>
                 <p className="text-sm text-slate-400 mt-1">Métricas globais de performance.</p>
               </div>
-              <div className="text-right">
+              <div className="flex items-center gap-3">
+                <DateRangeSelector value={dateRange} onChange={setDateRange} />
                 <span className="text-xs text-emerald-500 font-medium tracking-widest uppercase flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Live Tracking
+                  Live
                 </span>
               </div>
             </header>
@@ -843,6 +1061,22 @@ export const AdminDashboard: React.FC = () => {
               <MetricCard title="Cliques no WhatsApp" value={metrics.whatsappClicks} icon="chat" color="text-emerald-400" />
               <MetricCard title="Cliques em Produtos" value={metrics.totalProductClicks} icon="inventory_2" color="text-amber-400" />
               <MetricCard title="Taxa de Conversão" value={`${metrics.conversionRate}%`} icon="trending_up" color="text-indigo-400" />
+            </div>
+
+            {/* Card: Última Atualização do Catálogo */}
+            <div className="bg-[#161B22] border border-slate-800 rounded-xl p-5 relative overflow-hidden group flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-indigo-400 text-xl">history</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-slate-400 text-[11px] font-bold uppercase tracking-widest">Última atualização do catálogo</p>
+                <p className="text-white font-black text-lg mt-0.5 truncate">
+                  {formatRelativeDate(lastCatalogUpdate)}
+                </p>
+              </div>
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-indigo-400 text-6xl">edit_document</span>
+              </div>
             </div>
 
             {/* Quick Tables */}
@@ -887,7 +1121,7 @@ export const AdminDashboard: React.FC = () => {
                   {catalogSearch && ` (filtrando)`}
                   &nbsp;·&nbsp;
                   <span className={destaqueAtual >= MAX_DESTAQUE ? 'text-amber-400 font-bold' : 'text-slate-500'}>
-                    ⭐ {destaqueAtual}/{MAX_DESTAQUE} em destaque
+                    â­ {destaqueAtual}/{MAX_DESTAQUE} em destaque
                   </span>
                 </p>
               </div>
@@ -938,14 +1172,31 @@ export const AdminDashboard: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <div className="flex gap-1 shrink-0">
-                      <button onClick={() => openEditProductModal(p)} className="p-2 text-indigo-400 hover:bg-indigo-500/10 rounded-lg transition-colors">
-                        <span className="material-symbols-outlined text-[20px]">edit</span>
+                    <div className="flex gap-1 shrink-0 flex-col items-end">
+                      {/* Toggle de disponibilidade (mobile) */}
+                      <button
+                        onClick={() => handleToggleDisponivel(p.slug, (p as any).disponivel !== false)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
+                          (p as any).disponivel !== false ? 'bg-emerald-500' : 'bg-slate-600'
+                        }`}
+                        title={(p as any).disponivel !== false ? 'Desativar' : 'Ativar'}
+                      >
+                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
+                          (p as any).disponivel !== false ? 'translate-x-6' : 'translate-x-1'
+                        }`} />
                       </button>
-                      <button onClick={() => setDeleteConfirmSlug(deleteConfirmSlug === p.slug ? null : p.slug)}
-                        className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors">
-                        <span className="material-symbols-outlined text-[20px]">delete</span>
-                      </button>
+                      <span className={`text-[9px] font-bold ${
+                        (p as any).disponivel !== false ? 'text-emerald-400' : 'text-rose-400'
+                      }`}>{(p as any).disponivel !== false ? 'Disponível' : 'Inativo'}</span>
+                      <div className="flex gap-1 mt-1">
+                        <button onClick={() => openEditProductModal(p)} className="p-2 text-indigo-400 hover:bg-indigo-500/10 rounded-lg transition-colors">
+                          <span className="material-symbols-outlined text-[20px]">edit</span>
+                        </button>
+                        <button onClick={() => setDeleteConfirmSlug(deleteConfirmSlug === p.slug ? null : p.slug)}
+                          className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors">
+                          <span className="material-symbols-outlined text-[20px]">delete</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   {deleteConfirmSlug === p.slug && (
@@ -988,13 +1239,32 @@ export const AdminDashboard: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 text-slate-400 text-xs uppercase tracking-wider">{p.categoriaLabel}</td>
                         <td className="px-6 py-4 text-center">
-                          {p.destaque ? (
-                            <span className="inline-flex items-center gap-1 bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full text-[10px] font-bold border border-amber-500/20">
-                              <span className="material-symbols-outlined text-[12px]">star</span> Em destaque
+                          <div className="flex flex-col items-center gap-2">
+                            {p.destaque && (
+                              <span className="inline-flex items-center gap-1 bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full text-[10px] font-bold border border-amber-500/20">
+                                <span className="material-symbols-outlined text-[12px]">star</span> Em destaque
+                              </span>
+                            )}
+                            {/* Toggle Disponibilidade */}
+                            <button
+                              onClick={() => handleToggleDisponivel(p.slug, (p as any).disponivel !== false)}
+                              title={(p as any).disponivel !== false ? 'Clique para desativar' : 'Clique para ativar'}
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none ${
+                                (p as any).disponivel !== false ? 'bg-emerald-500' : 'bg-slate-600'
+                              }`}
+                            >
+                              <span
+                                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
+                                  (p as any).disponivel !== false ? 'translate-x-6' : 'translate-x-1'
+                                }`}
+                              />
+                            </button>
+                            <span className={`text-[10px] font-bold ${
+                              (p as any).disponivel !== false ? 'text-emerald-400' : 'text-rose-400'
+                            }`}>
+                              {(p as any).disponivel !== false ? 'Disponível' : 'Indisponível'}
                             </span>
-                          ) : (
-                            <span className="inline-block bg-slate-800 text-slate-500 px-2.5 py-1 rounded-full text-[10px] font-bold border border-slate-700">Normal</span>
-                          )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 text-right space-x-2">
                           <button onClick={() => openEditProductModal(p)} className="p-2 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 rounded-lg transition-colors" title="Editar">
@@ -1028,491 +1298,6 @@ export const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* TAB: LEADS (COMERCIAL / CRM) */}
-        {activeTab === 'leads' && (
-          <div className="space-y-6 animate-in fade-in duration-300">
-            <header className="flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-                  <span className="material-symbols-outlined text-emerald-400 text-3xl">real_estate_agent</span>
-                  CRM & Vendas
-                </h1>
-                <p className="text-sm text-slate-400 mt-1">Gerencie seu funil de vendas, atenda leads e feche negócios.</p>
-              </div>
-            </header>
-
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-[#161B22] p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <span className="material-symbols-outlined text-6xl text-white">group</span>
-                </div>
-                <h3 className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Total de Leads</h3>
-                <p className="text-4xl font-black text-white">{leads.length}</p>
-              </div>
-
-              <div className="bg-[#161B22] p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group border-b-4 border-b-sky-500">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <span className="material-symbols-outlined text-6xl text-sky-500">fiber_new</span>
-                </div>
-                <h3 className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Novos</h3>
-                <p className="text-4xl font-black text-sky-400">{metricsCRM.novos}</p>
-              </div>
-
-              <div className="bg-[#161B22] p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group border-b-4 border-b-amber-500">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <span className="material-symbols-outlined text-6xl text-amber-500">support_agent</span>
-                </div>
-                <h3 className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Em Atendimento</h3>
-                <p className="text-4xl font-black text-amber-400">{metricsCRM.emAtendimento}</p>
-              </div>
-
-              <div className="bg-[#161B22] p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group border-b-4 border-b-emerald-500">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <span className="material-symbols-outlined text-6xl text-emerald-500">monetization_on</span>
-                </div>
-                <h3 className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">Convertidos</h3>
-                <p className="text-4xl font-black text-emerald-400">{metricsCRM.convertidos}</p>
-                <div className="mt-2 text-emerald-500 text-xs font-bold">Taxa: {metricsCRM.taxaConversao}%</div>
-              </div>
-            </div>
-
-            {/* Funil Visual */}
-            <div className="bg-[#161B22] p-6 rounded-xl border border-slate-800 shadow-xl">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Funil Comercial</h3>
-              <div className="flex gap-2 w-full h-12 rounded-full overflow-hidden font-bold text-xs">
-                {metricsCRM.novos > 0 && <div style={{ width: `${(metricsCRM.novos / leads.length) * 100}%` }} className="bg-sky-500 flex items-center justify-center text-sky-950 transition-all">Novos ({metricsCRM.novos})</div>}
-                {metricsCRM.emAtendimento > 0 && <div style={{ width: `${(metricsCRM.emAtendimento / leads.length) * 100}%` }} className="bg-amber-500 flex items-center justify-center text-amber-950 transition-all">Em Atendimento ({metricsCRM.emAtendimento})</div>}
-                {metricsCRM.convertidos > 0 && <div style={{ width: `${(metricsCRM.convertidos / leads.length) * 100}%` }} className="bg-emerald-500 flex items-center justify-center text-emerald-950 transition-all">Vendas ({metricsCRM.convertidos})</div>}
-              </div>
-            </div>
-
-            {/* Filtros e Busca */}
-            <div className="bg-[#161B22] p-4 rounded-xl border border-slate-800 shadow-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
-              <div className="relative w-full sm:w-96">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">search</span>
-                <input
-                  type="text"
-                  placeholder="Buscar por nome do produto..."
-                  value={leadSearchQuery}
-                  onChange={(e) => setLeadSearchQuery(e.target.value)}
-                  className="w-full bg-[#0E1117] border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all outline-none"
-                />
-              </div>
-              <div className="flex gap-3 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-                <select
-                  value={leadStatusFilter}
-                  onChange={(e) => setLeadStatusFilter(e.target.value as any)}
-                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-2 text-slate-300 outline-none focus:border-emerald-500 cursor-pointer text-sm font-bold"
-                >
-                  <option value="todos">Todos os Status</option>
-                  <option value="novo">Novos</option>
-                  <option value="em_atendimento">Em Atendimento</option>
-                  <option value="convertido">Convertidos</option>
-                  <option value="perdido">Perdidos</option>
-                </select>
-                <select
-                  value={leadStageFilter}
-                  onChange={(e) => setLeadStageFilter(e.target.value as any)}
-                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-2 text-slate-300 outline-none focus:border-emerald-500 cursor-pointer text-sm font-bold"
-                >
-                  <option value="todos">🌡️ Todos Estágios</option>
-                  <option value="quente">🔥 Quente</option>
-                  <option value="morno">⚡ Morno</option>
-                  <option value="frio">❄️ Frio</option>
-                </select>
-                <select
-                  value={leadSortOrder}
-                  onChange={(e) => setLeadSortOrder(e.target.value as any)}
-                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-2 text-slate-300 outline-none focus:border-emerald-500 cursor-pointer text-sm font-bold"
-                >
-                  <option value="recentes">Mais Recentes</option>
-                  <option value="antigos">Mais Antigos</option>
-                  <option value="score">Maior Score</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Mobile Cards — Leads */}
-            <div className="md:hidden space-y-3">
-              {filteredLeads.length === 0 ? (
-                <div className="bg-[#161B22] border border-slate-800 rounded-xl p-8 text-center">
-                  <span className="material-symbols-outlined text-4xl text-slate-600 block mb-2">search_off</span>
-                  <p className="text-slate-500 font-bold text-sm">Nenhum lead encontrado.</p>
-                </div>
-              ) : filteredLeads.map((lead, idx) => {
-                const id = lead.id || `temp-${idx}`;
-                const status = lead.status || 'novo';
-                return (
-                  <div key={id} className="bg-[#161B22] border border-slate-800 rounded-xl p-4 space-y-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <p className="font-bold text-white text-sm truncate">{lead.product_name}</p>
-                        <p className="text-[11px] text-slate-500 truncate">Origem: {lead.page}</p>
-                        <p className="text-[11px] text-slate-600 mt-0.5 font-mono">{new Date(lead.created_at || Date.now()).toLocaleString('pt-BR')}</p>
-                      </div>
-                      <div className="flex flex-col items-end gap-1 shrink-0">
-                        <span className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold border ${statusColors[status]}`}>
-                          {statusLabels[status]}
-                        </span>
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold border ${
-                          lead.lead_stage === 'quente' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
-                          lead.lead_stage === 'morno' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                          'bg-sky-500/10 text-sky-400 border-sky-500/20'
-                        }`}>
-                          {lead.lead_stage === 'quente' ? '🔥' : lead.lead_stage === 'morno' ? '⚡' : '❄️'}
-                          {lead.lead_score ?? 0}pts
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 flex-wrap">
-                      {status !== 'em_atendimento' && (
-                        <button onClick={() => handleUpdateLeadStatus(id, 'em_atendimento')}
-                          className="flex-1 min-h-[44px] flex items-center justify-center gap-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg text-xs font-bold hover:bg-amber-500 hover:text-white transition-colors">
-                          <span className="material-symbols-outlined text-[16px]">support_agent</span> Atender
-                        </button>
-                      )}
-                      {status !== 'convertido' && (
-                        <button onClick={() => handleUpdateLeadStatus(id, 'convertido')}
-                          className="flex-1 min-h-[44px] flex items-center justify-center gap-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg text-xs font-bold hover:bg-emerald-500 hover:text-white transition-colors">
-                          <span className="material-symbols-outlined text-[16px]">monetization_on</span> Venda
-                        </button>
-                      )}
-                      {status !== 'perdido' && (
-                        <button onClick={() => handleUpdateLeadStatus(id, 'perdido')}
-                          className="flex-1 min-h-[44px] flex items-center justify-center gap-1 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-bold hover:bg-rose-500 hover:text-white transition-colors">
-                          <span className="material-symbols-outlined text-[16px]">thumb_down</span> Perdido
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Desktop Table — Leads */}
-            <div className="hidden md:block bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-              <div className="p-4 border-b border-slate-800 bg-[#0E1117] flex justify-between items-center">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">Pipeline de Leads ({filteredLeads.length})</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm whitespace-nowrap">
-                  <thead className="bg-[#0E1117] text-slate-400 uppercase text-[10px] tracking-wider">
-                    <tr>
-                      <th className="px-6 py-4 font-semibold w-48">Data</th>
-                      <th className="px-6 py-4 font-semibold">Produto de Interesse</th>
-                      <th className="px-6 py-4 font-semibold">Score / Estágio</th>
-                      <th className="px-6 py-4 font-semibold">Status</th>
-                      <th className="px-6 py-4 font-semibold">Anotações</th>
-                      <th className="px-6 py-4 font-semibold text-right">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800">
-                    {filteredLeads.length === 0 ? (
-                      <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-500 font-bold flex flex-col items-center gap-2"><span className="material-symbols-outlined text-4xl">search_off</span>Nenhum lead encontrado com estes filtros.</td></tr>
-                    ) : filteredLeads.map((lead, idx) => {
-                      const id = lead.id || `temp-${idx}`;
-                      const status = lead.status || 'novo';
-                      const isEditingNotes = editingLeadId === id;
-
-                      return (
-                        <tr key={id} className="hover:bg-slate-800/50 transition-colors">
-                          <td className="px-6 py-4 font-mono text-slate-400 text-xs">
-                            {new Date(lead.created_at || Date.now()).toLocaleString('pt-BR')}
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="font-bold text-white block truncate max-w-[250px]">{lead.product_name}</span>
-                            <span className="text-[10px] text-slate-500 block truncate max-w-[250px]">Origem: {lead.page}</span>
-                            <div className="flex items-center gap-2 mt-1">
-                              {lead.purchase_intent && (
-                                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                                  lead.purchase_intent === 'purchase' ? 'bg-rose-500/10 text-rose-400' :
-                                  lead.purchase_intent === 'comparison' ? 'bg-amber-500/10 text-amber-400' :
-                                  'bg-sky-500/10 text-sky-400'
-                                }`}>
-                                  {lead.purchase_intent === 'purchase' ? '🛒 Intenção Compra' :
-                                   lead.purchase_intent === 'comparison' ? '⚖️ Comparação' : '🔍 Exploração'}
-                                </span>
-                              )}
-                              {(lead.behavioral_metrics as any)?.utm_data && Object.keys((lead.behavioral_metrics as any).utm_data).length > 0 && (
-                                <span className="text-[9px] text-purple-400 font-bold">⚡ UTM: {(lead.behavioral_metrics as any).utm_data.utm_source}</span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            {/* Score / Stage */}
-                            <div className="flex flex-col gap-1 items-start">
-                              <div className="flex flex-wrap items-center gap-1">
-                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${
-                                  lead.lead_stage === 'quente' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
-                                  lead.lead_stage === 'morno'  ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                                  'bg-sky-500/10 text-sky-400 border-sky-500/20'
-                                }`}>
-                                  {lead.lead_stage === 'quente' ? '🔥' : lead.lead_stage === 'morno' ? '⚡' : '❄️'}
-                                  {lead.lead_stage ? lead.lead_stage.charAt(0).toUpperCase() + lead.lead_stage.slice(1) : 'Frio'}
-                                  <span className="opacity-50 ml-1">({lead.lead_score ?? 0}pts)</span>
-                                </span>
-                                {lead.recommended_action && (
-                                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold border uppercase tracking-wider ${
-                                    lead.recommended_action === 'chamar_agora' ? 'bg-rose-600/20 text-rose-500 border-rose-600/30 animate-pulse' :
-                                    lead.recommended_action === 'prioridade_alta' ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' :
-                                    lead.recommended_action === 'nutrir_lead' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' :
-                                    'bg-slate-500/20 text-slate-400 border-slate-500/30'
-                                  }`}>
-                                    {lead.recommended_action === 'chamar_agora' ? '🚨 Chamar Agora' :
-                                     lead.recommended_action === 'prioridade_alta' ? '⚡ Prioridade' :
-                                     lead.recommended_action === 'nutrir_lead' ? '🧠 Nutrir' : '⏳ Aguardar'}
-                                  </span>
-                                )}
-                              </div>
-                              {lead.lead_confidence !== undefined && (
-                                <div className="flex items-center gap-1 w-full max-w-[80px]" title="Confiança do Score (0-100)">
-                                  <div className="h-1.5 flex-1 bg-slate-800 rounded-full overflow-hidden">
-                                    <div className={`h-full ${
-                                      lead.lead_confidence > 70 ? 'bg-emerald-500' :
-                                      lead.lead_confidence > 40 ? 'bg-amber-500' : 'bg-rose-500'
-                                    }`} style={{ width: `${lead.lead_confidence}%` }} />
-                                  </div>
-                                  <span className="text-[8px] text-slate-500 font-mono">{lead.lead_confidence}%</span>
-                                </div>
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold border ${statusColors[status]}`}>
-                              {statusLabels[status]}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 w-64">
-                            {isEditingNotes ? (
-                              <div className="flex items-center gap-2">
-                                <input
-                                  autoFocus
-                                  type="text"
-                                  value={leadNoteDraft}
-                                  onChange={e => setLeadNoteDraft(e.target.value)}
-                                  className="w-full bg-[#0E1117] border border-slate-700 rounded px-2 py-1 text-white text-xs"
-                                  placeholder="Nome, zap, orçamento..."
-                                  onKeyDown={e => e.key === 'Enter' && handleSaveLeadNote(id)}
-                                />
-                                <button onClick={() => handleSaveLeadNote(id)} className="text-emerald-400 hover:text-emerald-300"><span className="material-symbols-outlined text-[16px]">save</span></button>
-                                <button onClick={() => setEditingLeadId(null)} className="text-slate-400 hover:text-white"><span className="material-symbols-outlined text-[16px]">close</span></button>
-                              </div>
-                            ) : (
-                              <div className="space-y-2">
-                                {lead.human_summary && (
-                                  <div className="bg-sky-500/10 border border-sky-500/20 p-2 rounded-lg">
-                                    <p className="text-[10px] text-sky-300 whitespace-normal leading-relaxed">{lead.human_summary}</p>
-                                  </div>
-                                )}
-                                <div className="flex items-center justify-between group cursor-pointer" onClick={() => { setEditingLeadId(id); setLeadNoteDraft(lead.notes || ''); }}>
-                                  <span className={`text-xs truncate max-w-[200px] ${lead.notes ? 'text-slate-300' : 'text-slate-600 italic'}`}>
-                                    {lead.notes || 'Adicionar nota...'}
-                                  </span>
-                                  <span className="material-symbols-outlined text-[14px] text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
-                                </div>
-                              </div>
-                            )}
-                          </td>
-                          <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
-                            <a href={`https://wa.me/?text=Olá! Vi o produto ${lead.product_name} no site.`} target="_blank" rel="noreferrer" className="p-2 text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors" title="Simular Atendimento">
-                              <span className="material-symbols-outlined text-[18px]">chat</span>
-                            </a>
-
-                            {/* Actions Dropdown Alternative (Buttons for Speed) */}
-                            {status !== 'em_atendimento' && (
-                              <button onClick={() => handleUpdateLeadStatus(id, 'em_atendimento')} className="p-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded hover:bg-amber-500 hover:text-white transition-colors" title="Marcar Em Atendimento">
-                                <span className="material-symbols-outlined text-[16px]">support_agent</span>
-                              </button>
-                            )}
-                            {status !== 'convertido' && (
-                              <button onClick={() => handleUpdateLeadStatus(id, 'convertido')} className="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded hover:bg-emerald-500 hover:text-white transition-colors" title="Marcar Venda">
-                                <span className="material-symbols-outlined text-[16px]">monetization_on</span>
-                              </button>
-                            )}
-                            {status !== 'perdido' && (
-                              <button onClick={() => handleUpdateLeadStatus(id, 'perdido')} className="p-1.5 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded hover:bg-rose-500 hover:text-white transition-colors" title="Marcar Perdido">
-                                <span className="material-symbols-outlined text-[16px]">thumb_down</span>
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
-
-
-
-        {/* TAB: CRM INTELIGÊNCIA */}
-        {activeTab === 'crm_intel' && (() => {
-          const hotLeads    = leads.filter(l => l.lead_stage === 'quente').sort((a,b) => (b.lead_score||0)-(a.lead_score||0));
-          const mornoLeads  = leads.filter(l => l.lead_stage === 'morno');
-          const frioLeads   = leads.filter(l => l.lead_stage === 'frio');
-          const converted   = leads.filter(l => l.converted);
-          const totalRev    = converted.reduce((s,l) => s + (l.conversion_value || 0), 0);
-          const convRate    = leads.length > 0 ? ((converted.length / leads.length) * 100).toFixed(1) : '0.0';
-
-          // Top pages by WA click
-          const pageMap: Record<string,number> = {};
-          leads.forEach(l => { pageMap[l.page] = (pageMap[l.page]||0)+1; });
-          const topPages = Object.entries(pageMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
-
-          // UTM sources
-          const utmMap: Record<string,number> = {};
-          leads.forEach(l => {
-            const utm = (l.behavioral_metrics as any)?.utm_data?.utm_source;
-            if (utm) utmMap[utm] = (utmMap[utm]||0)+1;
-          });
-          const topUTMs = Object.entries(utmMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
-
-          // Avg time to WA click
-          const timeSamples = leads.map(l => (l.behavioral_metrics as any)?.time_on_page || 0).filter(t=>t>0);
-          const avgTime = timeSamples.length > 0 ? Math.round(timeSamples.reduce((a,b)=>a+b,0)/timeSamples.length) : 0;
-
-          return (
-            <div className="space-y-6 animate-in fade-in duration-300">
-              <div>
-                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="material-symbols-outlined text-emerald-400">psychology</span>
-                  CRM Inteligência de Vendas
-                </h1>
-                <p className="text-sm text-slate-400 mt-1">Painel de decisão comercial em tempo real.</p>
-              </div>
-
-              {/* KPI Strip */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  { label: 'Leads Quentes 🔥', value: hotLeads.length, color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20' },
-                  { label: 'Taxa Conversão', value: convRate + '%', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-                  { label: 'Receita Gerada', value: `R$ ${totalRev.toFixed(2)}`, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
-                  { label: 'Tempo Médio/Clique', value: avgTime + 's', color: 'text-sky-400', bg: 'bg-sky-500/10 border-sky-500/20' },
-                ].map(k => (
-                  <div key={k.label} className={`${k.bg} border rounded-xl p-4`}>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{k.label}</p>
-                    <p className={`text-2xl font-black ${k.color}`}>{k.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stage Distribution */}
-              <div className="bg-[#161B22] border border-slate-800 rounded-xl p-5">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Distribuição de Estágios</h3>
-                <div className="flex gap-2 h-8 w-full rounded-full overflow-hidden">
-                  {hotLeads.length > 0 && <div style={{ width: `${(hotLeads.length/Math.max(leads.length,1))*100}%` }} className="bg-rose-500 flex items-center justify-center text-[10px] font-black text-white">🔥{hotLeads.length}</div>}
-                  {mornoLeads.length > 0 && <div style={{ width: `${(mornoLeads.length/Math.max(leads.length,1))*100}%` }} className="bg-amber-500 flex items-center justify-center text-[10px] font-black text-white">⚡{mornoLeads.length}</div>}
-                  {frioLeads.length > 0 && <div style={{ width: `${(frioLeads.length/Math.max(leads.length,1))*100}%` }} className="bg-sky-600 flex items-center justify-center text-[10px] font-black text-white">❄️{frioLeads.length}</div>}
-                  {leads.length === 0 && <div className="w-full bg-slate-800 flex items-center justify-center text-slate-500 text-xs">Sem leads ainda</div>}
-                </div>
-                <div className="flex gap-4 mt-3 text-[11px] text-slate-400">
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-500 inline-block"></span>Quente ({hotLeads.length})</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>Morno ({mornoLeads.length})</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-sky-600 inline-block"></span>Frio ({frioLeads.length})</span>
-                </div>
-              </div>
-
-              {/* Top 10 Hot Leads */}
-              <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden">
-                <div className="px-5 py-4 border-b border-slate-800 bg-[#0E1117] flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">🔥 Top Leads Mais Quentes</h3>
-                  <span className="text-[10px] text-slate-500 font-mono">ordenado por score desc</span>
-                </div>
-                {hotLeads.length === 0 ? (
-                  <div className="p-8 text-center text-slate-500 text-sm">Nenhum lead quente ainda. Continue capturando tráfego!</div>
-                ) : (
-                  <div className="divide-y divide-slate-800">
-                    {hotLeads.slice(0,10).map((lead, i) => {
-                      const bm = lead.behavioral_metrics as any;
-                      return (
-                        <div key={lead.id||i} className={`p-4 flex items-center gap-4 hover:bg-slate-800/40 transition-colors ${i === 0 ? 'bg-rose-500/5' : ''}`}>
-                          <span className="text-2xl font-black text-slate-600 w-6 shrink-0 text-center">
-                            {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`}
-                          </span>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-bold text-white text-sm truncate">{lead.product_name}</p>
-                            <p className="text-[11px] text-slate-500 truncate">{lead.page}</p>
-                            <div className="flex gap-3 mt-1 text-[10px] text-slate-400">
-                              {bm?.time_on_page > 0 && <span>⏱ {bm.time_on_page}s na página</span>}
-                              {bm?.scroll_depth > 0 && <span>📜 {bm.scroll_depth}% scroll</span>}
-                              {bm?.pages_visited > 1 && <span>📄 {bm.pages_visited} páginas</span>}
-                              {Object.keys(bm?.utm_data || {}).length > 0 && <span className="text-purple-400">⚡ UTM</span>}
-                            </div>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <div className="text-rose-400 font-black text-lg">{lead.lead_score}</div>
-                            <div className="text-[9px] text-slate-500 font-mono">pts</div>
-                          </div>
-                          {!lead.converted && (
-                            <button
-                              onClick={() => setConversionModalId(lead.id!)}
-                              className="shrink-0 text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-lg hover:bg-emerald-500 hover:text-white transition-colors"
-                            >
-                              Converteu!
-                            </button>
-                          )}
-                          {lead.converted && (
-                            <span className="shrink-0 text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-lg">
-                              ✓ {lead.conversion_value ? `R$${lead.conversion_value}` : 'Venda'}
-                            </span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Bottom Grid: Top Pages + UTM Sources */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Top Pages by Conversion */}
-                <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden">
-                  <div className="px-5 py-3 border-b border-slate-800 bg-[#0E1117]">
-                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">📊 Páginas com Mais Conversões</h3>
-                  </div>
-                  <div className="p-4 space-y-3">
-                    {topPages.length === 0 ? <p className="text-slate-500 text-xs text-center py-4">Sem dados ainda</p> : topPages.map(([page, count]) => (
-                      <div key={page}>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span className="text-slate-300 truncate max-w-[70%]">{page}</span>
-                          <span className="text-emerald-400 font-bold">{count}</span>
-                        </div>
-                        <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${(count/topPages[0][1])*100}%` }}></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* UTM Sources */}
-                <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden">
-                  <div className="px-5 py-3 border-b border-slate-800 bg-[#0E1117]">
-                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">📈 Origens UTM (ROI de Tráfego)</h3>
-                  </div>
-                  <div className="p-4 space-y-3">
-                    {topUTMs.length === 0 ? (
-                      <p className="text-slate-500 text-xs text-center py-4">Sem UTMs capturadas. Use links com utm_source=google etc.</p>
-                    ) : topUTMs.map(([source, count]) => (
-                      <div key={source}>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span className="text-purple-300 truncate max-w-[70%]">⚡ {source}</span>
-                          <span className="text-purple-400 font-bold">{count} leads</span>
-                        </div>
-                        <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-purple-500 rounded-full" style={{ width: `${(count/topUTMs[0][1])*100}%` }}></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })()}
 
         {/* TAB: HEATMAP */}
         {activeTab === 'heatmap' && (
@@ -1545,10 +1330,13 @@ export const AdminDashboard: React.FC = () => {
         {/* TAB: PRODUTOS */}
         {activeTab === 'produtos' && (
           <div className="space-y-6 animate-in fade-in duration-300">
-            <div>
-              <h1 className="text-2xl font-bold text-white">Inteligência de Produtos</h1>
-              <p className="text-sm text-slate-400 mt-1">Ranking de interesse vs intenção de compra.</p>
-            </div>
+            <header className="flex justify-between items-end flex-wrap gap-3">
+              <div>
+                <h1 className="text-2xl font-bold text-white">Inteligência de Produtos</h1>
+                <p className="text-sm text-slate-400 mt-1">Ranking de interesse vs intenção de compra.</p>
+              </div>
+              <DateRangeSelector value={dateRange} onChange={setDateRange} />
+            </header>
 
             {/* Mobile Cards — Produtos */}
             <div className="md:hidden space-y-3">
@@ -1653,13 +1441,16 @@ export const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* TAB: PÁGINAS */}
+        {/* TAB: PÁGINAS */}
         {activeTab === 'paginas' && (
           <div className="space-y-6 animate-in fade-in duration-300">
-            <div>
-              <h1 className="text-2xl font-bold text-white">Performance de Páginas</h1>
-              <p className="text-sm text-slate-400 mt-1">Tráfego e retenção por rota.</p>
-            </div>
+            <header className="flex justify-between items-end flex-wrap gap-3">
+              <div>
+                <h1 className="text-2xl font-bold text-white">Performance de Páginas</h1>
+                <p className="text-sm text-slate-400 mt-1">Tráfego e retenção por rota.</p>
+              </div>
+              <DateRangeSelector value={dateRange} onChange={setDateRange} />
+            </header>
             <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden">
               <table className="w-full text-left text-sm">
                 <thead className="bg-[#0E1117] text-slate-400 uppercase text-xs tracking-wider">
@@ -1686,13 +1477,16 @@ export const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* TAB: CONVERSÃO */}
+        {/* TAB: CONVERSÁƒO */}
         {activeTab === 'conversao' && (
           <div className="space-y-6 animate-in fade-in duration-300">
-            <div>
-              <h1 className="text-2xl font-bold text-white">Funil de Vendas</h1>
-              <p className="text-sm text-slate-400 mt-1">Jornada macro do usuário único.</p>
-            </div>
+            <header className="flex justify-between items-end flex-wrap gap-3">
+              <div>
+                <h1 className="text-2xl font-bold text-white">Funil de Vendas</h1>
+                <p className="text-sm text-slate-400 mt-1">Jornada macro do usuário Áºnico.</p>
+              </div>
+              <DateRangeSelector value={dateRange} onChange={setDateRange} />
+            </header>
             <div className="max-w-2xl bg-[#161B22] border border-slate-800 rounded-xl p-8">
               <div className="space-y-6 relative">
                 {/* Line connection */}
@@ -1727,13 +1521,16 @@ export const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* TAB: SESSÕES */}
+        {/* TAB: SESSÁ•ES */}
         {activeTab === 'sessoes' && (
           <div className="space-y-6 animate-in fade-in duration-300">
-            <div>
-              <h1 className="text-2xl font-bold text-white">Sessões Recentes</h1>
-              <p className="text-sm text-slate-400 mt-1">Análise de visitantes individuais (anonimizados).</p>
-            </div>
+            <header className="flex justify-between items-end flex-wrap gap-3">
+              <div>
+                <h1 className="text-2xl font-bold text-white">Sessões Recentes</h1>
+                <p className="text-sm text-slate-400 mt-1">Análise de visitantes individuais (anonimizados).</p>
+              </div>
+              <DateRangeSelector value={dateRange} onChange={setDateRange} />
+            </header>
             <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden">
               <table className="w-full text-left text-sm">
                 <thead className="bg-[#0E1117] text-slate-400 uppercase text-xs tracking-wider">
@@ -1870,19 +1667,77 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Imagem */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">URL da Imagem</label>
-                  <div className="flex gap-3 items-start">
-                    <input type="text" value={editingProduct.imagem}
-                      onChange={e => setEditingProduct({ ...editingProduct, imagem: e.target.value })}
-                      className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none"
-                      placeholder="/images/products/... ou http://..." />
-                    <div className="w-14 h-14 bg-white rounded-lg border border-slate-700 overflow-hidden flex items-center justify-center p-1 shrink-0">
-                      {editingProduct.imagem ? (
-                        <img src={editingProduct.imagem} alt="Preview" className="max-w-full max-h-full object-contain" />
-                      ) : (
-                        <span className="material-symbols-outlined text-slate-400">image</span>
-                      )}
+                <div className="bg-[#161B22] p-4 rounded-xl border border-slate-800">
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Mídia do Produto</label>
+                  
+                  {/* Imagem Principal */}
+                  <div className="mb-6">
+                    <span className="block text-sm font-bold text-slate-300 mb-2">Imagem Principal *</span>
+                    <div className="flex gap-4 items-start">
+                      <div className="w-24 h-24 bg-[#0E1117] rounded-xl border-2 border-dashed border-slate-700 overflow-hidden flex items-center justify-center p-2 shrink-0 relative group">
+                        {editingProduct.imagem ? (
+                          <>
+                            <img src={editingProduct.imagem} alt="Preview" className="max-w-full max-h-full object-contain" />
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <button type="button" onClick={() => setEditingProduct({ ...editingProduct, imagem: '' })} className="text-rose-500 bg-rose-500/20 p-1.5 rounded-lg hover:bg-rose-500/40 transition-colors">
+                                <span className="material-symbols-outlined text-[18px]">delete</span>
+                              </button>
+                            </div>
+                          </>
+                        ) : (
+                          <span className="material-symbols-outlined text-slate-600 text-3xl">image</span>
+                        )}
+                      </div>
+                      <div className="flex-1 space-y-3">
+                        <label className={`flex items-center justify-center gap-2 font-bold py-2 px-4 rounded-lg transition-all w-full md:w-auto text-sm ${isUploadingImage ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 cursor-pointer'}`}>
+                          {isUploadingImage ? (
+                            <div className="w-4 h-4 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            <span className="material-symbols-outlined text-[18px]">upload</span>
+                          )}
+                          {isUploadingImage ? 'Processando...' : 'Fazer Upload da Imagem'}
+                          <input type="file" accept="image/*" disabled={isUploadingImage} onChange={handleMainImageUpload} className="hidden" />
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <span className="text-slate-500 text-xs font-bold">OU URL:</span>
+                          <input type="text" value={editingProduct.imagem || ''}
+                            disabled={isUploadingImage}
+                            onChange={e => setEditingProduct({ ...editingProduct, imagem: e.target.value })}
+                            className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-indigo-500 transition-all outline-none text-xs disabled:opacity-50"
+                            placeholder="https://..." />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Carrossel de Imagens */}
+                  <div>
+                    <span className="block text-sm font-bold text-slate-300 mb-2">Imagens do Carrossel (Opcional)</span>
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap gap-3">
+                        {(editingProduct.imagens || []).map((img, idx) => (
+                          <div key={idx} className="w-16 h-16 bg-[#0E1117] rounded-lg border border-slate-700 overflow-hidden relative group">
+                            <img src={img} alt={`Carousel ${idx}`} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <button type="button" onClick={() => {
+                                const newImgs = [...(editingProduct.imagens || [])];
+                                newImgs.splice(idx, 1);
+                                setEditingProduct({ ...editingProduct, imagens: newImgs });
+                              }} className="text-rose-500 bg-rose-500/20 p-1 rounded-md hover:bg-rose-500/40">
+                                <span className="material-symbols-outlined text-[14px]">delete</span>
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                        <label className={`w-16 h-16 rounded-lg flex items-center justify-center transition-colors group ${isUploadingImage ? 'bg-slate-800 text-slate-600 cursor-not-allowed border border-slate-700' : 'bg-indigo-500/5 hover:bg-indigo-500/10 border-2 border-dashed border-indigo-500/30 cursor-pointer text-indigo-400'}`}>
+                          {isUploadingImage ? (
+                            <div className="w-5 h-5 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            <span className="material-symbols-outlined group-hover:scale-110 transition-transform">add_photo_alternate</span>
+                          )}
+                          <input type="file" accept="image/*" multiple disabled={isUploadingImage} onChange={handleCarouselImagesUpload} className="hidden" />
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1900,7 +1755,7 @@ export const AdminDashboard: React.FC = () => {
                 {/* Indicado Para */}
                 <div className="border-t border-slate-800 pt-4">
                   <p className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">web</span>Conteúdo da Página
+                    <span className="material-symbols-outlined text-sm">web</span>ConteÁºdo da Página
                   </p>
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Indicado Para</label>
                   <p className="text-[10px] text-slate-600 mb-2">Aparece como chips na página do produto.</p>
@@ -1955,14 +1810,14 @@ export const AdminDashboard: React.FC = () => {
 
                   {/* Especificações */}
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Especificações Técnicas</label>
-                  <p className="text-[10px] text-slate-600 mb-2">Chave → Valor (ex: Espessura → 3mm). Exibido como tabela.</p>
+                  <p className="text-[10px] text-slate-600 mb-2">Chave â†’ Valor (ex: Espessura â†’ 3mm). Exibido como tabela.</p>
                   <div className="space-y-2">
                     {specsInput.map((spec, i) => (
                       <div key={i} className="flex items-center gap-2">
                         <input type="text" value={spec.key} placeholder="Chave"
                           onChange={e => { const n=[...specsInput]; n[i]={...n[i],key:e.target.value}; setSpecsInput(n); const o:Record<string,string>={}; n.filter(s=>s.key.trim()).forEach(s=>{o[s.key]=s.val;}); setEditingProduct({...editingProduct,especificacoes:o}); }}
                           className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-indigo-500 outline-none" />
-                        <span className="text-slate-600">→</span>
+                        <span className="text-slate-600">â†’</span>
                         <input type="text" value={spec.val} placeholder="Valor"
                           onChange={e => { const n=[...specsInput]; n[i]={...n[i],val:e.target.value}; setSpecsInput(n); const o:Record<string,string>={}; n.filter(s=>s.key.trim()).forEach(s=>{o[s.key]=s.val;}); setEditingProduct({...editingProduct,especificacoes:o}); }}
                           className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-indigo-500 outline-none" />

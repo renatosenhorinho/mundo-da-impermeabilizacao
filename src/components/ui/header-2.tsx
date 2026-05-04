@@ -3,6 +3,7 @@ import React from 'react';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { WhatsAppFloating } from './whatsapp-floating';
 import { useScroll } from './use-scroll';
+import { WHATSAPP_NUMBER } from '@/config/constants';
 
 // Inline SVG X icon to avoid pulling lucide-react into the header bundle
 const XIcon = () => (
@@ -93,7 +94,7 @@ export function Header() {
                         ))}
 
                         <a
-                            href="https://wa.me/5581998008818"
+                            href={`https://wa.me/${WHATSAPP_NUMBER}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="ml-5 px-6 py-2.5 bg-secondary text-slate-900 font-black text-xs uppercase tracking-widest rounded-xl shadow-[0_4px_16px_rgba(251,191,36,0.35)] hover:shadow-[0_6px_20px_rgba(251,191,36,0.5)] hover:brightness-110 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200"
@@ -163,7 +164,7 @@ export function Header() {
                                         ))}
 
                                         <a
-                                            href="https://wa.me/5581998008818"
+                                            href={`https://wa.me/${WHATSAPP_NUMBER}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="mt-8 py-5 bg-secondary text-slate-900 rounded-xl font-black text-center text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-xl"

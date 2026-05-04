@@ -8,6 +8,9 @@ import {
   type Product,
 } from '@/data/products';
 import { useNavigate, useParams } from 'react-router-dom';
+import { WHATSAPP_NUMBER } from '@/config/constants';
+import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
+import { getSessionId } from '@/lib/analytics';
 
 const ProductCard = React.lazy(() => import('./product-card'));
 
@@ -421,7 +424,7 @@ const CatalogGrid: React.FC = () => {
                 </p>
               </div>
               <a
-                href={`https://wa.me/5581998008818?text=${encodeURIComponent('Olá! Estou no site e gostaria de ajuda para escolher o produto ideal.')}`}
+                href={buildWhatsAppUrl(undefined, getSessionId())}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-emerald-500 hover:bg-emerald-600 text-white shrink-0 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-emerald-200 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-3"
@@ -463,7 +466,7 @@ const CatalogGrid: React.FC = () => {
                 Limpar filtros
               </button>
               <a
-                href={`https://wa.me/5581998008818?text=${encodeURIComponent('Olá! Não encontrei o produto que procurava no catálogo. Pode me ajudar?')}`}
+                href={buildWhatsAppUrl(undefined, getSessionId())}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-emerald-500 text-white px-8 py-4 rounded-xl font-black uppercase tracking-wider hover:brightness-110 shadow-lg shadow-emerald-200 transition-all flex items-center justify-center gap-2"

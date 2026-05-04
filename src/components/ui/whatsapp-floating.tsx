@@ -1,14 +1,15 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { WHATSAPP_NUMBER } from '@/config/constants';
+import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
+import { getSessionId } from '@/lib/analytics';
 
 interface WhatsAppFloatingProps {
   className?: string;
 }
 
 export const WhatsAppFloating: React.FC<WhatsAppFloatingProps> = ({ className }) => {
-  const WHATSAPP_NUMBER = '5581998008818';
-  const message = encodeURIComponent('Olá! Estou no site e gostaria de ajuda para escolher o produto ideal.');
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+  const url = buildWhatsAppUrl(undefined, getSessionId());
 
   return (
     <>

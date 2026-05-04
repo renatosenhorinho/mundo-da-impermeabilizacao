@@ -277,7 +277,7 @@ export function normalizeForSearch(text: string): string {
 /**
  * Converte qualquer texto em slug URL-safe.
  * Remove acentos, converte para minúsculas, substitui espaços/especiais por hífens.
- * NÃO garante unicidade — use `deduplicateSlugs()` para isso.
+ * NÁO garante unicidade — use `deduplicateSlugs()` para isso.
  *
  * @example
  * generateSlug("Manta Asfáltica Vedacit 3mm") → "manta-asfaltica-vedacit-3mm"
@@ -463,17 +463,6 @@ export function getMarcas(): Brand[] {
   })).sort((a, b) => b.count - a.count);
 }
 
-/**
- * Gera URL do WhatsApp com mensagem pré-preenchida.
- * Altere WHATSAPP_NUMBER conforme necessário.
- */
-export const WHATSAPP_NUMBER = '5581998008818';
-
-export function buildWhatsAppUrl(product: Product): string {
-  const sessionId = getSessionId();
-  const msg = `Olá, tenho interesse no produto: ${product.nome}\n\n[ID: ${sessionId}]`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-}
 
 // ─── Dados de Exemplo ─────────────────────────────────────────────────────────
 // Para catálogos grandes, divida em arquivos por categoria:
@@ -2878,7 +2867,7 @@ const rawProducts: Product[] = [
   },
   {
     codigo: '287',
-    nomeOriginal: 'MAXPRIMER GALÃO 3,6 KG',
+    nomeOriginal: 'MAXPRIMER GALÁO 3,6 KG',
     nome: 'Maxton Maxprimer Asfáltico',
     slug: generateSlug('Maxton Maxprimer Asfaltico 3-6KG'),
     categoria: 'primer',
@@ -3487,7 +3476,7 @@ const rawProducts: Product[] = [
 
   // ── LOTE 7: ADITIVOS ───────────────────────────────────────────────────────
 
-  // ── MARCA NÃO INFORMADA / GENÉRICOS
+  // ── MARCA NÁO INFORMADA / GENÉRICOS
   {
     codigo: '10',
     nomeOriginal: 'ADITIVO PLASTIFICANTE BLD 18L',
@@ -4095,7 +4084,7 @@ const rawProducts: Product[] = [
     palavrasChave: ['dryko', 'epóxi', 'tx', 'tixotrópico', 'adesivo estrutural'],
   },
 
-  // ── LOTE 9: GRAUTE E REPARAÇÃO ESTRUTURAL ───────────────────────────────────
+  // ── LOTE 9: GRAUTE E REPARAÇÁO ESTRUTURAL ───────────────────────────────────
 
   // ── QUARTZOLIT
   {
@@ -4415,7 +4404,7 @@ const rawProducts: Product[] = [
   // ── MACTEX
   {
     codigo: '124',
-    nomeOriginal: 'GEOTEXTIL NÃO TECIDO MACTEX IL 21.2',
+    nomeOriginal: 'GEOTEXTIL NÁO TECIDO MACTEX IL 21.2',
     nome: 'Mactex Geotêxtil Não Tecido IL 21.2',
     slug: generateSlug('Mactex Geotextil Nao Tecido IL 21 2'),
     categoria: 'drenagem-e-geotexteis',

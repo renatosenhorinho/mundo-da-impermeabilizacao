@@ -1,15 +1,40 @@
-import React, { useState } from "react";
-import { Phone, MapPin, Instagram, MessageCircle, Send } from "lucide-react";
+import React, { useState, useCallback } from "react";
+import { Phone, MapPin, Instagram, MessageCircle, Send, Copy, Check } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import { WHATSAPP_NUMBER } from "@/config/constants";
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const PHONE_NUMBER_RAW = "8133390124";
+const PHONE_DISPLAY = "(81) 3339-0124";
+const PHONE_HREF = `tel:+55${PHONE_NUMBER_RAW}`;
+
+const SPECIALIST_1_NUMBER = "5581996090068";
+const SPECIALIST_2_NUMBER = WHATSAPP_NUMBER; // from constants
+
+const SOURCE_TAG = encodeURIComponent(" (Vim pela página de contato)");
+
+const buildWaUrl = (number: string, rawMessage: string): string => {
+    const encoded = encodeURIComponent(rawMessage) + SOURCE_TAG;
+    return `https://wa.me/${number}?text=${encoded}`;
+};
+
+const WA_SPECIALIST_1 = buildWaUrl(
+    SPECIALIST_1_NUMBER,
+    "Olá! Vim pelo site e gostaria de falar com um especialista sobre impermeabilização."
+);
+const WA_SPECIALIST_2 = buildWaUrl(
+    SPECIALIST_2_NUMBER,
+    "Olá! Preciso de ajuda com um produto de impermeabilização. Pode me orientar?"
+);
+
+// ─── Animation Variants ───────────────────────────────────────────────────────
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
-        }
+        transition: { staggerChildren: 0.1, delayChildren: 0.2 }
     }
 };
 
@@ -21,6 +46,106 @@ const itemVariants: Variants = {
         transition: { duration: 0.5, ease: "easeOut" }
     }
 };
+
+// ─── WhatsApp Button Component ────────────────────────────────────────────────
+
+interface WhatsAppButtonProps {
+    href: string;
+    label: string;
+    specialist: string;
+}
+
+function WhatsAppButton({ href, label, specialist }: WhatsAppButtonProps) {
+    return (
+        <div className="space-y-1">
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Conversar no WhatsApp com ${specialist}`}
+                className="
+                    flex items-center justify-center gap-3
+                    min-h-[52px] w-full
+                    bg-[#25D366] hover:bg-[#20c05c] active:bg-[#1aad52]
+                    text-white font-black text-sm uppercase tracking-widest
+                    rounded-2xl px-6 py-4
+                    shadow-lg shadow-[#25D366]/30
+                    transition-all duration-200
+                    active:scale-95
+                "
+            >
+                {/* WhatsApp SVG icon */}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-5 h-5 shrink-0"
+                    aria-hidden="true"
+                >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                {label}
+            </a>
+            <p className="text-center text-xs text-slate-400 font-medium">
+                Atendimento rápido • Sem compromisso
+            </p>
+        </div>
+    );
+}
+
+// ─── Phone Row Component ──────────────────────────────────────────────────────
+
+function PhoneRow() {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = useCallback(() => {
+        navigator.clipboard.writeText(PHONE_NUMBER_RAW).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    }, []);
+
+    return (
+        <div className="flex items-center gap-3 flex-wrap">
+            <a
+                href={PHONE_HREF}
+                className="text-slate-700 font-bold text-base hover:text-primary transition-colors"
+                aria-label={`Ligar para ${PHONE_DISPLAY}`}
+            >
+                {PHONE_DISPLAY}
+            </a>
+            <button
+                onClick={handleCopy}
+                aria-label={copied ? "Número copiado" : "Copiar número"}
+                title={copied ? "Copiado!" : "Copiar número"}
+                className="
+                    flex items-center gap-1.5
+                    text-xs font-bold uppercase tracking-wide
+                    px-3 py-1.5 rounded-lg
+                    border border-slate-200 bg-slate-50
+                    hover:bg-slate-100 hover:border-slate-300
+                    active:scale-95
+                    transition-all duration-150
+                    text-slate-500 hover:text-slate-700
+                "
+            >
+                {copied ? (
+                    <>
+                        <Check size={12} aria-hidden="true" />
+                        Copiado!
+                    </>
+                ) : (
+                    <>
+                        <Copy size={12} aria-hidden="true" />
+                        Copiar
+                    </>
+                )}
+            </button>
+        </div>
+    );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -36,35 +161,40 @@ export default function ContactPage() {
         e.preventDefault();
         setStatus("loading");
 
-        // Format message for WhatsApp
         const message = `Olá, me chamo ${formData.name}.
 📌 *Assunto:* ${formData.subject}
 📧 *E-mail:* ${formData.email}
 📱 *WhatsApp:* ${formData.phone}
 
 📝 *Mensagem:*
-${formData.message}`;
+${formData.message}
+
+(Formulário do site — página de contato)`;
 
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/5581998008818?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
-        // Redirect immediately to avoid popup blockers
         setStatus("success");
         window.open(whatsappUrl, "_blank", "noopener,noreferrer");
         setFormData({ name: "", email: "", phone: "", subject: "Impermeabilização", message: "" });
 
-        // Reset status after a delay so the UI doesn't flicker
         setTimeout(() => setStatus("idle"), 3000);
     };
-
-
 
     return (
         <main className="bg-background-light min-h-screen">
             {/* Hero Section */}
             <section className="bg-background-dark py-24 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20" aria-hidden="true">
-                    <img src="/hero-bg.webp" alt="" width="1920" height="400" className="w-full h-full object-cover" loading="eager" decoding="async" />
+                    <img
+                        src="/hero-bg.webp"
+                        alt=""
+                        width="1920"
+                        height="400"
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                    />
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <motion.div
@@ -87,6 +217,7 @@ ${formData.message}`;
             <section className="py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
                         {/* Info Column */}
                         <motion.div
                             variants={containerVariants}
@@ -106,55 +237,89 @@ ${formData.message}`;
                             </motion.div>
 
                             <div className="space-y-8">
-                                {[
-                                    { icon: MapPin, title: "Nosso Endereço", content: "Av. Recife, 2220 - Ipsep\nRecife - PE, 51350-670" },
-                                    { icon: Phone, title: "Telefone Fixo", content: "(81) 3339-0124" },
-                                    {
-                                        icon: MessageCircle,
-                                        title: "WhatsApp Especialista 1",
-                                        content: "(81) 99609-0068",
-                                        link: "https://wa.me/5581996090068",
-                                        linkText: "Iniciar Conversa"
-                                    },
-                                    {
-                                        icon: MessageCircle,
-                                        title: "WhatsApp Especialista 2",
-                                        content: "(81) 99800-8818",
-                                        link: "https://wa.me/5581998008818",
-                                        linkText: "Iniciar Conversa"
-                                    },
-                                    {
-                                        icon: Instagram,
-                                        title: "Instagram",
-                                        content: "@mundodaimpermeabilizacao",
-                                        link: "https://www.instagram.com/mundodaimpermeabilizacao/",
-                                        linkText: "Seguir no Instagram"
-                                    }
-                                ].map((item, index) => (
-                                    <motion.div
-                                        key={index}
-                                        variants={itemVariants}
-                                        className="flex items-start gap-6 group"
-                                    >
-                                        <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
-                                            <item.icon size={28} aria-hidden="true" />
-                                        </div>
+
+                                {/* Endereço */}
+                                <motion.div variants={itemVariants} className="flex items-start gap-6 group">
+                                    <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                                        <MapPin size={28} aria-hidden="true" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-black text-slate-900 uppercase mb-1">Nosso Endereço</h3>
+                                        <p className="text-slate-600 font-medium whitespace-pre-line">
+                                            Av. Recife, 2220 - Ipsep{"\n"}Recife - PE, 51350-670
+                                        </p>
+                                    </div>
+                                </motion.div>
+
+                                {/* Telefone Fixo — clicável + copiar */}
+                                <motion.div variants={itemVariants} className="flex items-start gap-6 group">
+                                    <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                                        <Phone size={28} aria-hidden="true" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-lg font-black text-slate-900 uppercase mb-1">Telefone Fixo</h3>
+                                        <PhoneRow />
+                                        <p className="text-xs text-slate-400 font-medium">
+                                            No celular, toque para ligar diretamente
+                                        </p>
+                                    </div>
+                                </motion.div>
+
+                                {/* WhatsApp Especialista 1 */}
+                                <motion.div variants={itemVariants} className="flex items-start gap-6 group">
+                                    <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                                        <MessageCircle size={28} aria-hidden="true" />
+                                    </div>
+                                    <div className="flex-1 space-y-3">
                                         <div>
-                                            <h3 className="text-lg font-black text-slate-900 uppercase mb-1">{item.title}</h3>
-                                            <p className="text-slate-600 font-medium whitespace-pre-line">{item.content}</p>
-                                            {item.link && (
-                                                <a
-                                                    href={item.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-primary font-bold text-sm uppercase mt-2 inline-block border-b-2 border-primary/20 hover:border-primary transition-all"
-                                                >
-                                                    {item.linkText}
-                                                </a>
-                                            )}
+                                            <h3 className="text-lg font-black text-slate-900 uppercase mb-0.5">WhatsApp Especialista 1</h3>
+                                            <p className="text-slate-500 font-medium text-sm">(81) 99609-0068</p>
                                         </div>
-                                    </motion.div>
-                                ))}
+                                        <WhatsAppButton
+                                            href={WA_SPECIALIST_1}
+                                            label="Conversar no WhatsApp"
+                                            specialist="Especialista 1"
+                                        />
+                                    </div>
+                                </motion.div>
+
+                                {/* WhatsApp Especialista 2 */}
+                                <motion.div variants={itemVariants} className="flex items-start gap-6 group">
+                                    <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                                        <MessageCircle size={28} aria-hidden="true" />
+                                    </div>
+                                    <div className="flex-1 space-y-3">
+                                        <div>
+                                            <h3 className="text-lg font-black text-slate-900 uppercase mb-0.5">WhatsApp Especialista 2</h3>
+                                            <p className="text-slate-500 font-medium text-sm">(81) 99800-8818</p>
+                                        </div>
+                                        <WhatsAppButton
+                                            href={WA_SPECIALIST_2}
+                                            label="Conversar no WhatsApp"
+                                            specialist="Especialista 2"
+                                        />
+                                    </div>
+                                </motion.div>
+
+                                {/* Instagram */}
+                                <motion.div variants={itemVariants} className="flex items-start gap-6 group">
+                                    <div className="w-14 h-14 bg-white shadow-xl rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                                        <Instagram size={28} aria-hidden="true" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-black text-slate-900 uppercase mb-1">Instagram</h3>
+                                        <p className="text-slate-600 font-medium">@mundodaimpermeabilizacao</p>
+                                        <a
+                                            href="https://www.instagram.com/mundodaimpermeabilizacao/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary font-bold text-sm uppercase mt-2 inline-block border-b-2 border-primary/20 hover:border-primary transition-all"
+                                        >
+                                            Seguir no Instagram
+                                        </a>
+                                    </div>
+                                </motion.div>
+
                             </div>
                         </motion.div>
 
@@ -236,18 +401,21 @@ ${formData.message}`;
                                         placeholder="Como podemos ajudar sua obra?"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    ></textarea>
+                                    />
                                 </div>
 
                                 <button
                                     disabled={status === "loading"}
                                     type="submit"
                                     aria-label={status === "loading" ? "Enviando mensagem" : "Enviar mensagem via WhatsApp"}
-                                    className="w-full bg-primary hover:bg-primary/95 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 transition-all disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95 mb-8 sm:mb-0"
+                                    className="w-full bg-primary hover:bg-primary/95 text-white min-h-[52px] py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 transition-all disabled:opacity-50 flex items-center justify-center gap-3 active:scale-95"
                                 >
                                     {status === "loading" ? "Enviando..." : status === "success" ? "Mensagem Enviada!" : "Enviar Mensagem"}
                                     <Send size={18} aria-hidden="true" />
                                 </button>
+                                <p className="text-center text-xs text-slate-400 font-medium -mt-2">
+                                    Atendimento rápido • Sem compromisso
+                                </p>
 
                                 {status === "success" && (
                                     <motion.p
@@ -275,8 +443,8 @@ ${formData.message}`;
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-                <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-background-light to-transparent pointer-events-none"></div>
+                />
+                <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-background-light to-transparent pointer-events-none" />
             </section>
         </main>
     );
