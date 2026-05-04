@@ -1,11 +1,19 @@
-﻿import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './styles.css';
 import { Header } from './components/ui/header-2';
 import { initAnalytics } from './lib/analytics';
 
-initAnalytics();
+// ── Analytics: defer until browser is idle to never block LCP ──
+if (typeof window !== 'undefined') {
+  const scheduleAnalytics = () => { initAnalytics(); };
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(scheduleAnalytics, { timeout: 3000 });
+  } else {
+    setTimeout(scheduleAnalytics, 200);
+  }
+}
 
 // Lazy load page-specific components for better performance
 const ImageReveal = lazy(() => import('./components/ui/image-tiles'));

@@ -1,10 +1,10 @@
+import { memo, useRef } from "react";
 import { TimelineContent } from "@/components/ui/timeline-animation";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 import { ArrowRight } from "lucide-react";
-import { useRef } from "react";
 import { WHATSAPP_NUMBER } from "@/config/constants";
 
-export default function AboutSection1() {
+const AboutSection1 = memo(function AboutSection1() {
     const heroRef = useRef<HTMLDivElement>(null);
 
     const revealVariants = {
@@ -246,4 +246,6 @@ export default function AboutSection1() {
             </div>
         </section>
     );
-}
+});
+
+export default AboutSection1;
