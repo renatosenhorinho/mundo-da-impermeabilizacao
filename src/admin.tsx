@@ -35,12 +35,19 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+import { AuthProvider } from './lib/auth';
+import { ProtectedRoute } from './components/ui/protected-route';
+
 const container = document.getElementById('admin-root');
 if (container) {
   createRoot(container).render(
     <React.StrictMode>
       <ErrorBoundary>
-        <AdminDashboard />
+        <AuthProvider>
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        </AuthProvider>
       </ErrorBoundary>
     </React.StrictMode>
   );

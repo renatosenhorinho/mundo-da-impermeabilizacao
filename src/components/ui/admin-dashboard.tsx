@@ -4,9 +4,21 @@ import {
   BehavioralMetrics, onHotLead, markLeadConverted, LeadScoreBreakdown
 } from '@/lib/analytics';
 import { products, Product, saveCustomProducts, CATEGORIAS, generateSlug } from '@/data/products';
+import { normalizeBrandName } from '@/constants/brands';
+import {
+  productsStore,
+  revalidateProducts,
+  saveProductToSupabase,
+  invalidateProductsCache,
+  fetchProducts,
+} from '@/lib/products-service';
+import { getBrands, deleteBrand, mergeBrands } from '@/lib/brands-service';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/lib/auth';
 import { MAX_DESTAQUE } from '@/config/constants';
-import { DateRangeSelector } from '@/components/ui/date-range-selector';
+import { DateRangeSelector, DateRangePresets } from '@/components/ui/date-range-selector';
+import { ManageBrandsModal } from '@/components/ui/manage-brands-modal';
+import { NormalizeBrandsModal } from '@/components/ui/normalize-brands-modal';
 import {
   DateRangeState,
   filterEventsByDateRange,
@@ -14,7 +26,14 @@ import {
   nowISO,
 } from '@/utils/dateUtils';
 
-type Tab = 'dashboard' | 'catalogo' | 'heatmap' | 'produtos' | 'paginas' | 'conversao' | 'sessoes';
+type Tab = 'dashboard' | 'catalogo' | 'heatmap' | 'produtos' | 'paginas' | 'conversao' | 'sessoes' | 'sistema';
+
+interface AdminLogEntry {
+  id: string;
+  action: string;
+  detail: string;
+  at: string;
+}
 
 interface Insight {
   id: string;
@@ -40,51 +59,67 @@ const renewSession = () => {
   }
 };
 
-const compressImage = (file: File): Promise<string> => {
+/** Hard limit pós-compressão — rejeita se ainda passar disto */
+const SIZE_HARD_CAP = 512_000; // 500 KB
+
+/**
+ * compressToBlob — pipeline zero-base64:
+ *   1. Lê o arquivo via URL.createObjectURL (sem FileReader)
+ *   2. Redimensiona via canvas (max 800×800)
+ *   3. Exporta como Blob WebP via canvas.toBlob (sem toDataURL)
+ *   4. Retorna { blob, previewUrl } — previewUrl é um ObjectURL temporário
+ */
+const compressToBlob = (file: File): Promise<{ blob: Blob; previewUrl: string }> => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      const img = new Image();
-      img.src = event.target?.result as string;
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 800;
-        const MAX_HEIGHT = 800;
-        let width = img.width;
-        let height = img.height;
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = objectUrl;
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 800;
+      const MAX_HEIGHT = 800;
+      let width = img.width;
+      let height = img.height;
 
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-          }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
-          }
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
         }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
+      }
 
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0, width, height);
-        
-        resolve(canvas.toDataURL('image/webp', 0.8));
-      };
-      img.onerror = error => reject(error);
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error('Falha ao comprimir imagem.'));
+            return;
+          }
+          const previewUrl = URL.createObjectURL(blob);
+          resolve({ blob, previewUrl });
+        },
+        'image/webp',
+        0.8
+      );
     };
-    reader.onerror = error => reject(error);
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Formato de imagem não suportado.'));
+    };
   });
 };
 
 export const AdminDashboard: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
   const [systemError, setSystemError] = useState('');
 
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
@@ -110,15 +145,50 @@ export const AdminDashboard: React.FC = () => {
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [saveToast, setSaveToast] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [catalogSearch, setCatalogSearch] = useState('');
+  const [catalogBrandFilter, setCatalogBrandFilter] = useState('todas');
   const [catalogSort, setCatalogSort] = useState<'recentes' | 'nome' | 'destaque'>('recentes');
   const [deleteConfirmSlug, setDeleteConfirmSlug] = useState<string | null>(null);
   const [hotLeadAlert, setHotLeadAlert] = useState<Lead | null>(null);
   const [conversionModalId, setConversionModalId] = useState<string | null>(null);
   const [conversionValue, setConversionValue] = useState('');
+  // Hardening extras
+  const [showTrash, setShowTrash] = useState(false);
+  const [maintenanceEnabled, setMaintenanceEnabled] = useState<boolean>(() => {
+    try { return localStorage.getItem('mdi_maintenance') === 'true'; } catch { return false; }
+  });
+  const [adminLog, setAdminLog] = useState<AdminLogEntry[]>(() => {
+    try { return JSON.parse(localStorage.getItem('mdi_admin_log') || '[]'); } catch { return []; }
+  });
+  const [healthReport, setHealthReport] = useState<import('@/lib/health-check').HealthReport | null>(null);
+  const [healthLoading, setHealthLoading] = useState(false);
   const [modalTab, setModalTab] = useState<'basico' | 'conteudo' | 'preview'>('basico');
   const [specsInput, setSpecsInput] = useState<{key: string; val: string}[]>([{key: '', val: ''}]);
   const [comoUsarInput, setComoUsarInput] = useState<string[]>(['']);
   const [aplicacaoInput, setAplicacaoInput] = useState<string[]>([]);
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
+  // Custom categories: extends CATEGORIAS without mutating it
+  const [customCategories, setCustomCategories] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(localStorage.getItem('mdi_custom_categories') || '{}'); } catch { return {}; }
+  });
+  const [newCategoryInput, setNewCategoryInput] = useState('');
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+
+  const availableBrands = useMemo(() => {
+    const brands = new Set<string>();
+    catalogItems.forEach(p => {
+      if (p.marca) brands.add(normalizeBrandName(p.marca));
+    });
+    return Array.from(brands).sort();
+  }, [catalogItems]);
+
+  const [newBrandInput, setNewBrandInput] = useState('');
+  const [showNewBrandInput, setShowNewBrandInput] = useState(false);
+  const [showManageBrandsModal, setShowManageBrandsModal] = useState(false);
+  const [showNormalizeBrandsModal, setShowNormalizeBrandsModal] = useState(false);
+
+  // Dynamic aplicacao options: APLICACAO_OPTS + custom added by admin
+  const [customAplicacaoOpts, setCustomAplicacaoOpts] = useState<string[]>([]);
+  const [newAplicacaoOpt, setNewAplicacaoOpt] = useState('');
 
   const APLICACAO_OPTS = [
     'Lajes planas e inclinadas',
@@ -141,52 +211,13 @@ export const AdminDashboard: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Check real Supabase session on load
-    const checkSession = async () => {
-      try {
-        if (!supabase) {
-          // LOCAL FALLBACK (Dev & Prod)
-          try {
-            const rawSession = localStorage.getItem('mdi_admin_session');
-            if (rawSession) {
-              const session = JSON.parse(rawSession);
-              if (session && session.value && session.expiresAt > Date.now()) {
-                setIsAuthenticated(true);
-              } else {
-                localStorage.removeItem('mdi_admin_session');
-              }
-            }
-          } catch (e) {
-            localStorage.removeItem('mdi_admin_session');
-          }
-          setIsLoadingAuth(false);
-          return;
-        }
-
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error) throw error;
-
-        setIsAuthenticated(!!session);
-        setIsLoadingAuth(false);
-
-        // Setup Auth listener for tab-sync
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-          setIsAuthenticated(!!session);
-        });
-        return () => subscription.unsubscribe();
-      } catch (err) {
-        console.error('Auth Error:', err);
-        setSystemError('Painel temporariamente indisponível. Tente novamente mais tarde.');
-        setIsLoadingAuth(false);
-      }
-    };
-    checkSession();
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setEvents(getAnalyticsEvents());
-      setCatalogItems(products); // Load the dynamic merged products
+    // Component is protected, so we assume auth is valid here
+    setEvents(getAnalyticsEvents());
+      // Initialise with the live store snapshot, then revalidate from Supabase
+      setCatalogItems(productsStore.getSnapshot());
+      revalidateProducts().then(() => {
+        setCatalogItems(productsStore.getSnapshot());
+      }).catch(console.error);
 
       // Load Leads
       const fetchLeads = async () => {
@@ -207,12 +238,10 @@ export const AdminDashboard: React.FC = () => {
         }
       };
       fetchLeads();
-    }
-  }, [isAuthenticated]);
+  }, []);
 
   // Renovar sessão automaticamente quando o admin interage
   useEffect(() => {
-    if (!isAuthenticated) return;
     
     // Throttle para evitar escritas excessivas no localStorage
     let throttleTimer: any = null;
@@ -240,48 +269,11 @@ export const AdminDashboard: React.FC = () => {
       document.removeEventListener('visibilitychange', handleVisibility);
       if (throttleTimer) clearTimeout(throttleTimer);
     };
-  }, [isAuthenticated]);
+  }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoginError('');
-
-    if (supabase) {
-      setIsLoadingAuth(true);
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        setLoginError('Credenciais inválidas. Tente novamente.');
-        setIsLoadingAuth(false);
-      } else {
-        setIsAuthenticated(true);
-        setIsLoadingAuth(false);
-      }
-    } else {
-      // Sistema de login simples com variável de ambiente (fallback se Supabase falhar/não existir)
-      const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
-      if (ADMIN_KEY && password === ADMIN_KEY) {
-        localStorage.setItem('mdi_admin_session', JSON.stringify({
-          value: true,
-          expiresAt: Date.now() + 1000 * 60 * 60 * 6 // 6 horas
-        }));
-        setIsAuthenticated(true);
-        window.location.href = "/admin"; // Auto-redirect forçado se exigido
-      } else {
-        setLoginError('Senha incorreta.');
-      }
-    }
-  };
-
+  const { signOut } = useAuth();
   const handleLogout = async () => {
-    if (supabase) {
-      await supabase.auth.signOut();
-    }
-    localStorage.removeItem('mdi_admin_session');
-    window.location.href = "/";
+    await signOut();
   };
 
   const toggleHeatmap = () => {
@@ -501,19 +493,21 @@ export const AdminDashboard: React.FC = () => {
   // CMS ACTIONS
   // ----------------------------------------------------
   
-  /** Gera nome de arquivo \u00fanico para evitar sobrescrita e colisoes no bucket */
-  const generateUniqueFileName = () => {
+  /** Gera caminho estruturado no bucket products: brand/slug/arquivo.webp */
+  const generateProductFilePath = (marca?: string, nome?: string, isMain: boolean = true) => {
+    const safeMarca = (marca || 'sem-marca').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const rawSlug = nome ? nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : `novo-produto-${Date.now()}`;
     const timestamp = Date.now();
-    const randomPart = Math.random().toString(36).substring(2, 10);
-    return `products/${timestamp}-${randomPart}.webp`;
+    const randomPart = Math.random().toString(36).substring(2, 6);
+    return `${safeMarca}/${rawSlug}/${isMain ? 'main' : `img-${randomPart}`}-${timestamp}.webp`;
   };
 
-  /** Extrai o filePath relativo de uma URL p\u00fablica do Supabase para deletar */
-  const extractFilePathFromUrl = (url: string): string | null => {
+  /** Extrai o filePath relativo de uma URL pública do Supabase para deletar */
+  const extractFilePathFromUrl = (url: string): { bucket: string, path: string } | null => {
     if (!url || url.startsWith('data:')) return null;
     try {
-      const match = url.match(/\/storage\/v1\/object\/public\/product-images\/(.+)/);
-      return match ? match[1] : null;
+      const match = url.match(/\/storage\/v1\/object\/public\/(product-images|products)\/(.+)/);
+      return match ? { bucket: match[1], path: match[2] } : null;
     } catch {
       return null;
     }
@@ -522,63 +516,74 @@ export const AdminDashboard: React.FC = () => {
   /** Remove imagem antiga do Supabase Storage (sem bloquear fluxo em caso de erro) */
   const deleteOldImage = async (oldUrl: string): Promise<void> => {
     if (!supabase || !oldUrl) return;
-    const oldPath = extractFilePathFromUrl(oldUrl);
-    if (!oldPath) return;
+    const extract = extractFilePathFromUrl(oldUrl);
+    if (!extract) return;
     try {
-      await supabase.storage.from('product-images').remove([oldPath]);
+      await supabase.storage.from(extract.bucket).remove([extract.path]);
     } catch (e) {
-      // Falha silenciosa: imagem antiga n\u00e3o bloqueia o fluxo
-      console.warn('N\u00e3o foi poss\u00edvel deletar imagem antiga:', oldPath);
+      console.warn('Não foi possível deletar imagem antiga:', extract.path);
     }
   };
 
-  /** 
-   * Upload principal: comprime \u2192 tenta Supabase \u2192 fallback base64 (s\u00f3 se arquivo pequeno)
-   * Retorna a URL final (CDN p\u00fablica ou base64) e lanca erro se nenhum funcionar.
+  /**
+   * Upload pipeline — zero base64, zero localStorage blobs:
+   *   1. compressToBlob (canvas WebP, sem FileReader)
+   *   2. Hard limit 500KB — erro amigável se ainda pesada
+   *   3. Supabase Storage upload com retry (2 tentativas) no bucket `products`
+   *   4. Cache-bust timestamp na URL pública
+   *   5. Offline: ObjectURL preview (sessão apenas, nunca persistido)
    */
-  const uploadImage = async (file: File, oldUrl?: string): Promise<string> => {
-    const MAX_BASE64_SIZE = 500_000; // 500KB limite para fallback local
-    
-    // 1. Comprimir primeiro (sempre)
-    const base64 = await compressImage(file);
-    
-    // 2. Tentar Supabase Storage
+  const uploadImage = async (file: File, oldUrl?: string, marca?: string, nome?: string, isMain: boolean = true): Promise<string> => {
+    // Step 1 — comprimir para WebP Blob (zero base64)
+    const { blob, previewUrl } = await compressToBlob(file);
+
+    // Step 2 — hard size cap pós-compressão
+    if (blob.size > SIZE_HARD_CAP) {
+      URL.revokeObjectURL(previewUrl);
+      throw new Error(
+        `A imagem ainda está muito pesada (${Math.round(blob.size / 1024)}KB após compressão). ` +
+        'Tente uma foto com resolução menor ou formato diferente.'
+      );
+    }
+
+    // Step 3 — upload para Supabase Storage com retry
     if (supabase) {
-      try {
-        const res = await fetch(base64);
-        const blob = await res.blob();
-        const filePath = generateUniqueFileName();
+      const MAX_RETRIES = 2;
+      let lastError: Error | null = null;
 
-        const { error } = await supabase.storage
-          .from('product-images')
-          .upload(filePath, blob, {
-            contentType: 'image/webp',
-            upsert: false // Nunca sobrescrever, nome \u00fanico garante isso
-          });
+      for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const filePath = generateProductFilePath(marca, nome, isMain);
+          const { error } = await supabase.storage
+            .from('products')
+            .upload(filePath, blob, {
+              contentType: 'image/webp',
+              upsert: false,
+            });
 
-        if (error) throw new Error(error.message);
+          if (error) throw new Error(error.message);
 
-        // 3. Sucesso no Supabase: deletar imagem antiga e retornar nova URL
-        if (oldUrl) await deleteOldImage(oldUrl);
-        
-        const { data } = supabase.storage.from('product-images').getPublicUrl(filePath);
-        return data.publicUrl;
-      } catch (e) {
-        console.error('Supabase upload falhou, tentando fallback:', e);
-        // Segue para fallback base64...
+          // Sucesso: deletar imagem antiga e retornar nova URL com cache-bust
+          if (oldUrl) await deleteOldImage(oldUrl);
+          URL.revokeObjectURL(previewUrl);
+          const { data } = supabase.storage.from('products').getPublicUrl(filePath);
+          return `${data.publicUrl}?v=${Date.now()}`;
+        } catch (e: any) {
+          lastError = e;
+          if (attempt < MAX_RETRIES) {
+            // Backoff: 1s, 2s
+            await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+          }
+        }
       }
+
+      console.error('Supabase upload falhou após retries:', lastError?.message);
     }
-    
-    // 4. Fallback base64 (apenas para arquivos pequenos)
-    if (file.size <= MAX_BASE64_SIZE) {
-      return base64;
-    }
-    
-    // 5. Arquivo grande + Supabase falhou = erro controlado
-    throw new Error(
-      `Imagem muito grande para fallback offline (${Math.round(file.size / 1024)}KB). ` +
-      'Verifique sua conex\u00e3o com o servidor e tente novamente.'
-    );
+
+    // Step 4 — fallback offline graceful
+    // ObjectURL é válido apenas nesta sessão — NUNCA armazenado em DB/localStorage.
+    console.warn('Supabase indisponível — usando prévia local (sessão apenas).');
+    return previewUrl;
   };
 
   const handleMainImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -589,7 +594,7 @@ export const AdminDashboard: React.FC = () => {
     setIsUploadingImage(true);
     try {
       const oldUrl = editingProduct?.imagem || '';
-      const finalUrl = await uploadImage(file, oldUrl);
+      const finalUrl = await uploadImage(file, oldUrl, editingProduct?.marca, editingProduct?.nome, true);
       setEditingProduct(prev => ({ ...prev, imagem: finalUrl }));
     } catch (error: any) {
       setSaveToast({ type: 'error', msg: error.message || 'Erro ao processar imagem.' });
@@ -605,7 +610,7 @@ export const AdminDashboard: React.FC = () => {
     e.target.value = '';
     setIsUploadingImage(true);
     try {
-      const urls = await Promise.all(files.map(f => uploadImage(f)));
+      const urls = await Promise.all(files.map(f => uploadImage(f, undefined, editingProduct?.marca, editingProduct?.nome, false)));
       setEditingProduct(prev => ({
         ...prev,
         imagens: [...(prev?.imagens || []), ...urls]
@@ -628,7 +633,7 @@ export const AdminDashboard: React.FC = () => {
     if (editingProduct.destaque && isNew && destaqueCount >= MAX_DESTAQUE) {
       setSaveToast({
         type: 'error',
-        msg: `ðŸš« Limite atingido: já existem ${MAX_DESTAQUE} produtos em destaque. Remova um antes de adicionar outro.`
+        msg: `🚫 Limite atingido: já existem ${MAX_DESTAQUE} produtos em destaque. Remova um antes de adicionar outro.`
       });
       setTimeout(() => setSaveToast(null), 5000);
       return;
@@ -636,66 +641,240 @@ export const AdminDashboard: React.FC = () => {
 
     setIsSaving(true);
     try {
-      let updatedCatalog = [...catalogItems];
       const slug = isNew ? generateSlug(editingProduct.nome) : editingProduct.slug!;
 
-      const finalProduct: any = {
+      const finalProduct: Product = {
         ...(editingProduct as Product),
         slug,
         codigo: editingProduct.codigo || `SKU-${Date.now().toString().slice(-6)}`,
-        nomeOriginal: editingProduct.nomeOriginal || editingProduct.nome,
-        categoriaLabel: CATEGORIAS[editingProduct.categoria || 'manta-asfaltica']?.nome || editingProduct.categoria,
-        ativo: true,
+        nomeOriginal: editingProduct.nomeOriginal || editingProduct.nome!,
+        categoriaLabel:
+          CATEGORIAS[editingProduct.categoria || 'manta-asfaltica']?.nome ||
+          editingProduct.categoriaLabel ||
+          editingProduct.categoria || '',
+        ativo: editingProduct.ativo !== false,
         ordem: editingProduct.ordem || 1,
         isCustom: true,
-        updated_at: nowISO(),
-      };
+      } as any;
 
-      if (isNew) {
-        updatedCatalog.push(finalProduct);
-      } else {
-        updatedCatalog = updatedCatalog.map(p => p.slug === finalProduct.slug ? finalProduct : p);
-      }
+      // ── Step 1: Optimistic local update ──────────────────────────────────
+      const updatedCatalog = isNew
+        ? [...catalogItems, finalProduct]
+        : catalogItems.map(p => p.slug === finalProduct.slug ? finalProduct : p);
 
       setCatalogItems(updatedCatalog);
+
+      // ── Step 2: Persist to Supabase (primary) ────────────────────────────
+      await saveProductToSupabase(finalProduct);
+
+      // ── Step 3: Also update localStorage fallback (backward compat) ──────
       const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
       await saveCustomProducts(dynamicOnly);
 
-      setSaveToast({ type: 'success', msg: isNew ? 'Produto criado com sucesso!' : 'Produto atualizado com sucesso!' });
+      // ── Step 4: Invalidate cache and refetch — frontend syncs instantly ──
+      await revalidateProducts();
+      // Refresh admin view with the freshly reloaded store
+      setCatalogItems(productsStore.getSnapshot());
+
+      setSaveToast({ type: 'success', msg: isNew ? '✅ Produto criado com sucesso!' : '✅ Produto atualizado com sucesso!' });
       setTimeout(() => setSaveToast(null), 3000);
       setIsModalOpen(false);
       setEditingProduct(null);
-    } catch (err) {
-      setSaveToast({ type: 'error', msg: 'Erro ao salvar. Tente novamente.' });
+      await logAdminAction(isNew ? 'CREATE_PRODUCT' : 'UPDATE_PRODUCT', `Produto '${finalProduct.nome}' (${slug})`);
+    } catch (err: any) {
+      setSaveToast({ type: 'error', msg: err?.message || 'Erro ao salvar. Tente novamente.' });
       setTimeout(() => setSaveToast(null), 4000);
     } finally {
       setIsSaving(false);
     }
   };
 
+  /** Registra ação no log de admin (localStorage + Supabase se disponível) */
+  const logAdminAction = async (action: string, detail: string) => {
+    const entry: AdminLogEntry = { id: crypto.randomUUID(), action, detail, at: nowISO() };
+    const updated = [entry, ...adminLog].slice(0, 200); // max 200 entradas
+    setAdminLog(updated);
+    try { localStorage.setItem('mdi_admin_log', JSON.stringify(updated)); } catch { /* storage full */ }
+    if (supabase) {
+      try {
+        await supabase.from('admin_logs').insert({ action, detail, created_at: entry.at });
+      } catch { /* tabela pode não existir ainda — silencioso */ }
+    }
+  };
+
+  /** Soft delete: move produto para lixeira (deleted_at), NÃO apaga permanentemente */
   const handleDeleteProduct = async (slug: string) => {
+    const produto = catalogItems.find(p => p.slug === slug);
     const updatedCatalog = catalogItems.map(p =>
-      p.slug === slug ? { ...p, ativo: false, isCustom: true, updated_at: nowISO() } : p
+      p.slug === slug
+        ? { ...p, ativo: false, isCustom: true, deleted_at: nowISO(), updated_at: nowISO() }
+        : p
     );
     setCatalogItems(updatedCatalog);
     const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
     await saveCustomProducts(dynamicOnly);
+    if (supabase && produto) {
+      try { await supabase.from('products').update({ active: false }).eq('slug', slug); } catch { /* silent */ }
+    }
+    // Sync frontend cache
+    invalidateProductsCache();
+    fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
+    await logAdminAction('SOFT_DELETE', `Produto '${produto?.nome || slug}' movido para lixeira`);
+    setSaveToast({ type: 'success', msg: `🗑️ "${produto?.nome || slug}" movido para lixeira. Pode ser restaurado.` });
+    setTimeout(() => setSaveToast(null), 5000);
     setDeleteConfirmSlug(null);
+  };
+
+  /** Restaura produto da lixeira */
+  const handleRestoreProduct = async (slug: string) => {
+    const produto = catalogItems.find(p => p.slug === slug);
+    const updatedCatalog = catalogItems.map(p =>
+      p.slug === slug
+        ? { ...p, ativo: true, isCustom: true, deleted_at: undefined, updated_at: nowISO() } as any
+        : p
+    );
+    setCatalogItems(updatedCatalog);
+    const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
+    await saveCustomProducts(dynamicOnly);
+    if (supabase) {
+      try { await supabase.from('products').update({ active: true, deleted_at: null }).eq('slug', slug); } catch { /* silent */ }
+    }
+    // Sync frontend cache
+    invalidateProductsCache();
+    fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
+    await logAdminAction('RESTORE', `Produto '${produto?.nome || slug}' restaurado da lixeira`);
+    setSaveToast({ type: 'success', msg: `✅ "${produto?.nome || slug}" restaurado com sucesso!` });
+    setTimeout(() => setSaveToast(null), 3000);
+  };
+
+  /** Exclusão permanente (apenas da lixeira) */
+  const handlePermanentDelete = async (slug: string) => {
+    const produto = catalogItems.find(p => p.slug === slug);
+    const updatedCatalog = catalogItems.filter(p => p.slug !== slug);
+    setCatalogItems(updatedCatalog);
+    const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
+    await saveCustomProducts(dynamicOnly);
+    if (supabase) {
+      try { await supabase.from('products').delete().eq('slug', slug); } catch { /* silent */ }
+    }
+    await logAdminAction('PERMANENT_DELETE', `Produto '${produto?.nome || slug}' excluído permanentemente`);
+    setSaveToast({ type: 'error', msg: `🗑️ "${produto?.nome || slug}" excluído permanentemente.` });
+    setTimeout(() => setSaveToast(null), 3000);
+  };
+
+  /** Ativa/desativa modo manutenção */
+  const handleToggleMaintenance = () => {
+    const next = !maintenanceEnabled;
+    setMaintenanceEnabled(next);
+    localStorage.setItem('mdi_maintenance', String(next));
+    logAdminAction('MAINTENANCE', next ? 'Modo manutenção ATIVADO' : 'Modo manutenção DESATIVADO');
+    setSaveToast({ type: next ? 'error' : 'success', msg: next ? '🔧 Modo manutenção ativado — site oculto aos visitantes.' : '✅ Modo manutenção desativado — site online.' });
+    setTimeout(() => setSaveToast(null), 4000);
+  };
+
+  /** Executa health check completo */
+  const handleRunHealthCheck = async () => {
+    setHealthLoading(true);
+    try {
+      const { runHealthCheck } = await import('@/lib/health-check');
+      const report = await runHealthCheck();
+      setHealthReport(report);
+    } finally {
+      setHealthLoading(false);
+    }
+  };
+
+  /** Gera resumo com IA (local template ou provider configurado) */
+  const handleGenerateSummary = async () => {
+    if (!editingProduct?.nome?.trim() || !editingProduct?.marca?.trim()) {
+      setSaveToast({ type: 'error', msg: 'Preencha Nome e Marca antes de gerar a descrição.' });
+      setTimeout(() => setSaveToast(null), 3000);
+      return;
+    }
+    setIsGeneratingAI(true);
+    try {
+      const { generateProductSummary } = await import('@/lib/ai-generator');
+      const result = await generateProductSummary({
+        nome: editingProduct.nome,
+        marca: editingProduct.marca,
+        categoria: editingProduct.categoria || 'manta-asfaltica',
+      }, { retries: 1 });
+      setEditingProduct(prev => ({ ...prev, resumo: result.text }));
+    } catch (e: any) {
+      setSaveToast({ type: 'error', msg: e.message || 'Erro ao gerar descrição.' });
+      setTimeout(() => setSaveToast(null), 4000);
+    } finally {
+      setIsGeneratingAI(false);
+    }
+  };
+
+  /** Salva nova categoria personalizada */
+  const handleAddCustomCategory = () => {
+    const name = newCategoryInput.trim();
+    if (!name) return;
+    const slug = name.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const updated = { ...customCategories, [slug]: name };
+    setCustomCategories(updated);
+    localStorage.setItem('mdi_custom_categories', JSON.stringify(updated));
+    setEditingProduct(prev => ({ ...prev, categoria: slug as any, categoriaLabel: name }));
+    setNewCategoryInput('');
+    setShowNewCategoryInput(false);
+    logAdminAction('ADD_CATEGORY', `Categoria '${name}' (${slug}) adicionada`);
+  };
+
+  /** Remove categoria personalizada */
+  const handleRemoveCustomCategory = (slug: string) => {
+    const { [slug]: _, ...rest } = customCategories;
+    setCustomCategories(rest);
+    localStorage.setItem('mdi_custom_categories', JSON.stringify(rest));
+    logAdminAction('REMOVE_CATEGORY', `Categoria '${slug}' removida`);
+  };
+
+  /** Adiciona marca personalizada */
+  const handleAddCustomBrand = () => {
+    const raw = newBrandInput.trim();
+    if (!raw) return;
+    const name = normalizeBrandName(raw);
+    if (!name) return;
+    
+    setEditingProduct(prev => ({ ...prev, marca: name }));
+    setNewBrandInput('');
+    setShowNewBrandInput(false);
+    logAdminAction('ADD_BRAND', `Marca '${name}' adicionada`);
+  };
+  
+  /** Remove marca personalizada */
+
+
+  /** Adiciona opção personalizada de Indicado Para e auto-seleciona */
+  const handleAddAplicacaoOpt = () => {
+    const val = newAplicacaoOpt.trim();
+    if (!val || aplicacaoInput.includes(val)) {
+      setNewAplicacaoOpt('');
+      return;
+    }
+    const newOpts = [...customAplicacaoOpts, val];
+    const newSelected = [...aplicacaoInput, val];
+    setCustomAplicacaoOpts(newOpts);
+    setAplicacaoInput(newSelected);
+    setEditingProduct(prev => ({ ...prev, aplicacao: newSelected }));
+    setNewAplicacaoOpt('');
   };
 
   /** Toggle de disponibilidade — update otimista imediato + salva em background */
   const handleToggleDisponivel = async (slug: string, currentActive: boolean) => {
     const novoEstado = !currentActive;
-    // Update otimista: UI muda instantaneamente
+    // Optimistic UI: muda instantaneamente
     const updatedCatalog = catalogItems.map(p =>
-      p.slug === slug ? { ...p, disponivel: novoEstado, isCustom: true, updated_at: nowISO() } : p
+      p.slug === slug ? { ...p, ativo: novoEstado, isCustom: true } : p
     );
     setCatalogItems(updatedCatalog);
 
-    // Toast de feedback
     setSaveToast({
       type: novoEstado ? 'success' : 'error',
-      msg: novoEstado ? 'âœ… Produto reativado — visível no site.' : 'ðŸš« Produto desativado — oculto do site.'
+      msg: novoEstado ? '✅ Produto reativado — visível no site.' : '🚫 Produto desativado — oculto do site.'
     });
     setTimeout(() => setSaveToast(null), 3000);
 
@@ -705,14 +884,84 @@ export const AdminDashboard: React.FC = () => {
       await saveCustomProducts(dynamicOnly);
 
       if (supabase) {
-        await supabase.from('products').update({ disponivel: novoEstado }).eq('slug', slug);
+        await supabase.from('products').update({ active: novoEstado }).eq('slug', slug);
       }
+      // Sync frontend cache after persisting
+      invalidateProductsCache();
+      fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
     } catch (e) {
-      // Revert se falhar
+      // Revert on failure
       setCatalogItems(catalogItems);
       setSaveToast({ type: 'error', msg: 'Erro ao salvar. Tente novamente.' });
       setTimeout(() => setSaveToast(null), 3000);
     }
+  };
+
+  /** Exporta o catálogo em JSON */
+  const handleExportCatalog = () => {
+    const dataStr = JSON.stringify(catalogItems, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    const exportFileDefaultName = `mdi-catalogo-snapshot-${new Date().toISOString().split('T')[0]}.json`;
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    logAdminAction('EXPORT_CATALOG', 'Snapshot do catálogo exportado em JSON');
+    setSaveToast({ type: 'success', msg: '✅ Snapshot exportado com sucesso.' });
+    setTimeout(() => setSaveToast(null), 3000);
+  };
+
+  /** Importa o catálogo via JSON e sincroniza com o Supabase */
+  const handleImportCatalog = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    // Clear input so same file can be selected again
+    e.target.value = '';
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const result = event.target?.result;
+        if (typeof result !== 'string') return;
+        const importedData = JSON.parse(result);
+
+        if (!Array.isArray(importedData)) {
+          throw new Error('O arquivo JSON não contém um array de produtos válido.');
+        }
+
+        // Validação básica do schema
+        const isValid = importedData.every(item => item.slug && item.nome && item.categoria);
+        if (!isValid) {
+          throw new Error('Alguns produtos no JSON não possuem os campos obrigatórios (slug, nome, categoria).');
+        }
+
+        setIsSaving(true);
+        setSaveToast({ type: 'info', msg: '⏳ Sincronizando catálogo importado...' });
+
+        // Merge com itens existentes ou sobrescreve tudo?
+        // A lógica do admin considera que os dynamicOnly (isCustom=true) sobem.
+        const dynamicOnly = importedData.filter(p => p.isCustom !== false);
+        await saveCustomProducts(dynamicOnly);
+
+        // Invalida cache e revalida
+        await revalidateProducts();
+        
+        // Atualiza estado do Admin
+        setCatalogItems(productsStore.getSnapshot());
+
+        setSaveToast({ type: 'success', msg: `✅ Catálogo importado com sucesso! (${importedData.length} produtos)` });
+        setTimeout(() => setSaveToast(null), 4000);
+        logAdminAction('IMPORT_CATALOG', `Catálogo importado (${importedData.length} produtos)`);
+
+      } catch (err: any) {
+        setSaveToast({ type: 'error', msg: `Erro ao importar: ${err.message}` });
+        setTimeout(() => setSaveToast(null), 5000);
+      } finally {
+        setIsSaving(false);
+      }
+    };
+    reader.readAsText(file);
   };
 
   const openNewProductModal = () => {
@@ -808,6 +1057,9 @@ export const AdminDashboard: React.FC = () => {
 
   const filteredCatalog = useMemo(() => {
     let list = catalogItems.filter(p => p.ativo);
+    if (catalogBrandFilter !== 'todas') {
+      list = list.filter(p => normalizeBrandName(p.marca) === catalogBrandFilter);
+    }
     if (catalogSearch) {
       const q = catalogSearch.toLowerCase();
       list = list.filter(p => p.nome.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q));
@@ -815,7 +1067,7 @@ export const AdminDashboard: React.FC = () => {
     if (catalogSort === 'nome') list = [...list].sort((a, b) => a.nome.localeCompare(b.nome));
     if (catalogSort === 'destaque') list = [...list].sort((a, b) => (b.destaque ? 1 : 0) - (a.destaque ? 1 : 0));
     return list;
-  }, [catalogItems, catalogSearch, catalogSort]);
+  }, [catalogItems, catalogSearch, catalogSort, catalogBrandFilter]);
 
   const destaqueAtual = catalogItems.filter(p => p.destaque && p.ativo).length;
 
@@ -830,62 +1082,6 @@ export const AdminDashboard: React.FC = () => {
           <h2 className="text-xl font-bold text-white mb-2">Sistema Offline</h2>
           <p className="text-slate-400 text-sm">{systemError}</p>
         </div>
-      </div>
-    );
-  }
-
-  if (isLoadingAuth) {
-    return (
-      <div className="min-h-screen bg-[#0E1117] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-[#0E1117] flex items-center justify-center px-4 font-sans">
-        <form onSubmit={handleLogin} className="bg-[#161B22] p-8 rounded-2xl shadow-2xl max-w-sm w-full border border-slate-800 relative overflow-hidden">
-          {/* Subtle glow effect */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-500/10 blur-[50px] rounded-full pointer-events-none"></div>
-
-          <div className="text-center mb-8 relative z-10">
-            <span className="material-symbols-outlined text-5xl text-emerald-500 mb-4 block" aria-hidden="true">admin_panel_settings</span>
-            <h1 className="text-2xl font-black text-white tracking-wider">Painel Administrativo</h1>
-            <p className="text-emerald-500/80 text-xs font-bold uppercase tracking-widest mt-2">Mundo da Impermeabilização</p>
-          </div>
-
-          {loginError && (
-            <div className="mb-6 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-400 text-xs font-bold text-center">
-              {loginError}
-            </div>
-          )}
-
-          <div className="mb-4 relative z-10">
-            <label className="block text-slate-400 text-[11px] font-bold mb-2 uppercase tracking-widest">E-mail</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#0E1117] border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all"
-              placeholder="admin@empresa.com"
-            />
-          </div>
-
-          <div className="mb-6 relative z-10">
-            <label className="block text-slate-400 text-[11px] font-bold mb-2 uppercase tracking-widest">Senha / Master Key</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#0E1117] border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all"
-              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-            />
-          </div>
-          <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-emerald-900/50 relative z-10">
-            Acessar Painel
-          </button>
-        </form>
       </div>
     );
   }
@@ -907,7 +1103,8 @@ export const AdminDashboard: React.FC = () => {
     { id: 'produtos', label: 'Insights de Produtos', icon: 'inventory_2' },
     { id: 'paginas', label: 'Páginas', icon: 'description' },
     { id: 'conversao', label: 'Conversão', icon: 'filter_alt' },
-    { id: 'sessoes', label: 'Sessões', icon: 'supervised_user_circle' }
+    { id: 'sessoes', label: 'Sessões', icon: 'supervised_user_circle' },
+    { id: 'sistema', label: 'Sistema', icon: 'health_and_safety' },
   ];
 
   return (
@@ -1133,6 +1330,14 @@ export const AdminDashboard: React.FC = () => {
                     onChange={e => setCatalogSearch(e.target.value)}
                     className="bg-[#0E1117] border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-white text-sm focus:border-indigo-500 outline-none w-44" />
                 </div>
+                {/* Brand Filter */}
+                <select value={catalogBrandFilter} onChange={e => setCatalogBrandFilter(e.target.value)}
+                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-slate-300 text-sm outline-none focus:border-indigo-500 cursor-pointer">
+                  <option value="todas">Todas as marcas</option>
+                  {availableBrands.map(b => (
+                    <option key={b} value={b}>{b}</option>
+                  ))}
+                </select>
                 {/* Sort */}
                 <select value={catalogSort} onChange={e => setCatalogSort(e.target.value as any)}
                   className="bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-slate-300 text-sm outline-none focus:border-indigo-500 cursor-pointer">
@@ -1145,6 +1350,25 @@ export const AdminDashboard: React.FC = () => {
                   <span className="material-symbols-outlined text-lg">add</span>
                   Novo
                 </button>
+                <div className="flex gap-1 ml-1 border-l border-slate-700 pl-2">
+                  <button onClick={() => setShowNormalizeBrandsModal(true)} title="Assistente de Normalização de Marcas"
+                    className="flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-xl transition-all h-[44px]">
+                    <span className="material-symbols-outlined text-lg text-amber-400">auto_fix</span>
+                  </button>
+                  <button onClick={() => setShowManageBrandsModal(true)} title="Gerenciar Marcas"
+                    className="flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-xl transition-all h-[44px]">
+                    <span className="material-symbols-outlined text-lg text-sky-400">label</span>
+                  </button>
+                  <button onClick={handleExportCatalog} title="Exportar JSON (Snapshot)"
+                    className="flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-xl transition-all h-[44px]">
+                    <span className="material-symbols-outlined text-lg text-emerald-400">download</span>
+                  </button>
+                  <label title="Importar JSON"
+                    className="flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-xl transition-all h-[44px] cursor-pointer">
+                    <span className="material-symbols-outlined text-lg text-purple-400">upload</span>
+                    <input type="file" accept=".json" className="hidden" onChange={handleImportCatalog} disabled={isSaving} />
+                  </label>
+                </div>
               </div>
             </header>
 
@@ -1559,6 +1783,166 @@ export const AdminDashboard: React.FC = () => {
           </div>
         )}
 
+        {/* ── Tab: Sistema ── */}
+        {activeTab === 'sistema' && (
+          <div className="space-y-6 animate-in fade-in duration-300">
+            <header>
+              <h1 className="text-2xl font-bold text-white">Sistema</h1>
+              <p className="text-sm text-slate-400 mt-1">Health check, manutenção e log de ações.</p>
+            </header>
+
+            {/* Maintenance Mode */}
+            <div className="bg-[#161B22] border border-slate-800 rounded-xl p-6">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <p className="text-white font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[20px] text-amber-400">construction</span>
+                    Modo Manutenção
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">Quando ativo, visitantes veem tela de manutenção. Admin continua acessível.</p>
+                </div>
+                <button
+                  onClick={handleToggleMaintenance}
+                  className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors focus:outline-none ${
+                    maintenanceEnabled ? 'bg-amber-500' : 'bg-slate-700'
+                  }`}
+                >
+                  <span className={`inline-block h-6 w-6 transform rounded-full bg-white shadow transition-transform ${
+                    maintenanceEnabled ? 'translate-x-9' : 'translate-x-1'
+                  }`} />
+                </button>
+              </div>
+              {maintenanceEnabled && (
+                <div className="mt-4 flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-3">
+                  <span className="material-symbols-outlined text-amber-400 text-[18px]">warning</span>
+                  <span className="text-amber-300 text-xs font-bold">Site em manutenção — visitantes veem tela de aviso</span>
+                </div>
+              )}
+            </div>
+
+            {/* Health Check */}
+            <div className="bg-[#161B22] border border-slate-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-white font-bold flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[20px] text-emerald-400">monitor_heart</span>
+                  Health Check
+                </p>
+                <button
+                  onClick={handleRunHealthCheck}
+                  disabled={healthLoading}
+                  className="flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 text-sm font-bold rounded-lg transition-colors disabled:opacity-50"
+                >
+                  {healthLoading ? (
+                    <span className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <span className="material-symbols-outlined text-[16px]">refresh</span>
+                  )}
+                  {healthLoading ? 'Verificando...' : 'Verificar Sistema'}
+                </button>
+              </div>
+
+              {healthReport ? (
+                <div className="space-y-2">
+                  <div className={`flex items-center gap-2 mb-3 px-3 py-2 rounded-lg text-sm font-bold ${
+                    healthReport.overall === 'ok' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                    : healthReport.overall === 'degraded' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                    : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                  }`}>
+                    <span className="material-symbols-outlined text-[18px]">
+                      {healthReport.overall === 'ok' ? 'check_circle' : healthReport.overall === 'degraded' ? 'warning' : 'error'}
+                    </span>
+                    Status geral: {healthReport.overall.toUpperCase()} — {new Date(healthReport.checkedAt).toLocaleTimeString('pt-BR')}
+                  </div>
+                  {healthReport.checks.map(c => (
+                    <div key={c.name} className="flex items-center justify-between px-4 py-3 bg-[#0E1117] rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full ${
+                          c.status === 'ok' ? 'bg-emerald-400'
+                          : c.status === 'degraded' ? 'bg-amber-400'
+                          : c.status === 'skip' ? 'bg-slate-600'
+                          : 'bg-rose-400'
+                        }`} />
+                        <span className="text-sm text-slate-300">{c.name}</span>
+                        {c.message && <span className="text-xs text-slate-500">— {c.message}</span>}
+                      </div>
+                      <div className="text-right">
+                        <span className={`text-xs font-bold ${
+                          c.status === 'ok' ? 'text-emerald-400'
+                          : c.status === 'degraded' ? 'text-amber-400'
+                          : c.status === 'skip' ? 'text-slate-500'
+                          : 'text-rose-400'
+                        }`}>{c.status.toUpperCase()}</span>
+                        {c.latencyMs && <span className="block text-[10px] text-slate-500">{c.latencyMs}ms</span>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-slate-500 text-center py-4">Clique em "Verificar Sistema" para rodar o health check.</p>
+              )}
+            </div>
+
+            {/* Admin Log */}
+            <div className="bg-[#161B22] border border-slate-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-white font-bold flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[20px] text-indigo-400">history</span>
+                  Log de Ações Administrativas
+                </p>
+                {adminLog.length > 0 && (
+                  <button
+                    onClick={() => { setAdminLog([]); localStorage.removeItem('mdi_admin_log'); }}
+                    className="text-xs text-slate-500 hover:text-rose-400 transition-colors"
+                  >Limpar log</button>
+                )}
+              </div>
+              {adminLog.length === 0 ? (
+                <p className="text-sm text-slate-500 text-center py-4">Nenhuma ação registrada ainda.</p>
+              ) : (
+                <div className="space-y-1 max-h-80 overflow-y-auto">
+                  {adminLog.map(entry => (
+                    <div key={entry.id} className="flex items-start gap-3 px-3 py-2.5 bg-[#0E1117] rounded-lg">
+                      <span className="text-[10px] font-mono text-slate-500 shrink-0 mt-0.5">{new Date(entry.at).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
+                      <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded shrink-0">{entry.action}</span>
+                      <span className="text-xs text-slate-400">{entry.detail}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Lixeira */}
+            {catalogItems.filter(p => !!(p as any).deleted_at).length > 0 && (
+              <div className="bg-[#161B22] border border-rose-900/30 rounded-xl p-6">
+                <p className="text-white font-bold flex items-center gap-2 mb-4">
+                  <span className="material-symbols-outlined text-[20px] text-rose-400">delete</span>
+                  Lixeira ({catalogItems.filter(p => !!(p as any).deleted_at).length} produtos)
+                </p>
+                <div className="space-y-2">
+                  {catalogItems.filter(p => !!(p as any).deleted_at).map(p => (
+                    <div key={p.slug} className="flex items-center justify-between px-4 py-3 bg-[#0E1117] rounded-lg">
+                      <div>
+                        <span className="text-sm text-slate-300 font-medium">{p.nome}</span>
+                        <span className="block text-[10px] text-slate-500">Excluído em {new Date((p as any).deleted_at).toLocaleDateString('pt-BR')}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleRestoreProduct(p.slug)}
+                          className="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg transition-colors"
+                        >Restaurar</button>
+                        <button
+                          onClick={() => handlePermanentDelete(p.slug)}
+                          className="px-3 py-1.5 bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/30 text-rose-400 text-xs font-bold rounded-lg transition-colors"
+                        >Excluir</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Global actions */}
         <div className="mt-12 pt-6 border-t border-slate-800 flex justify-end">
           <button
@@ -1601,11 +1985,38 @@ export const AdminDashboard: React.FC = () => {
                       placeholder="Ex: Vedacit 3mm" />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Marca *</label>
-                    <input type="text" required value={editingProduct.marca}
-                      onChange={e => setEditingProduct({ ...editingProduct, marca: e.target.value })}
-                      className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none"
-                      placeholder="Ex: VEDACIT" />
+                    <label className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">
+                      <span>Marca *</span>
+                    </label>
+                    {!showNewBrandInput ? (
+                      <div className="relative">
+                        <select required value={editingProduct.marca || ''}
+                          onChange={e => {
+                            const val = e.target.value;
+                            if (val === '__new__') { setShowNewBrandInput(true); return; }
+                            setEditingProduct({ ...editingProduct, marca: val });
+                          }}
+                          className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none appearance-none"
+                        >
+                          <option value="" disabled>Selecione uma marca</option>
+                          {availableBrands.map(b => <option key={b} value={b}>{b}</option>)}
+                          <option value="__new__" className="text-indigo-400 font-bold">➕ Nova Marca</option>
+                        </select>
+                        <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none text-lg">expand_more</span>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <input type="text" autoFocus
+                          value={newBrandInput}
+                          onChange={e => setNewBrandInput(e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddCustomBrand(); } if (e.key === 'Escape') setShowNewBrandInput(false); }}
+                          className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-3 text-white text-xs focus:border-indigo-500 transition-all outline-none"
+                          placeholder="Nome da nova marca..."
+                        />
+                        <button type="button" onClick={handleAddCustomBrand} disabled={!newBrandInput.trim()} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition-colors disabled:opacity-50">OK</button>
+                        <button type="button" onClick={() => setShowNewBrandInput(false)} className="px-3 py-2 text-slate-400 hover:text-white text-xs rounded-lg transition-colors flex items-center justify-center"><span className="material-symbols-outlined text-[18px]">close</span></button>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1614,12 +2025,42 @@ export const AdminDashboard: React.FC = () => {
                   <div>
                     <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Categoria *</label>
                     <select value={editingProduct.categoria}
-                      onChange={e => setEditingProduct({ ...editingProduct, categoria: e.target.value as any })}
-                      className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none">
-                      {Object.keys(CATEGORIAS).map(key => (
-                        <option key={key} value={key}>{CATEGORIAS[key].nome}</option>
-                      ))}
-                    </select>
+                       onChange={e => {
+                         const val = e.target.value;
+                         if (val === '__new__') { setShowNewCategoryInput(true); return; }
+                         const label = CATEGORIAS[val]?.nome || customCategories[val] || val;
+                         setEditingProduct({ ...editingProduct, categoria: val as any, categoriaLabel: label });
+                       }}
+                       className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none">
+                       <optgroup label="Categorias padrão">
+                         {Object.keys(CATEGORIAS).map(key => (
+                           <option key={key} value={key}>{CATEGORIAS[key].nome}</option>
+                         ))}
+                       </optgroup>
+                       {Object.keys(customCategories).length > 0 && (
+                         <optgroup label="Categorias personalizadas">
+                           {Object.keys(customCategories).map(slug => (
+                             <option key={slug} value={slug}>{customCategories[slug]}</option>
+                           ))}
+                         </optgroup>
+                       )}
+                       <option value="__new__">➕ Nova categoria...</option>
+                     </select>
+                     {showNewCategoryInput && (
+                       <div className="mt-2 flex gap-2">
+                         <input
+                           type="text"
+                           autoFocus
+                           value={newCategoryInput}
+                           onChange={e => setNewCategoryInput(e.target.value)}
+                           onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddCustomCategory(); } if (e.key === 'Escape') setShowNewCategoryInput(false); }}
+                           placeholder="Nome da nova categoria..."
+                           className="flex-1 bg-[#0E1117] border border-indigo-500 rounded-lg px-3 py-2 text-white text-sm outline-none"
+                         />
+                         <button type="button" onClick={handleAddCustomCategory} className="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition-colors">Criar</button>
+                         <button type="button" onClick={() => setShowNewCategoryInput(false)} className="px-3 py-2 text-slate-400 hover:text-white text-xs rounded-lg transition-colors">✕</button>
+                       </div>
+                     )}
                   </div>
                   <div className="flex items-center pt-6">
                     {(() => {
@@ -1742,41 +2183,134 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Para que serve */}
+                {/* Para que serve + IA */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Para que serve — Descrição Principal *</label>
-                  <p className="text-[10px] text-slate-600 mb-2">Exibida em destaque na página, entre aspas.</p>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest">Para que serve — Descrição Principal *</label>
+                    <button
+                      type="button"
+                      onClick={handleGenerateSummary}
+                      disabled={isGeneratingAI || !editingProduct?.nome?.trim() || !editingProduct?.marca?.trim()}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold rounded-lg transition-all border disabled:opacity-40 disabled:cursor-not-allowed
+                        bg-violet-500/10 hover:bg-violet-500/20 border-violet-500/30 text-violet-400"
+                      title={!editingProduct?.nome?.trim() ? 'Preencha Nome e Marca primeiro' : 'Gerar descrição com IA'}
+                    >
+                      {isGeneratingAI ? (
+                        <span className="w-3 h-3 border-2 border-violet-400 border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
+                      )}
+                      {isGeneratingAI ? 'Gerando...' : 'Gerar com IA'}
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-slate-600 mb-2">Exibida em destaque na página, entre aspas. Máx. 300 caracteres.</p>
                   <textarea required value={editingProduct.resumo}
                     onChange={e => setEditingProduct({ ...editingProduct, resumo: e.target.value })}
+                    maxLength={300}
                     className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none h-24 resize-none"
-                    placeholder="Manta asfáltica elastomérica para impermeabilização de lajes..." />
+                    placeholder="Manta asfáltica elastômerica para impermeabilização de lajes..." />
+                  <div className="flex justify-end mt-1">
+                    <span className={`text-[10px] font-mono ${
+                      (editingProduct.resumo?.length || 0) > 280 ? 'text-amber-400' : 'text-slate-600'
+                    }`}>{editingProduct.resumo?.length || 0}/300</span>
+                  </div>
                 </div>
 
-                {/* Indicado Para */}
+                {/* Indicado Para — dinâmico */}
                 <div className="border-t border-slate-800 pt-4">
                   <p className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">web</span>ConteÁºdo da Página
+                    <span className="material-symbols-outlined text-sm">web</span>Conteúdo da Página
                   </p>
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Indicado Para</label>
-                  <p className="text-[10px] text-slate-600 mb-2">Aparece como chips na página do produto.</p>
-                  <div className="grid grid-cols-2 gap-2 mb-5">
-                    {APLICACAO_OPTS.map(opt => {
-                      const checked = aplicacaoInput.includes(opt);
-                      return (
-                        <label key={opt} className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer text-xs font-bold transition-all ${checked ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300' : 'border-slate-700 text-slate-500 hover:border-slate-500'}`}>
-                          <input type="checkbox" checked={checked} className="sr-only"
-                            onChange={() => {
-                              const next = checked ? aplicacaoInput.filter(x => x !== opt) : [...aplicacaoInput, opt];
-                              setAplicacaoInput(next);
-                              setEditingProduct({ ...editingProduct, aplicacao: next });
-                            }} />
-                          <span className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 ${checked ? 'bg-indigo-500 border-indigo-500' : 'border-slate-600'}`}>
-                            {checked && <span className="material-symbols-outlined text-[10px] text-white">check</span>}
-                          </span>
-                          {opt}
-                        </label>
-                      );
-                    })}
+                  <p className="text-[10px] text-slate-600 mb-3">Aparece como chips na página do produto. Edite, adicione ou remova opções.</p>
+
+                  {/* Itens já selecionados — editáveis inline */}
+                  <div className="space-y-1.5 mb-3">
+                    {aplicacaoInput.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 group">
+                        <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={e => {
+                            const next = [...aplicacaoInput];
+                            next[idx] = e.target.value;
+                            setAplicacaoInput(next);
+                            setEditingProduct({ ...editingProduct, aplicacao: next.filter(s => s.trim()) });
+                          }}
+                          className="flex-1 bg-transparent border-0 border-b border-slate-800 focus:border-indigo-500 text-sm text-slate-300 outline-none py-1 transition-colors"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = aplicacaoInput.filter((_, i) => i !== idx);
+                            setAplicacaoInput(next);
+                            setEditingProduct({ ...editingProduct, aplicacao: next });
+                          }}
+                          className="opacity-0 group-hover:opacity-100 text-rose-500 hover:text-rose-400 transition-all p-1 shrink-0"
+                        >
+                          <span className="material-symbols-outlined text-[16px]">remove_circle</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Sugestões rápidas (APLICACAO_OPTS não selecionados ainda) */}
+                  {(() => {
+                    const suggestions = [...APLICACAO_OPTS, ...customAplicacaoOpts].filter(o => !aplicacaoInput.includes(o));
+                    return suggestions.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {suggestions.map(opt => {
+                          const isCustom = customAplicacaoOpts.includes(opt);
+                          return (
+                            <div key={opt} className="flex items-center border border-slate-700 rounded-full group hover:border-indigo-500 transition-all overflow-hidden bg-[#0E1117]">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const next = [...aplicacaoInput, opt];
+                                  setAplicacaoInput(next);
+                                  setEditingProduct({ ...editingProduct, aplicacao: next });
+                                }}
+                                className="px-2.5 py-1 text-[11px] font-bold text-slate-400 group-hover:text-indigo-300 transition-colors"
+                              >+ {opt}</button>
+                              {isCustom && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setCustomAplicacaoOpts(prev => prev.filter(x => x !== opt));
+                                  }}
+                                  title="Remover sugestão"
+                                  className="px-1.5 py-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors border-l border-slate-700 group-hover:border-indigo-500 flex items-center justify-center"
+                                >
+                                  <span className="material-symbols-outlined text-[12px]">close</span>
+                                </button>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : null;
+                  })()}
+
+                  {/* Adicionar opção personalizada */}
+                  <div className="flex gap-2 mb-8">
+                    <input
+                      type="text"
+                      value={newAplicacaoOpt}
+                      onChange={e => setNewAplicacaoOpt(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddAplicacaoOpt(); } }}
+                      placeholder="Adicionar opção personalizada..."
+                      className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-indigo-500 outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddAplicacaoOpt}
+                      disabled={!newAplicacaoOpt.trim()}
+                      className="px-3 py-2 bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/30 text-indigo-400 text-xs font-bold rounded-lg transition-colors disabled:opacity-40"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">add_circle</span>
+                    </button>
                   </div>
 
                   {/* Como Usar */}
@@ -1810,14 +2344,14 @@ export const AdminDashboard: React.FC = () => {
 
                   {/* Especificações */}
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Especificações Técnicas</label>
-                  <p className="text-[10px] text-slate-600 mb-2">Chave â†’ Valor (ex: Espessura â†’ 3mm). Exibido como tabela.</p>
+                  <p className="text-[10px] text-slate-600 mb-2">Chave → Valor (ex: Espessura → 3mm). Exibido como tabela.</p>
                   <div className="space-y-2">
                     {specsInput.map((spec, i) => (
                       <div key={i} className="flex items-center gap-2">
                         <input type="text" value={spec.key} placeholder="Chave"
                           onChange={e => { const n=[...specsInput]; n[i]={...n[i],key:e.target.value}; setSpecsInput(n); const o:Record<string,string>={}; n.filter(s=>s.key.trim()).forEach(s=>{o[s.key]=s.val;}); setEditingProduct({...editingProduct,especificacoes:o}); }}
                           className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-indigo-500 outline-none" />
-                        <span className="text-slate-600">â†’</span>
+                        <span className="text-slate-600">→</span>
                         <input type="text" value={spec.val} placeholder="Valor"
                           onChange={e => { const n=[...specsInput]; n[i]={...n[i],val:e.target.value}; setSpecsInput(n); const o:Record<string,string>={}; n.filter(s=>s.key.trim()).forEach(s=>{o[s.key]=s.val;}); setEditingProduct({...editingProduct,especificacoes:o}); }}
                           className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-indigo-500 outline-none" />
@@ -1866,6 +2400,16 @@ export const AdminDashboard: React.FC = () => {
             </footer>
           </div>
         </div>
+      )}
+
+      {/* Manage Brands Modal */}
+      {showManageBrandsModal && (
+        <ManageBrandsModal onClose={() => setShowManageBrandsModal(false)} />
+      )}
+
+      {/* Normalize Brands Modal */}
+      {showNormalizeBrandsModal && (
+        <NormalizeBrandsModal onClose={() => setShowNormalizeBrandsModal(false)} />
       )}
 
       {/* Toast Notification */}

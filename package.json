@@ -7,7 +7,20 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "images:convert": "node scripts/auto-convert-images.cjs",
+    "images:convert:dry": "node scripts/auto-convert-images.cjs --dry-run",
+    "images:validate": "node scripts/validate-product-images.cjs",
+    "images:validate:strict": "node scripts/validate-product-images.cjs --strict",
+    "images:sync": "node scripts/sync-product-images.cjs",
+    "images:sync:bautech": "node scripts/bautech-convert-and-link.cjs",
+    "images:all": "npm run images:convert && npm run images:sync && npm run images:validate",
+    "backup": "node scripts/backup-products.cjs",
+    "backup:local": "node scripts/backup-products.cjs --local",
+    "restore": "node scripts/restore-products.cjs --list",
+    "sitemap:generate": "node scripts/generate-sitemap.cjs",
+    "production:check": "node scripts/production-check.cjs",
+    "predeploy": "npm run sitemap:generate && npm run production:check"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,829 @@
+**Total de Imagens Atualizadas:** 406
+
+# Global Image Sync Report
+**Data:** 13/05/2026, 00:40:05
+
+## Pasta: adesivos-e-epoxi
+- ✅ **Colamax Epóxi MF Adesivo Estrutural (Fluido)** (81.4% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-epoxi-mf-adesivo-estrutural-fluido-pote-1kg.webp`
+- ✅ **Colamax Epóxi MF Adesivo Estrutural (Fluido)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-epoxi-mf-adesivo-estrutural-fluido.webp`
+- ✅ **Colamax Epóxi TIX Adesivo Estrutural (Tixotrópico)** (75.5% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-epoxi-tix-adesivo-estrutural-tixotropico-pote-1kg.webp`
+- ✅ **Colamax Epóxi TIX Adesivo Estrutural (Tixotrópico)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-epoxi-tix-adesivo-estrutural-tixotropico.webp`
+- ✅ **Colamax Plus Adesivo para Chapisco (Balde)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-plus-adesivo-para-chapisco-balde.webp`
+- ✅ **Colamax Plus Adesivo para Chapisco (Tambor)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/colamax-plus-adesivo-para-chapisco-tambor.webp`
+- ✅ **Denverfix Adesivo para Chapisco** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/denverfix-adesivo-para-chapisco.webp`
+- ✅ **Dryko Epóxi MF Adesivo Estrutural (Fluido)** (86.5% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/dryko-epoxi-mf-adesivo-estrutural-fluido-1kg.webp`
+- ✅ **Dryko Epóxi MF Adesivo Estrutural (Fluido)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/dryko-epoxi-mf-adesivo-estrutural-fluido.webp`
+- ✅ **Dryko Epóxi TX Adesivo Estrutural (Tixotrópico)** (85.7% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/dryko-epoxi-tx-adesivo-estrutural-tixotropico-1kg.webp`
+- ✅ **Dryko Epóxi TX Adesivo Estrutural (Tixotrópico)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/dryko-epoxi-tx-adesivo-estrutural-tixotropico.webp`
+- ✅ **Quartzolit Tecbond MF Adesivo Epóxi Estrutural (Fluido)** (91.8% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/quartzolit-tecbond-mf-adesivo-epoxi-estrutural-fluido-1kg.webp`
+- ✅ **Quartzolit Tecbond MF Adesivo Epóxi Estrutural (Fluido)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/quartzolit-tecbond-mf-adesivo-epoxi-estrutural-fluido.webp`
+- ✅ **Quartzolit Tecbond TIX Adesivo Epóxi Estrutural (Tixotrópico)** (87.5% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/quartzolit-tecbond-tix-adesivo-epoxi-estrutural-tixotropico-1kg.webp`
+- ✅ **Quartzolit Tecbond TIX Adesivo Epóxi Estrutural (Tixotrópico)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/quartzolit-tecbond-tix-adesivo-epoxi-estrutural-tixotropico.webp`
+- ✅ **Vedacit Compound MF Adesivo Epóxi Estrutural (1kg)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/vedacit-compound-mf-adesivo-epoxi-estrutural-1kg.webp`
+- ✅ **Vedacit Compound TIX Adesivo Epóxi Estrutural (1kg)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/vedacit-compound-tix-adesivo-epoxi-estrutural-1kg.webp`
+- ✅ **Vedacit Pro Bianco Aditivo Adesivo para Chapisco** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/vedacit-pro-bianco-aditivo-adesivo-para-chapisco.webp`
+- ✅ **Viafix Adesivo para Chapisco (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/viafix-adesivo-para-chapisco-18kg.webp`
+- ✅ **Viafix Adesivo para Chapisco (200kg)** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/viafix-adesivo-para-chapisco-200kg.webp`
+- ✅ **Viapoxi Adesivo Epóxi Estrutural** (80.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/viapoxi-adesivo-epoxi-estrutural-1kg.webp`
+- ✅ **Viapoxi Adesivo Epóxi Estrutural** (100.0% match)
+  - Imagem principal: `/images/products/adesivos-e-epoxi/viapoxi-adesivo-epoxi-estrutural.webp`
+## Pasta: aditivos
+- ✅ **Aditivo Plastificante** (81.8% match)
+  - Imagem principal: `/images/products/aditivos/aditivo-plastificante-18l.webp`
+- ✅ **Aditivo Plastificante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/aditivo-plastificante.webp`
+- ✅ **Contra Umidade Aditivo Impermeabilizante** (84.6% match)
+  - Imagem principal: `/images/products/aditivos/contra-umidade-aditivo-impermeabilizante-18l.webp`
+- ✅ **Contra Umidade Aditivo Impermeabilizante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/contra-umidade-aditivo-impermeabilizante.webp`
+- ✅ **Dryko Drykofix Aditivo Adesivo (Chapisco)** (83.3% match)
+  - Imagem principal: `/images/products/aditivos/dryko-drykofix-aditivo-adesivo-chapisco-18l.webp`
+- ✅ **Dryko Drykofix Aditivo Adesivo (Chapisco)** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/dryko-drykofix-aditivo-adesivo-chapisco.webp`
+- ✅ **Veda Fácil Aditivo Hidrofugante** (90.0% match)
+  - Imagem principal: `/images/products/aditivos/veda-facil-aditivo-hidrofugante-18l.webp`
+- ✅ **Veda Fácil Aditivo Hidrofugante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/veda-facil-aditivo-hidrofugante.webp`
+- ✅ **Vedacit Polif Aditivo Plastificante (Pega Normal)** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-polif-aditivo-plastificante-pega-normal.webp`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (78.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l-2-400w.webp`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (78.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l-2-800w.webp`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (86.5% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l-2.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (80.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l-400w.webp`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (80.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l-800w.webp`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (88.9% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-18l.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (88.9% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-1l-2.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (91.4% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-1l.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (86.5% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-3-6l-2.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (88.9% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante-3-6l.jpg`
+- ✅ **Vedacit Pro Aditivo Impermeabilizante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-aditivo-impermeabilizante.webp`
+- ✅ **Vedacit Pro Emulsão Asfáltica com Cargas** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-pro-emulsao-asfaltica-com-cargas.webp`
+- ✅ **Vedacit Vedalit Aditivo Plastificante** (80.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-vedalit-aditivo-plastificante-18l.webp`
+- ✅ **Vedacit Vedalit Aditivo Plastificante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/vedacit-vedalit-aditivo-plastificante.webp`
+- ✅ **Viapol Eucon Vandex Aditivo Impermeabilizante** (88.6% match)
+  - Imagem principal: `/images/products/aditivos/viapol-eucon-vandex-aditivo-impermeabilizante-20kg.webp`
+- ✅ **Viapol Eucon Vandex Aditivo Impermeabilizante** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/viapol-eucon-vandex-aditivo-impermeabilizante.webp`
+- ✅ **Viapol Viacal Aditivo Plastificante (Substituto de Cal)** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/viapol-viacal-aditivo-plastificante-substituto-de-cal.webp`
+- ✅ **Viapol Viamix Aditivo Expansor** (80.0% match)
+  - Imagem principal: `/images/products/aditivos/viapol-viamix-aditivo-expansor-15kg.webp`
+- ✅ **Viapol Viamix Aditivo Expansor** (100.0% match)
+  - Imagem principal: `/images/products/aditivos/viapol-viamix-aditivo-expansor.webp`
+## Pasta: desmoldantes-e-cura
+- ✅ **Curacreto PA 10 (Agente de Cura)** (85.7% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/curacreto-pa-10-agente-de-cura-200l.webp`
+- ✅ **Curacreto PA 10 (Agente de Cura)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/curacreto-pa-10-agente-de-cura.webp`
+- ✅ **Curaton CQ (Agente de Cura 18kg)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/curaton-cq-agente-de-cura-18kg.webp`
+- ✅ **Curaton CQ (Agente de Cura)** (83.3% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/curaton-cq-agente-de-cura-200kg.webp`
+- ✅ **Curaton CQ (Agente de Cura)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/curaton-cq-agente-de-cura.webp`
+- ✅ **Desforma Plus Desmoldante (18L)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desforma-plus-desmoldante-18l.webp`
+- ✅ **Desforma Plus Desmoldante (200L)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desforma-plus-desmoldante-200l.webp`
+- ✅ **Desmolton MD (Desmoldante Biodegradável)** (80.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desmolton-md-desmoldante-biodegradavel-200l.webp`
+- ✅ **Desmolton MD (Desmoldante Biodegradável)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desmolton-md-desmoldante-biodegradavel.webp`
+- ✅ **Desmolton MU (Desmoldante Multiuso)** (80.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desmolton-mu-desmoldante-multiuso-200l.webp`
+- ✅ **Desmolton MU (Desmoldante Multiuso)** (100.0% match)
+  - Imagem principal: `/images/products/desmoldantes-e-cura/desmolton-mu-desmoldante-multiuso.webp`
+## Pasta: drenagem-e-geotexteis
+- ✅ **Bidim RT-16 Manta Geotêxtil Não Tecido (300g/m²)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/bidim-rt-16-manta-geotextil-nao-tecido-300g-m.webp`
+- ✅ **Bidim RT-16 Manta Geotêxtil Não Tecido (300g/m²)** (88.9% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/bidim-rt-16-manta-geotextil-nao-tecido-300gm.webp`
+- ✅ **Branyl Tela de Poliéster para Reforço 1,00x100m** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/branyl-tela-de-poliester-para-reforco-1-00x100m.webp`
+- ✅ **Branyl Tela de Poliéster para Reforço 1,00x100m** (87.2% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/branyl-tela-de-poliester-para-reforco-100x100m.webp`
+- ✅ **Fiberstrand 100 1/2 Fibra de Polipropileno para Concreto (600g)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/fiberstrand-100-1-2-fibra-de-polipropileno-para-concreto-600g.webp`
+- ✅ **Fiberstrand 100 1/2 Fibra de Polipropileno para Concreto (600g)** (88.2% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/fiberstrand-100-12-fibra-de-polipropileno-para-concreto-600g.webp`
+- ✅ **Hiper Tubo Corrugado Perfurado para Drenagem 100mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/hiper-tubo-corrugado-perfurado-para-drenagem-100mm.webp`
+- ✅ **Hiper Tubo Corrugado Perfurado para Drenagem 65mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/hiper-tubo-corrugado-perfurado-para-drenagem-65mm.webp`
+- ✅ **Mactex Geotêxtil Não Tecido IL 21.2** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/mactex-geotextil-nao-tecido-il-21-2.webp`
+- ✅ **Placa de Poliestireno Extrudado XPS 1500x600x25mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/placa-de-poliestireno-extrudado-xps-1500x600x25mm.webp`
+- ✅ **Placa de Poliestireno Extrudado XPS 2000x500x25mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/placa-de-poliestireno-extrudado-xps-2000x500x25mm.webp`
+- ✅ **Salvatudo Isomanta de Polietileno para Proteção (15m²)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/salvatudo-isomanta-de-polietileno-para-protecao-15m.webp`
+- ✅ **Salvatudo Isomanta de Polietileno para Proteção (25m²)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/salvatudo-isomanta-de-polietileno-para-protecao-25m.webp`
+- ✅ **Sika Sarnafil S 327 Membrana de PVC para Impermeabilização (2,00x20m)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/sika-sarnafil-s-327-membrana-de-pvc-para-impermeabilizacao-2-00x20m.webp`
+- ✅ **Sika Sarnafil S 327 Membrana de PVC para Impermeabilização (2,00x20m)** (89.3% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/sika-sarnafil-s-327-membrana-de-pvc-para-impermeabilizacao-200x20m.webp`
+- ✅ **Sika Sarnametal Chapa Metálica com Revestimento de PVC (2,0x1,0m)** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/sika-sarnametal-chapa-metalica-com-revestimento-de-pvc-2-0x1-0m.webp`
+- ✅ **Sika Sarnametal Chapa Metálica com Revestimento de PVC (2,0x1,0m)** (88.5% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/sika-sarnametal-chapa-metalica-com-revestimento-de-pvc-20x10m.webp`
+- ✅ **Viaboc Ralo Duplo de EPDM com Geotêxtil 100mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/viaboc-ralo-duplo-de-epdm-com-geotextil-100mm.webp`
+- ✅ **Viaboc Ralo Duplo de EPDM com Geotêxtil 150mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/viaboc-ralo-duplo-de-epdm-com-geotextil-150mm.webp`
+- ✅ **Viaboc Ralo Duplo de EPDM com Geotêxtil 75mm** (100.0% match)
+  - Imagem principal: `/images/products/drenagem-e-geotexteis/viaboc-ralo-duplo-de-epdm-com-geotextil-75mm.webp`
+## Pasta: ferramentas-e-acessorios
+- ✅ **Adere Fita Crepe 710 para Pintura e Mascaramento (48mm x 50m)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/adere-fita-crepe-710-para-pintura-e-mascaramento-48mm-x-50m.webp`
+- ✅ **Aplicador para Silicone e Selante Profissional (600ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/aplicador-para-silicone-e-selante-profissional-600ml.webp`
+- ✅ **Broxa para Pintura Retangular (18x8cm)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/broxa-para-pintura-retangular-18x8cm.webp`
+- ✅ **Dryko Espuma Expansiva de PU (500ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/dryko-espuma-expansiva-de-pu-500ml.webp`
+- ✅ **Etaniz Espuma Expansiva de PU (500ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/etaniz-espuma-expansiva-de-pu-500ml.webp`
+- ✅ **Fita Silver Tape Prata Multiuso (48mm)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/fita-silver-tape-prata-multiuso-48mm.webp`
+- ✅ **Perfil Hidroexpansivo Superstop STD (Bentonítico)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/perfil-hidroexpansivo-superstop-std-bentonitico.webp`
+- ✅ **Q-Borg Espuma de PU Uso Geral (500ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/q-borg-espuma-de-pu-uso-geral-500ml.webp`
+- ✅ **Qualitape Fita Adesiva Transparente (48mm x 45m)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/qualitape-fita-adesiva-transparente-48mm-x-45m.webp`
+- ✅ **Quartzolit Espuma Expansiva de PU (500ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/quartzolit-espuma-expansiva-de-pu-500ml.webp`
+- ✅ **Remox C Desincrustante e Restaurador Químico (50L)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/remox-c-desincrustante-e-restaurador-quimico-50l.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 10mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-10mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 12mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-12mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 15mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-15mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 20mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-20mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 25mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-25mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 6mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-6mm.webp`
+- ✅ **Tarugo Polipex Delimitador de Junta Backer Rod 8mm** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/tarugo-polipex-delimitador-de-junta-backer-rod-8mm.webp`
+- ✅ **Vedacit Espuma Expansiva de PU (340g / 500ml)** (100.0% match)
+  - Imagem principal: `/images/products/ferramentas-e-acessorios/vedacit-espuma-expansiva-de-pu-340g-500ml.webp`
+## Pasta: fitas-aluminizadas
+- ✅ **Dryko Drykomanta Vedatudo AL Tipo I Manta Adesiva** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-drykomanta-vedatudo-al-tipo-i-manta-adesiva-2.webp`
+- ✅ **Dryko Drykomanta Vedatudo AL Tipo I Manta Adesiva** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-drykomanta-vedatudo-al-tipo-i-manta-adesiva-3.webp`
+- ✅ **Dryko Drykomanta Vedatudo AL Tipo I Manta Adesiva** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-drykomanta-vedatudo-al-tipo-i-manta-adesiva.webp`
+- ✅ **Dryko Fita Vedatudo 10cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-10cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Dryko Fita Vedatudo 10cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-10cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Dryko Fita Vedatudo 15cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-15cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Dryko Fita Vedatudo 15cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-15cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Dryko Fita Vedatudo 20cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-20cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Dryko Fita Vedatudo 20cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-20cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Dryko Fita Vedatudo 20cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-20cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Dryko Fita Vedatudo 30cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-30cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Dryko Fita Vedatudo 30cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-30cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Dryko Fita Vedatudo 30cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-30cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Dryko Fita Vedatudo 60cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-60cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Dryko Fita Vedatudo 60cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-60cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Dryko Fita Vedatudo 60cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/dryko-fita-vedatudo-60cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 10cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-10cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 10cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-10cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Plastiband 10cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-10cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 15cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-15cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 15cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-15cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Plastiband 15cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-15cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 20cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-20cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 20cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-20cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Plastiband 20cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-20cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 30cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-30cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 30cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-30cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Plastiband 30cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-30cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 45cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-45cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 45cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-45cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 60cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-60cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 60cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-60cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Plastiband 90cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-90cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Plastiband 90cm Fita Asfáltica Aluminizada** (86.8% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-90cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Plastiband 90cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/plastiband-90cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 10cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-10cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 10cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-10cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Q-Borg Uso Geral 10cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-10cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 15cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-15cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 15cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-15cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Q-Borg Uso Geral 15cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-15cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 20cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-20cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 20cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-20cm-fita-asfaltica-aluminizada-3.webp`
+- ✅ **Q-Borg Uso Geral 20cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-20cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 30cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-30cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 30cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-30cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 45cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-45cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 45cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-45cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 60cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-60cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Q-Borg Uso Geral 90cm Fita Asfáltica Aluminizada** (90.2% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-90cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Q-Borg Uso Geral 90cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/q-borg-uso-geral-90cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Vedacit Pro Adesivo Elastomérico Fita Aluminizada** (85.1% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/vedacit-pro-adesivo-elastomerico-fita-aluminizada-10m-2.webp`
+- ✅ **Vedacit Pro Adesivo Elastomérico Fita Aluminizada** (87.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/vedacit-pro-adesivo-elastomerico-fita-aluminizada-10m.webp`
+- ✅ **Vedacit Pro Adesivo Elastomérico Fita Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/vedacit-pro-adesivo-elastomerico-fita-aluminizada.webp`
+- ✅ **Viapol Betufita 15cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-betufita-15cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Viapol Betufita 15cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-betufita-15cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Viapol Betufita 20cm Fita Asfáltica Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-betufita-20cm-fita-asfaltica-aluminizada-2.webp`
+- ✅ **Viapol Betufita 20cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-betufita-20cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Viapol Betufita 94cm Fita Asfáltica Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-betufita-94cm-fita-asfaltica-aluminizada.webp`
+- ✅ **Viapol Viaflex Sleeve Telha Fita Aluminizada** (85.7% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-viaflex-sleeve-telha-fita-aluminizada-20cm.webp`
+- ✅ **Viapol Viaflex Sleeve Telha Fita Aluminizada** (100.0% match)
+  - Imagem principal: `/images/products/fitas-aluminizadas/viapol-viaflex-sleeve-telha-fita-aluminizada.webp`
+## Pasta: graute-e-reparacao-estrutural
+- ✅ **Quartzolit Supergraute (Graute Estrutural 25kg)** (100.0% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/quartzolit-supergraute-graute-estrutural-25kg.webp`
+- ✅ **Viapol Eucorepair Ferroprotec (Proteção Anticorrosiva)** (83.3% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-eucorepair-ferroprotec-protecao-anticorrosiva-1kg.webp`
+- ✅ **Viapol Eucorepair Ferroprotec (Proteção Anticorrosiva)** (100.0% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-eucorepair-ferroprotec-protecao-anticorrosiva.webp`
+- ✅ **Viapol Fuseprotec Parede (Proteção de Concreto)** (85.7% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-fuseprotec-parede-protecao-de-concreto-18l.webp`
+- ✅ **Viapol Fuseprotec Parede (Proteção de Concreto)** (100.0% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-fuseprotec-parede-protecao-de-concreto.webp`
+- ✅ **Viapol Vandex Super (Impermeabilização Estrutural)** (87.2% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-vandex-super-impermeabilizacao-estrutural-20kg.webp`
+- ✅ **Viapol Vandex Super (Impermeabilização Estrutural)** (100.0% match)
+  - Imagem principal: `/images/products/graute-e-reparacao-estrutural/viapol-vandex-super-impermeabilizacao-estrutural.webp`
+## Pasta: impermeabilizantes-cimenticios
+- ✅ **Denver Denvertec 100 Argamassa Polimérica** (83.3% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/denver-denvertec-100-argamassa-polimerica-18kg.webp`
+- ✅ **Denver Denvertec 100 Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/denver-denvertec-100-argamassa-polimerica.webp`
+- ✅ **Maxton Veda Fácil Flex Argamassa Polimérica Flexível** (87.5% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-argamassa-polimerica-flexivel-18kg.webp`
+- ✅ **Maxton Veda Fácil Flex Argamassa Polimérica Flexível** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-argamassa-polimerica-flexivel.webp`
+- ✅ **Maxton Veda Fácil Flex Fibras Argamassa Polimérica** (87.5% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-fibras-argamassa-polimerica-18kg.webp`
+- ✅ **Maxton Veda Fácil Flex Fibras Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-fibras-argamassa-polimerica.webp`
+- ✅ **Maxton Veda Fácil Flex UV Argamassa Polimérica** (88.4% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-uv-argamassa-polimerica-18kg.webp`
+- ✅ **Maxton Veda Fácil Flex UV Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-flex-uv-argamassa-polimerica.webp`
+- ✅ **Maxton Veda Fácil Plus Argamassa Polimérica** (85.7% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-plus-argamassa-polimerica-18kg.webp`
+- ✅ **Maxton Veda Fácil Plus Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-plus-argamassa-polimerica.webp`
+- ✅ **Maxton Veda Fácil Rodapé Argamassa Impermeabilizante** (85.7% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-rodape-argamassa-impermeabilizante-4kg.webp`
+- ✅ **Maxton Veda Fácil Rodapé Argamassa Impermeabilizante** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-rodape-argamassa-impermeabilizante.webp`
+- ✅ **Maxton Veda Fácil Tamp Cimento de Pega Rápida** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/maxton-veda-facil-tamp-cimento-de-pega-rapida.webp`
+- ✅ **Vedacit Pro Vedatop 1000 (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/vedacit-pro-vedatop-1000-18kg.webp`
+- ✅ **Vedacit Pro Vedatop 5000 (18kg)** (80.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/vedacit-pro-vedatop-18kg.jpg`
+- ✅ **Vedacit Pro Vedatop 5000 (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/vedacit-pro-vedatop-5000-18kg.webp`
+- ✅ **Vedacit Vedatop 7000 Fibras (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/vedacit-vedatop-7000-fibras-18kg.webp`
+- ✅ **Viapol Vedamat 100 Argamassa Polimérica** (83.3% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-vedamat-100-argamassa-polimerica-18kg.webp`
+- ✅ **Viapol Vedamat 100 Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-vedamat-100-argamassa-polimerica.webp`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (75.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-1000-argamassa-polimerica-18kg-2.jpg`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (76.9% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-1000-argamassa-polimerica-18kg.jpg`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (75.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-1000-argamassa-polimerica-balde-18kg-2.jpg`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (76.9% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-1000-argamassa-polimerica-balde-18kg.jpg`
+- ✅ **Viapol Viaplus 2000 Fibras Argamassa Polimérica** (85.7% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-2000-fibras-argamassa-polimerica-18kg.webp`
+- ✅ **Viapol Viaplus 2000 Fibras Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-2000-fibras-argamassa-polimerica.webp`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-5000-argamassa-polimerica-18kg.webp`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (75.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-5000-argamassa-polimerica-flexivel-18kg-2.jpg`
+- ✅ **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (85.7% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-5000-argamassa-polimerica-flexivel-18kg.jpg`
+- ✅ **Viapol Viaplus 5000 Fibras Argamassa Polimérica (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-5000-fibras-argamassa-polimerica-18kg.webp`
+- ✅ **Viapol Viaplus 5000 Fibras Argamassa Polimérica (18kg)** (75.6% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-7000-fibras-argamassa-polimerica-18kg.jpg`
+- ✅ **Viapol Viaplus Protec Argamassa Polimérica** (83.3% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-protec-argamassa-polimerica-18kg.webp`
+- ✅ **Viapol Viaplus Protec Argamassa Polimérica** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viaplus-protec-argamassa-polimerica.webp`
+- ✅ **Viapol Viapolseca Pó 2 Cimento Rápido** (85.7% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viapolseca-po-2-cimento-rapido-15kg.webp`
+- ✅ **Viapol Viapolseca Pó 2 Cimento Rápido** (100.0% match)
+  - Imagem principal: `/images/products/impermeabilizantes-cimenticios/viapol-viapolseca-po-2-cimento-rapido.webp`
+## Pasta: manta-asfaltica
+- ✅ **Manta Asfáltica Vedacit 3mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-2-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-2-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (95.8% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-2.jpg`
+- ✅ **Manta Asfáltica Vedacit 3mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-3-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-3-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (95.8% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-3.png`
+- ✅ **Manta Asfáltica Vedacit 3mm** (85.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (85.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 3mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-3mm.jpg`
+- ✅ **Manta Asfáltica Vedacit 4mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-2-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-2-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (95.8% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-2.jpg`
+- ✅ **Manta Asfáltica Vedacit 4mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-3-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (82.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-3-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (95.8% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-3.png`
+- ✅ **Manta Asfáltica Vedacit 4mm** (85.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-400w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (85.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm-800w.webp`
+- ✅ **Manta Asfáltica Vedacit 4mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-vedacit-4mm.jpg`
+- ✅ **Manta Asfáltica Viapol 4mm** (81.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm-2-400w.webp`
+- ✅ **Manta Asfáltica Viapol 4mm** (81.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm-2-800w.webp`
+- ✅ **Manta Asfáltica Viapol 4mm** (95.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm-2.jpg`
+- ✅ **Manta Asfáltica Viapol 4mm** (84.6% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm-400w.webp`
+- ✅ **Manta Asfáltica Viapol 4mm** (84.6% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm-800w.webp`
+- ✅ **Manta Asfáltica Viapol 4mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/manta-asfaltica-viapol-4mm.jpg`
+- ✅ **Vedacit Pro II B Poliéster 3mm** (95.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-3mm-2.jpg`
+- ✅ **Vedacit Pro II B Poliéster 3mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-3mm.jpg`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (81.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm-2-400w.webp`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (81.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm-2-800w.webp`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (95.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm-2.jpg`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (84.6% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm-400w.webp`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (84.6% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm-800w.webp`
+- ✅ **Vedacit Pro II B Poliéster 4mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/vedacit-pro-ii-b-poliester-4mm.jpg`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica-2-400w.webp`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica-2-800w.webp`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica-2.jpg`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica-400w.webp`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica-800w.webp`
+- ✅ **Viapol Betumanta 2 E Manta Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-2-e-manta-asfaltica.jpg`
+- ✅ **Viapol Betumanta 3 PP Manta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-3-pp-manta-asfaltica-2.jpg`
+- ✅ **Viapol Betumanta 3 PP Manta Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-betumanta-3-pp-manta-asfaltica.jpg`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (78.4% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm-2-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (78.4% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm-2-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (87.9% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm-2.jpg`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Cinza 3mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-cinza-3mm.jpg`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (75.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm-2-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (75.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm-2-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm-2.jpg`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 3mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-3mm.jpg`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (75.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm-2-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (75.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm-2-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm-2.jpg`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Verde 4mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-verde-4mm.jpg`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (80.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm-2-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (80.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm-2-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (88.9% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm-2.jpg`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm-400w.webp`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (85.7% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm-800w.webp`
+- ✅ **Viapol Manta Premium Ardósia Vermelho 3mm** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-manta-premium-ardosia-vermelho-3mm.jpg`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (84.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica-2-400w.webp`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (84.2% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica-2-800w.webp`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (94.1% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica-2.jpg`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (87.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica-400w.webp`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (87.5% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica-800w.webp`
+- ✅ **Viapol Torodin 3500 3 PP Manta Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-asfaltica/viapol-torodin-3500-3-pp-manta-asfaltica.jpg`
+## Pasta: manta-liquida
+- ✅ **Denver Denvertec 540 Argamassa Polimérica com Fibras** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/denver-denvertec-540-argamassa-polimerica-com-fibras.webp`
+- ✅ **Denver Denvertec 540 Argamassa Polimérica Flexível** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/denver-denvertec-540-argamassa-polimerica-flexivel.webp`
+- ✅ **Denver Elastic HP Poliuretano** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/denver-elastic-hp-poliuretano.webp`
+- ✅ **Do Mestre Manta Líquida Branca** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/do-mestre-manta-liquida-branca.webp`
+- ✅ **Dryko Drykolaje Top Manta Líquida Branca** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/dryko-drykolaje-top-manta-liquida-branca-12kg-2.webp`
+- ✅ **Dryko Drykolaje Top Manta Líquida Branca** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/dryko-drykolaje-top-manta-liquida-branca-12kg-400w.webp`
+- ✅ **Dryko Drykolaje Top Manta Líquida Branca** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/dryko-drykolaje-top-manta-liquida-branca-12kg-800w.webp`
+- ✅ **Dryko Drykolaje Top Manta Líquida Branca** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/dryko-drykolaje-top-manta-liquida-branca-12kg.webp`
+- ✅ **Dryko Drykolaje Top Manta Líquida Branca** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/dryko-drykolaje-top-manta-liquida-branca.webp`
+- ✅ **Hydrolin Manta Líquida Asfáltica** (78.8% match)
+  - Imagem principal: `/images/products/manta-liquida/hydrolin-manta-liquida-asfaltica-18kg-2.webp`
+- ✅ **Hydrolin Manta Líquida Asfáltica** (78.8% match)
+  - Imagem principal: `/images/products/manta-liquida/hydrolin-manta-liquida-asfaltica-18kg-3.webp`
+- ✅ **Hydrolin Manta Líquida Asfáltica** (81.3% match)
+  - Imagem principal: `/images/products/manta-liquida/hydrolin-manta-liquida-asfaltica-18kg.webp`
+- ✅ **Hydrolin Manta Líquida Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/hydrolin-manta-liquida-asfaltica.webp`
+- ✅ **Maxton Maxpren Laje Manta Líquida Branca** (76.9% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-laje-manta-liquida-branca-18kg-2.webp`
+- ✅ **Maxton Maxpren Laje Manta Líquida Branca** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-laje-manta-liquida-branca-18kg-400w.webp`
+- ✅ **Maxton Maxpren Laje Manta Líquida Branca** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-laje-manta-liquida-branca-18kg-800w.webp`
+- ✅ **Maxton Maxpren Laje Manta Líquida Branca** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-laje-manta-liquida-branca-18kg.webp`
+- ✅ **Maxton Maxpren Laje Manta Líquida Branca** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-laje-manta-liquida-branca.webp`
+- ✅ **Maxton Maxpren Pintura Impermeável Parede Premium** (79.2% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pintura-impermeavel-parede-premium-18kg-2.webp`
+- ✅ **Maxton Maxpren Pintura Impermeável Parede Premium** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pintura-impermeavel-parede-premium-18kg-400w.webp`
+- ✅ **Maxton Maxpren Pintura Impermeável Parede Premium** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pintura-impermeavel-parede-premium-18kg-800w.webp`
+- ✅ **Maxton Maxpren Pintura Impermeável Parede Premium** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pintura-impermeavel-parede-premium-18kg.webp`
+- ✅ **Maxton Maxpren Pintura Impermeável Parede Premium** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pintura-impermeavel-parede-premium.webp`
+- ✅ **Maxton Maxpren Pro Manta Líquida Alumínio** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/maxton-maxpren-pro-manta-liquida-aluminio.webp`
+- ✅ **Quartzolit Acrifast Manta Líquida Acrílica** (83.3% match)
+  - Imagem principal: `/images/products/manta-liquida/quartzolit-acrifast-manta-liquida-acrilica-18kg.webp`
+- ✅ **Quartzolit Acrifast Manta Líquida Acrílica** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/quartzolit-acrifast-manta-liquida-acrilica.webp`
+- ✅ **Sika Sikalastic-612 Poliuretano Cinza** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/sika-sikalastic-612-poliuretano-cinza.webp`
+- ✅ **Soprema Alsan Acril Manta Líquida Acrílica** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/soprema-alsan-acril-manta-liquida-acrilica-12kg-2.webp`
+- ✅ **Soprema Alsan Acril Manta Líquida Acrílica** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/soprema-alsan-acril-manta-liquida-acrilica-12kg-400w.webp`
+- ✅ **Soprema Alsan Acril Manta Líquida Acrílica** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/soprema-alsan-acril-manta-liquida-acrilica-12kg-800w.webp`
+- ✅ **Soprema Alsan Acril Manta Líquida Acrílica** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/soprema-alsan-acril-manta-liquida-acrilica-12kg.webp`
+- ✅ **Soprema Alsan Acril Manta Líquida Acrílica** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/soprema-alsan-acril-manta-liquida-acrilica.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg-2.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg-3.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg-400w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg-800w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (87.5% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Asfáltica Preta** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-asfaltica-preta.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-2-400w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-2-800w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (88.9% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-2.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-3-400w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-3-800w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (88.9% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-3.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (88.9% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-400w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (88.9% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg-800w.webp`
+- ✅ **Vedacit Pro Vedapren Manta Líquida Branca Acrílica (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-para-parede-18kg.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-2-400w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-2-800w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-2.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-3-400w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-3-800w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-3.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-4-400w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-4-800w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-4.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-400w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-5-400w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (76.0% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-5-800w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-5.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (77.8% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg-800w.webp`
+- ✅ **Vedacit Pro Vedapren Pintura Impermeável para Parede (18kg)** (87.5% match)
+  - Imagem principal: `/images/products/manta-liquida/vedacit-pro-vedapren-pintura-impermeavel-parede-18kg.webp`
+- ✅ **Viapol Vedalage Manta Líquida Branca** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-branca-14l-2.webp`
+- ✅ **Viapol Vedalage Manta Líquida Branca** (80.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-branca-14l-3.webp`
+- ✅ **Viapol Vedalage Manta Líquida Branca** (83.3% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-branca-14l.webp`
+- ✅ **Viapol Vedalage Manta Líquida Branca** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-branca.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (79.1% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica-18l-2.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (79.1% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica-18l-3.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica-18l-400w.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (75.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica-18l-800w.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica-18l.webp`
+- ✅ **Viapol Vedalage Manta Líquida Preta Asfáltica** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-manta-liquida-preta-asfaltica.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (82.1% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha-12kg-2.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (82.1% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha-12kg-3.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (76.2% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha-12kg-400w.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (76.2% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha-12kg-800w.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (85.7% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha-12kg.webp`
+- ✅ **Viapol Vedalage Plus Manta Líquida Telha** (100.0% match)
+  - Imagem principal: `/images/products/manta-liquida/viapol-vedalage-plus-manta-liquida-telha.webp`
+## Pasta: primer
+- ✅ **Denver Denverprimer Acqua Asfáltico** (80.0% match)
+  - Imagem principal: `/images/products/primer/denver-denverprimer-acqua-asfaltico-18l.webp`
+- ✅ **Denver Denverprimer Acqua Asfáltico** (100.0% match)
+  - Imagem principal: `/images/products/primer/denver-denverprimer-acqua-asfaltico.webp`
+- ✅ **Dryko Drykoprimer Acqua Asfáltico** (75.8% match)
+  - Imagem principal: `/images/products/primer/dryko-drykoprimer-acqua-asfaltico-18l-2.webp`
+- ✅ **Dryko Drykoprimer Acqua Asfáltico** (80.0% match)
+  - Imagem principal: `/images/products/primer/dryko-drykoprimer-acqua-asfaltico-18l.webp`
+- ✅ **Dryko Drykoprimer Acqua Asfáltico** (100.0% match)
+  - Imagem principal: `/images/products/primer/dryko-drykoprimer-acqua-asfaltico.webp`
+- ✅ **Maxton Maxprimer Asfáltico** (75.0% match)
+  - Imagem principal: `/images/products/primer/maxton-maxprimer-asfaltico-18kg-2.webp`
+- ✅ **Maxton Maxprimer Asfáltico** (77.8% match)
+  - Imagem principal: `/images/products/primer/maxton-maxprimer-asfaltico-18kg.webp`
+- ✅ **Maxton Maxprimer Asfáltico** (75.0% match)
+  - Imagem principal: `/images/products/primer/maxton-maxprimer-asfaltico-3-6kg-2.webp`
+- ✅ **Maxton Maxprimer Asfáltico** (77.8% match)
+  - Imagem principal: `/images/products/primer/maxton-maxprimer-asfaltico-3-6kg.webp`
+- ✅ **Maxton Maxprimer Asfáltico** (100.0% match)
+  - Imagem principal: `/images/products/primer/maxton-maxprimer-asfaltico.webp`
+- ✅ **Q-Borg Primer Asfáltico** (79.2% match)
+  - Imagem principal: `/images/products/primer/q-borg-primer-asfaltico-18kg-2.webp`
+- ✅ **Q-Borg Primer Asfáltico** (82.6% match)
+  - Imagem principal: `/images/products/primer/q-borg-primer-asfaltico-18kg.webp`
+- ✅ **Q-Borg Primer Asfáltico** (100.0% match)
+  - Imagem principal: `/images/products/primer/q-borg-primer-asfaltico.webp`
+- ✅ **Vedacit Pro Primer Asfáltico Solvente (18L)** (91.7% match)
+  - Imagem principal: `/images/products/primer/vedacit-pro-primer-asfaltico-solvente-18l-2.webp`
+- ✅ **Vedacit Pro Primer Asfáltico Solvente (18L)** (91.7% match)
+  - Imagem principal: `/images/products/primer/vedacit-pro-primer-asfaltico-solvente-18l-3.webp`
+- ✅ **Vedacit Pro Primer Asfáltico Solvente (18L)** (100.0% match)
+  - Imagem principal: `/images/products/primer/vedacit-pro-primer-asfaltico-solvente-18l.webp`
+- ✅ **Vedacit Pro Primer Asfáltico Solvente (18L)** (85.7% match)
+  - Imagem principal: `/images/products/primer/vedacit-pro-primer-asfaltico-solvente.webp`
+- ✅ **Viapol Ecoprimer Asfáltico** (78.6% match)
+  - Imagem principal: `/images/products/primer/viapol-ecoprimer-asfaltico-18kg-2.webp`
+- ✅ **Viapol Ecoprimer Asfáltico** (81.5% match)
+  - Imagem principal: `/images/products/primer/viapol-ecoprimer-asfaltico-18kg.webp`
+- ✅ **Viapol Ecoprimer Asfáltico** (78.6% match)
+  - Imagem principal: `/images/products/primer/viapol-ecoprimer-asfaltico-3-6kg-2.webp`
+- ✅ **Viapol Ecoprimer Asfáltico** (81.5% match)
+  - Imagem principal: `/images/products/primer/viapol-ecoprimer-asfaltico-3-6kg.webp`
+- ✅ **Viapol Ecoprimer Asfáltico** (100.0% match)
+  - Imagem principal: `/images/products/primer/viapol-ecoprimer-asfaltico.webp`
+- ✅ **Viapol Vitpoli Primer Epóxi** (80.0% match)
+  - Imagem principal: `/images/products/primer/viapol-vitpoli-primer-epoxi-15kg.webp`
+- ✅ **Viapol Vitpoli Primer Epóxi** (100.0% match)
+  - Imagem principal: `/images/products/primer/viapol-vitpoli-primer-epoxi.webp`
+## Pasta: selantes
+- ✅ **Poliplas Silicone Acético Incolor** (80.0% match)
+  - Imagem principal: `/images/products/selantes/poliplas-silicone-acetico-incolor-250g.webp`
+- ✅ **Poliplas Silicone Acético Incolor** (100.0% match)
+  - Imagem principal: `/images/products/selantes/poliplas-silicone-acetico-incolor.webp`
+- ✅ **Poxpur Silicone Acético Uso Geral Incolor** (100.0% match)
+  - Imagem principal: `/images/products/selantes/poxpur-silicone-acetico-uso-geral-incolor.webp`
+- ✅ **Q-Borg Pro Selante para Calhas e Rufos Cinza** (80.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pro-selante-calhas-e-rufos-cinza-2.webp`
+- ✅ **Q-Borg Pro Selante para Calhas e Rufos Cinza** (88.9% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pro-selante-calhas-e-rufos-cinza.webp`
+- ✅ **Q-Borg Pro Selante para Calhas e Rufos Cinza** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pro-selante-para-calhas-e-rufos-cinza.webp`
+- ✅ **Q-Borg Pro Silicone Acético Incolor** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pro-silicone-acetico-incolor.webp`
+- ✅ **Q-Borg PU 40 Multiuso Branco (800g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-branco-800g.webp`
+- ✅ **Q-Borg PU 40 Multiuso Branco (800g)** (87.5% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-branco-sache-800g.webp`
+- ✅ **Q-Borg PU 40 Multiuso Cinza (310ml)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-cinza-310ml.webp`
+- ✅ **Q-Borg PU 40 Multiuso Cinza (Sachê)** (87.5% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-cinza-sache-800g.webp`
+- ✅ **Q-Borg PU 40 Multiuso Cinza (Sachê)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-cinza-sache.webp`
+- ✅ **Q-Borg PU 40 Multiuso Preto (Bisnaga)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-preto-bisnaga.webp`
+- ✅ **Q-Borg PU 40 Multiuso Preto (Sachê)** (87.5% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-preto-sache-800g.webp`
+- ✅ **Q-Borg PU 40 Multiuso Preto (Sachê)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-40-multiuso-preto-sache.webp`
+- ✅ **Q-Borg PU Q-25 Premium Branco** (75.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-q-25-premium-branco-sache-800g.webp`
+- ✅ **Q-Borg PU Q-25 Premium Branco** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-q-25-premium-branco.webp`
+- ✅ **Q-Borg PU Q-25 Premium Cinza** (75.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-q-25-premium-cinza-sache-800g.webp`
+- ✅ **Q-Borg PU Q-25 Premium Cinza** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-pu-q-25-premium-cinza.webp`
+- ✅ **Q-Borg Silicone Neutro Incolor** (84.6% match)
+  - Imagem principal: `/images/products/selantes/q-borg-silicone-neutro-incolor-2.webp`
+- ✅ **Q-Borg Silicone Neutro Incolor** (100.0% match)
+  - Imagem principal: `/images/products/selantes/q-borg-silicone-neutro-incolor.webp`
+- ✅ **Ultra Ved PU 40 Multiuso Branco (400g)** (87.5% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-multiuso-branco-400g-2.webp`
+- ✅ **Ultra Ved PU 40 Multiuso Branco (400g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-multiuso-branco-400g.webp`
+- ✅ **Ultra Ved PU 40 Multiuso Cinza (400g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-multiuso-cinza-400g.webp`
+- ✅ **Ultra Ved PU 40 Multiuso Preto (400g)** (87.5% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-multiuso-preto-400g-2.webp`
+- ✅ **Ultra Ved PU 40 Multiuso Preto (400g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-multiuso-preto-400g.webp`
+- ✅ **Ultra Ved PU 40 Professional Branco (800g)** (94.1% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-professional-branco-800g-2.webp`
+- ✅ **Ultra Ved PU 40 Professional Branco (800g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-professional-branco-800g.webp`
+- ✅ **Ultra Ved PU 40 Professional Cinza (800g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-professional-cinza-800g.webp`
+- ✅ **Ultra Ved PU 40 Professional Preto (800g)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/ultra-ved-pu-40-professional-preto-800g.webp`
+- ✅ **Viapol Heydicryl Mástique Acrílico (5kg)** (100.0% match)
+  - Imagem principal: `/images/products/selantes/viapol-heydicryl-mastique-acrilico-5kg.png`

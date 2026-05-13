@@ -1,6 +1,6 @@
 import React, { useMemo, useSyncExternalStore, useState, useEffect } from 'react';
 import ProductCard from './product-card';
-import { catalogStore } from '@/data/products';
+import { productsStore as catalogStore } from '@/lib/products-service';
 import { useNavigate } from 'react-router-dom';
 import { MAX_DESTAQUE } from '@/config/constants';
 

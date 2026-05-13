@@ -5,6 +5,29 @@ import './styles.css';
 import { Header } from './components/ui/header-2';
 import { initAnalytics } from './lib/analytics';
 
+// ── Maintenance mode check — admin can toggle via Sistema tab ────────────────
+if (typeof window !== 'undefined' && localStorage.getItem('mdi_maintenance') === 'true') {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = [
+    'position:fixed','inset:0','z-index:99999','display:flex',
+    'flex-direction:column','align-items:center','justify-content:center',
+    'background:#0E1117','color:#e2e8f0','font-family:system-ui,sans-serif',
+    'text-align:center','padding:2rem',
+  ].join(';');
+  overlay.innerHTML = `
+    <span style="font-size:4rem;margin-bottom:1rem">🔧</span>
+    <h1 style="font-size:1.75rem;font-weight:900;color:#fff;margin:0 0 0.5rem">Sistema em Manutenção</h1>
+    <p style="color:#94a3b8;max-width:400px;line-height:1.6;margin:0 0 2rem">
+      Estamos realizando melhorias para oferecer uma experiência ainda melhor.
+      Voltamos em breve!
+    </p>
+    <p style="color:#475569;font-size:0.75rem">Mundo da Impermeabilização</p>
+  `;
+  document.body.appendChild(overlay);
+  // Bloqueia scripts restantes
+  throw new Error('MAINTENANCE_MODE');
+}
+
 // ── Analytics: defer until browser is idle to never block LCP ──
 if (typeof window !== 'undefined') {
   const scheduleAnalytics = () => { initAnalytics(); };

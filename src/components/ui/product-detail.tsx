@@ -1,14 +1,14 @@
 import React from 'react';
 import {
+  productsStore as catalogStore,
   getProductBySlug,
   getRelatedProducts,
   getVariacoes,
-  products,
-  catalogStore,
-} from '@/data/products';
+} from '@/lib/products-service';
 import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
-import { getSessionId } from '@/lib/analytics';
+import { getSessionId, trackProductClick, trackWhatsAppClick } from '@/lib/analytics';
 import { useParams, useNavigate } from 'react-router-dom';
+import { resolveProductImage, createImageErrorHandler } from '@/lib/image-resolver';
 
 const ProductCard = React.lazy(() => import('./product-card'));
 
@@ -62,25 +62,21 @@ const ProductCarousel: React.FC<{
           className="flex overflow-x-auto snap-x snap-mandatory scrollbar-thin h-full no-scrollbar"
         >
           {imagens.map((src, i) => {
-            const hasError = localErrors[i];
-            const displaySrc = hasError ? '/images/products/placeholder.webp' : src;
-            const isPlaceholder = displaySrc.includes('placeholder');
-            
+            const hasError    = localErrors[i];
+            const displaySrc  = hasError ? '/images/products/placeholder.webp' : src;
+
             return (
               <div key={i} className="flex-shrink-0 w-full h-full snap-center">
                 <img
                   src={displaySrc}
-                  srcSet={undefined}
-                  sizes="(max-width: 1024px) 95vw, 50vw"
                   alt={`${nome} - Vista ${i + 1}`}
                   width={600}
                   height={600}
                   loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
                   // @ts-ignore
                   fetchPriority={i === 0 ? 'high' : 'auto'}
-                  onError={() => {
-                    if (!hasError) setLocalErrors(prev => ({ ...prev, [i]: true }));
-                  }}
+                  onError={createImageErrorHandler()}
                   className="w-full h-full object-contain select-none"
                 />
               </div>
@@ -199,6 +195,19 @@ const ProductDetail: React.FC = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  // Track product view (page detail = implicit product_click)
+  React.useEffect(() => {
+    if (product) {
+      trackProductClick({
+        product_slug: product.slug,
+        product_name: product.nome,
+        category: product.categoria || '',
+        brand: product.marca || '',
+        source_page: window.location.pathname,
+      });
+    }
+  }, [product?.slug]);
+
   // 404
   if (!product) {
     return (
@@ -222,7 +231,8 @@ const ProductDetail: React.FC = () => {
   }
 
   const whatsappUrl = buildWhatsAppUrl(product.nome, getSessionId());
-  const isDisponivel = (product as any).disponivel !== false;
+  // Availability: canonical `ativo` + legacy `disponivel` for backward compat
+  const isDisponivel = product.ativo !== false && (product as any).disponivel !== false;
 
 
 
@@ -282,12 +292,17 @@ const ProductDetail: React.FC = () => {
           {/* Image / Carousel */}
           <div>
             <div className="sticky top-24">
-              <ProductCarousel 
-                imagens={product.imagens && product.imagens.length > 0 ? product.imagens : (product.imagem ? [product.imagem] : ['/images/products/placeholder.webp'])}
-                nome={product.nome}
-                marca={product.marca}
-                destaque={product.destaque}
-              />
+              {(() => {
+                const { srcSet } = resolveProductImage(product);
+                return (
+                  <ProductCarousel
+                    imagens={srcSet}
+                    nome={product.nome}
+                    marca={product.marca}
+                    destaque={product.destaque}
+                  />
+                );
+              })()}
             </div>
           </div>
 
@@ -449,7 +464,16 @@ const ProductDetail: React.FC = () => {
                     .map((v) => (
                     <button
                       key={v.slug}
-                      onClick={() => navigate(`/produto/${v.slug}`)}
+                      onClick={() => {
+                        trackProductClick({
+                          product_slug: v.slug,
+                          product_name: v.nome,
+                          category: v.categoria || '',
+                          brand: v.marca || '',
+                          source_page: window.location.pathname,
+                        });
+                        navigate(`/produto/${v.slug}`);
+                      }}
                       className="inline-flex items-center gap-2 bg-white border-2 border-slate-200 hover:border-primary text-slate-700 hover:text-primary px-4 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer hover:shadow-md"
                     >
                       {v.embalagem}
@@ -524,8 +548,19 @@ const ProductDetail: React.FC = () => {
                     rel="noopener noreferrer"
                     className="flex-[2] bg-emerald-500 hover:bg-emerald-600 text-white px-4 sm:px-8 py-3.5 sm:py-5 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_20px_rgba(16,185,129,0.25)] hover:shadow-[0_15px_40px_rgba(16,185,129,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 sm:gap-4 group w-full"
                     id="product-cta-whatsapp"
-                    data-track="true"
-                    data-type="whatsapp_click"
+                    data-product-slug={product.slug}
+                    data-product-name={product.nome}
+                    data-product-category={product.categoria || ''}
+                    data-product-brand={product.marca || ''}
+                    onClick={() => {
+                      trackWhatsAppClick({
+                        product_slug: product.slug,
+                        product_name: product.nome,
+                        category: product.categoria || '',
+                        brand: product.marca || '',
+                        source_page: window.location.pathname,
+                      });
+                    }}
                   >
                     <img
                       src="/Logos/WhatsApp-48w.webp"

@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Award, ShieldCheck, CheckCircle2, TrendingUp } from "lucide-react";
-import { type Product } from '@/data/products';
+import { type Product } from '@/lib/products-service';
 import { WHATSAPP_NUMBER } from '@/config/constants';
 import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
-import { getSessionId } from '@/lib/analytics';
+import { getSessionId, trackProductClick, trackWhatsAppClick } from '@/lib/analytics';
+import { resolveProductImage, createImageErrorHandler } from '@/lib/image-resolver';
 
 export interface ProductCardProps {
   product: Product;
@@ -12,8 +13,8 @@ export interface ProductCardProps {
 }
 
 export const ProductCard = memo(function ProductCard({ product, onClick, priority = false }: ProductCardProps) {
-  // Disponibilidade: campo `disponivel` (se ausente, assume disponível)
-  const isDisponivel = (product as any).disponivel !== false;
+  // Availability: use canonical `ativo` field; legacy `disponivel` is also checked for backward compat
+  const isDisponivel = product.ativo !== false && (product as any).disponivel !== false;
 
   // Array rotativo de urgência pseudo-aleatório baseado no ID do produto
   const urgencyTags = [
@@ -36,10 +37,19 @@ export const ProductCard = memo(function ProductCard({ product, onClick, priorit
       className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100/60 hover:-translate-y-1 cursor-pointer w-full ${
         !isDisponivel ? 'opacity-60 grayscale' : ''
       }`}
-      onClick={() => onClick(product.slug)}
-      data-track="true"
-      data-type="product_click"
-      data-name={product.nome}
+      onClick={() => {
+        trackProductClick({
+          product_slug: product.slug,
+          product_name: product.nome,
+          category: product.categoria || '',
+          brand: product.marca || '',
+        });
+        onClick(product.slug);
+      }}
+      data-product-slug={product.slug}
+      data-product-name={product.nome}
+      data-product-category={product.categoria || ''}
+      data-product-brand={product.marca || ''}
     >
       {/* Badge Indisponível */}
       {!isDisponivel && (
@@ -52,15 +62,21 @@ export const ProductCard = memo(function ProductCard({ product, onClick, priorit
       {/* Container da Imagem (Proporção Controlada e Foco Visual) */}
       <div className="relative aspect-[4/3] sm:aspect-square w-full overflow-hidden bg-white p-6 sm:p-4 pb-2">
         <div className="relative h-full w-full mix-blend-multiply">
-          <img
-            src={product.imagem}
-            alt={product.nome}
-            loading={priority ? "eager" : "lazy"}
-            className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/products/placeholder.webp';
-            }}
-          />
+          {(() => {
+            const { src } = resolveProductImage(product);
+            return (
+              <img
+                src={src}
+                alt={product.nome}
+                loading={priority ? 'eager' : 'lazy'}
+                decoding="async"
+                width={400}
+                height={400}
+                className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                onError={createImageErrorHandler()}
+              />
+            );
+          })()}
         </div>
       </div>
 
@@ -113,10 +129,19 @@ export const ProductCard = memo(function ProductCard({ product, onClick, priorit
               href={buildWhatsAppUrl(product.nome, getSessionId())}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => { e.stopPropagation(); }}
-              data-track="true"
-              data-type="whatsapp_click"
-              data-name={product.slug}
+              onClick={(e) => {
+                e.stopPropagation();
+                trackWhatsAppClick({
+                  product_slug: product.slug,
+                  product_name: product.nome,
+                  category: product.categoria || '',
+                  brand: product.marca || '',
+                });
+              }}
+              data-product-slug={product.slug}
+              data-product-name={product.nome}
+              data-product-category={product.categoria || ''}
+              data-product-brand={product.marca || ''}
               className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] transition-all hover:bg-[#128C7E] hover:shadow-[0_6px_20px_rgba(37,211,102,0.23)] hover:-translate-y-0.5 active:scale-95"
             >
               <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  products,
-  catalogStore,
+  productsStore as catalogStore,
   getCategorias,
-  getMarcas,
   searchByName,
   type Product,
-} from '@/data/products';
+} from '@/lib/products-service';
+import { generateSlug } from '@/data/products';
+import { getBrands } from '@/lib/brands-service';
 import { useNavigate, useParams } from 'react-router-dom';
 import { WHATSAPP_NUMBER } from '@/config/constants';
 import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
@@ -39,8 +39,11 @@ interface CatalogGridProps {
 const CatalogGrid: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const navigate = useNavigate();
-  const categorias = React.useMemo(() => getCategorias(), []);
-  const marcas = React.useMemo(() => getMarcas(), []);
+  const catalog = React.useSyncExternalStore(catalogStore.subscribe, catalogStore.getSnapshot);
+
+  // Derive categorias and marcas from the live catalog — updates reactively on any store change
+  const categorias = React.useMemo(() => getCategorias(), [catalog]);
+  const marcas = React.useMemo(() => getBrands(), [catalog]);
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const [activeCategoria, setActiveCategoria] = React.useState<string | null>(categorySlug ?? null);
@@ -83,7 +86,6 @@ const CatalogGrid: React.FC = () => {
   }, [activeCategoria, categorias]);
 
   // Filtered + sorted + sliced
-  const catalog = React.useSyncExternalStore(catalogStore.subscribe, catalogStore.getSnapshot);
 
   const filteredProducts = React.useMemo<Product[]>(() => {
     // Redefine searchByName in memo context to use updated catalog state
@@ -106,8 +108,10 @@ const CatalogGrid: React.FC = () => {
 
     // 2. Marca (Cumulativo)
     if (activeMarca) {
-      const q = activeMarca.toLowerCase();
-      result = result.filter((p) => p.marca.toLowerCase().replace(/\s+/g, '-') === q);
+      result = result.filter((p) => {
+        if (!p.marca) return false;
+        return generateSlug(p.marca) === activeMarca;
+      });
     }
 
     // 3. Aplicação Inteligente (Cumulativo)
@@ -284,7 +288,7 @@ const CatalogGrid: React.FC = () => {
                   : 'bg-white text-slate-600 border border-slate-200 hover:border-primary/50 hover:text-primary'
               }`}
             >
-              Todos ({products.length})
+              Todos ({catalog.length})
             </button>
             {categorias.map((cat) => (
               <button
@@ -318,7 +322,7 @@ const CatalogGrid: React.FC = () => {
             >
               Todas
             </button>
-            {marcas.slice(0, 10).map((m) => (
+            {marcas.map((m) => (
               <button
                 key={m.slug}
                 onClick={() => setActiveMarca(m.slug === activeMarca ? null : m.slug)}
@@ -328,7 +332,7 @@ const CatalogGrid: React.FC = () => {
                     : 'bg-white text-slate-500 border border-slate-200 hover:border-secondary/50 hover:text-slate-700'
                 }`}
               >
-                {m.label}
+                {m.label} ({m.count})
               </button>
             ))}
           </div>

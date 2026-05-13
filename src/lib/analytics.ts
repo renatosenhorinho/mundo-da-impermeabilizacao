@@ -25,6 +25,18 @@ export interface AnalyticsEvent {
   device: 'mobile' | 'desktop';
   viewportWidth: number;
   timestamp: number;
+  // Rich product metadata (populated by trackProductClick / trackWhatsAppClick)
+  event_data?: ProductEventData | Record<string, any>;
+}
+
+/** Metadados obrigatórios de produto para tracking correto do ranking */
+export interface ProductEventData {
+  product_slug: string;
+  product_name: string;
+  category: string;
+  brand: string;
+  source_page: string;
+  timestamp: number;
 }
 
 export interface TimelineEvent {
@@ -448,15 +460,18 @@ export const saveAnalyticsEvent = (
     
     // Add to batch queue for async Supabase insertion
     if (event.type !== 'heartbeat') {
+      // Prefer rich event_data if already set (from trackProductClick/trackWhatsAppClick),
+      // otherwise build a basic payload for backward compatibility
+      const richEventData = (event as any).event_data;
       enqueueAnalyticsEvent({
         event_type: newEvent.type,
         page_url: newEvent.page,
         session_id: newEvent.sessionId,
         device: newEvent.device,
-        event_data: { 
-          x: newEvent.x, y: newEvent.y, target: newEvent.target, 
-          product: newEvent.product, duration: newEvent.duration, 
-          scroll: newEvent.scrollPercentage 
+        event_data: richEventData ?? {
+          x: newEvent.x, y: newEvent.y, target: newEvent.target,
+          product: newEvent.product, duration: newEvent.duration,
+          scroll: newEvent.scrollPercentage
         }
       });
     }
@@ -473,6 +488,79 @@ export const saveAnalyticsEvent = (
   } catch (e) {
     console.error('Analytics event failed', e);
   }
+};
+
+// ─── Product Tracking Helpers ─────────────────────────────────────────────────
+
+/**
+ * Registra um clique em produto com metadados completos.
+ * Alimenta o ranking "Top Produtos (Cliques)" do dashboard.
+ */
+export const trackProductClick = (params: {
+  product_slug: string;
+  product_name: string;
+  category: string;
+  brand: string;
+  source_page?: string;
+}) => {
+  const sourcePage = params.source_page ?? (typeof window !== 'undefined' ? window.location.pathname : '/');
+  const eventData: ProductEventData = {
+    product_slug: params.product_slug,
+    product_name: params.product_name,
+    category: params.category || 'sem-categoria',
+    brand: params.brand || 'Genérico',
+    source_page: sourcePage,
+    timestamp: Date.now(),
+  };
+
+  if (import.meta.env.DEV) {
+    console.log('[TRACK PRODUCT] product_click', eventData);
+  }
+
+  saveAnalyticsEvent({
+    type: 'product_click',
+    page: sourcePage,
+    product: params.product_slug,
+    label: params.product_name,
+    event_data: eventData,
+  } as any);
+};
+
+/**
+ * Registra um clique no WhatsApp de um produto com metadados completos.
+ * Alimenta a taxa de intenção nos Insights de Produtos.
+ */
+export const trackWhatsAppClick = (params: {
+  product_slug: string;
+  product_name: string;
+  category: string;
+  brand: string;
+  source_page?: string;
+}) => {
+  const sourcePage = params.source_page ?? (typeof window !== 'undefined' ? window.location.pathname : '/');
+  const eventData: ProductEventData = {
+    product_slug: params.product_slug,
+    product_name: params.product_name,
+    category: params.category || 'sem-categoria',
+    brand: params.brand || 'Genérico',
+    source_page: sourcePage,
+    timestamp: Date.now(),
+  };
+
+  if (import.meta.env.DEV) {
+    console.log('[TRACK PRODUCT] whatsapp_click', eventData);
+  }
+
+  localStorage.setItem('mdi_last_wa_page', sourcePage);
+  saveLead(params.product_name, sourcePage);
+
+  saveAnalyticsEvent({
+    type: 'whatsapp_click',
+    page: sourcePage,
+    product: params.product_slug,
+    label: params.product_name,
+    event_data: eventData,
+  } as any);
 };
 
 // ─── Local Lead Store ─────────────────────────────────────────────────────────
@@ -819,7 +907,10 @@ export const initAnalytics = () => {
     const target = e.target as HTMLElement;
     let curr: HTMLElement | null = target;
     let trackData: Record<string, string> | null = null;
-    let productClick: string | null = null;
+    let productSlug: string | null = null;
+    let productName: string | null = null;
+    let productCategory: string | null = null;
+    let productBrand: string | null = null;
 
     while (curr && curr !== document.body) {
       if (curr.getAttribute('data-track') === 'true') {
@@ -828,28 +919,63 @@ export const initAnalytics = () => {
           name: curr.getAttribute('data-name') || curr.innerText?.trim().substring(0, 50) || 'Element'
         };
       }
-      if (!productClick) productClick = curr.getAttribute('data-product-slug');
+      if (!productSlug) productSlug = curr.getAttribute('data-product-slug');
+      if (!productName) productName = curr.getAttribute('data-product-name');
+      if (!productCategory) productCategory = curr.getAttribute('data-product-category');
+      if (!productBrand) productBrand = curr.getAttribute('data-product-brand');
       curr = curr.parentElement;
     }
 
     if (trackData) {
+      const eventType = trackData.type;
+      const page = window.location.pathname;
+
+      if (eventType === 'whatsapp_click' && productSlug) {
+        // Use o helper rico se temos metadados completos
+        trackWhatsAppClick({
+          product_slug: productSlug,
+          product_name: productName || productSlug,
+          category: productCategory || '',
+          brand: productBrand || '',
+          source_page: page,
+        });
+        return;
+      }
+
+      if (eventType === 'product_click' && productSlug) {
+        trackProductClick({
+          product_slug: productSlug,
+          product_name: productName || productSlug,
+          category: productCategory || '',
+          brand: productBrand || '',
+          source_page: page,
+        });
+        return;
+      }
+
+      // Fallback genérico
       saveAnalyticsEvent({
-        type: trackData.type as any,
-        page: window.location.pathname,
+        type: eventType as any,
+        page,
         label: trackData.name,
-        product: productClick || undefined,
+        product: productSlug || undefined,
         x: e.pageX, y: e.pageY
       });
 
-      if (trackData.type === 'whatsapp_click') {
-        localStorage.setItem('mdi_last_wa_page', window.location.pathname);
-        saveLead(productClick || 'Genérico', window.location.pathname);
+      if (eventType === 'whatsapp_click') {
+        localStorage.setItem('mdi_last_wa_page', page);
+        saveLead(productSlug || 'Genérico', page);
       }
       return;
     }
 
-    if (productClick) {
-      saveAnalyticsEvent({ type: 'product_click', page: window.location.pathname, product: productClick, x: e.pageX, y: e.pageY });
+    if (productSlug) {
+      trackProductClick({
+        product_slug: productSlug,
+        product_name: productName || productSlug,
+        category: productCategory || '',
+        brand: productBrand || '',
+      });
       return;
     }
 
