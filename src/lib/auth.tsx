@@ -81,7 +81,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
     setIsLoading(false);
     if (error) {
-      setLoginError('Credenciais inválidas. Tente novamente.');
+      console.error('[AUTH ERROR]', error.message, error.name, error.status);
+      setLoginError(`Falha no login: ${error.message} (Verifique console)`);
       return false;
     }
     return true;

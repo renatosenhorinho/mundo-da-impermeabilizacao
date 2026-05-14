@@ -29,6 +29,38 @@ if (typeof window !== 'undefined' && localStorage.getItem('mdi_maintenance') ===
   throw new Error('MAINTENANCE_MODE');
 }
 
+// ── Vercel Deployment Health Check ───────────────────────────────────────────
+if (typeof window !== 'undefined' && (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY)) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = [
+    'position:fixed','inset:0','z-index:99999','display:flex',
+    'flex-direction:column','align-items:center','justify-content:center',
+    'background:#0E1117','color:#e2e8f0','font-family:system-ui,sans-serif',
+    'text-align:center','padding:2rem',
+  ].join(';');
+  overlay.innerHTML = `
+    <div style="background:#ef444420;border:1px solid #ef4444;border-radius:12px;padding:2rem;max-width:600px;">
+      <span style="font-size:3rem;margin-bottom:1rem;display:block">🚨</span>
+      <h1 style="font-size:1.5rem;font-weight:900;color:#f87171;margin:0 0 1rem">Erro Crítico de Deploy (Vercel)</h1>
+      <p style="color:#f1f5f9;line-height:1.6;margin:0 0 1rem;font-size:1rem">
+        O sistema não consegue se conectar ao banco de dados porque as variáveis de ambiente <strong>VITE_SUPABASE_URL</strong> e/ou <strong>VITE_SUPABASE_ANON_KEY</strong> estão faltando na hospedagem.
+      </p>
+      <div style="text-align:left;background:#1e293b;padding:1rem;border-radius:8px;font-size:0.9rem;color:#94a3b8;margin-bottom:1rem;">
+        <strong>Como resolver no Vercel:</strong>
+        <ol style="margin-top:0.5rem;padding-left:1.5rem;">
+          <li>Acesse seu painel no Vercel -> Settings -> Environment Variables</li>
+          <li>Adicione <code style="color:#38bdf8">VITE_SUPABASE_URL</code>, <code style="color:#38bdf8">VITE_SUPABASE_ANON_KEY</code> e <code style="color:#38bdf8">VITE_ADMIN_KEY</code> exatamente como no seu arquivo <code>.env</code> local.</li>
+          <li>Vá em Deployments -> ... -> <strong>Redeploy</strong> (Apenas salvar a variável não basta, é OBRIGATÓRIO refazer o build).</li>
+        </ol>
+      </div>
+      <p style="color:#64748b;font-size:0.8rem">Isso explica o catálogo vazio e falha de admin em produção.</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  // Bloqueia execução silenciosa de erro
+  throw new Error('MISSING_VERCEL_ENV_VARIABLES');
+}
+
 // ── Analytics: defer until browser is idle to never block LCP ──
 if (typeof window !== 'undefined') {
   const scheduleAnalytics = () => { initAnalytics(); };

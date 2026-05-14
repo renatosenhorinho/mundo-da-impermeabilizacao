@@ -12,7 +12,7 @@ import {
   invalidateProductsCache,
   fetchProducts,
 } from '@/lib/products-service';
-import { taxonomyStore, addTaxonomyItem, removeTaxonomyItem } from '@/lib/taxonomy-service';
+import { taxonomyStore, addTaxonomyItem, removeTaxonomyItem, syncProductTaxonomies } from '@/lib/taxonomy-service';
 import { getBrands, deleteBrand, mergeBrands } from '@/lib/brands-service';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth';
@@ -189,8 +189,8 @@ export const AdminDashboard: React.FC = () => {
 
   // Taxonomy logic via service
   const taxonomy = React.useSyncExternalStore(taxonomyStore.subscribe, taxonomyStore.getSnapshot);
-  const TIPO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'TIPO').map(t => t.slug), [taxonomy]);
-  const APLICACAO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'APLICACAO').map(t => t.slug), [taxonomy]);
+  const TIPO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'TIPO').map(t => t.label), [taxonomy]);
+  const APLICACAO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'APLICACAO').map(t => t.label), [taxonomy]);
 
   const [tipoInput, setTipoInput] = useState<string[]>([]);
   const [customTipoOpts, setCustomTipoOpts] = useState<string[]>([]);
@@ -668,6 +668,9 @@ export const AdminDashboard: React.FC = () => {
       // ── Step 3: Also update localStorage fallback (backward compat) ──────
       const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
       await saveCustomProducts(dynamicOnly);
+
+      // ── Step 3.5: Sync taxonomies (Tipo and Aplicação) to global store ───
+      await syncProductTaxonomies(finalProduct.tipo || [], finalProduct.aplicacao || []);
 
       // ── Step 4: Invalidate cache and refetch — frontend syncs instantly ──
       await revalidateProducts();
@@ -2015,7 +2018,9 @@ export const AdminDashboard: React.FC = () => {
                           className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none appearance-none"
                         >
                           <option value="" disabled>Selecione uma marca</option>
-                          {availableBrands.map(b => <option key={b} value={b}>{b}</option>)}
+                          {Array.from(new Set([...availableBrands, editingProduct.marca])).filter(Boolean).sort().map(b => (
+                            <option key={b} value={b}>{b}</option>
+                          ))}
                           <option value="__new__" className="text-indigo-400 font-bold">➕ Nova Marca</option>
                         </select>
                         <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none text-lg">expand_more</span>
@@ -2037,7 +2042,7 @@ export const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Categoria & Destaque */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-6">
                   <div>
                     <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Categoria *</label>
                     <div className="relative flex gap-2">
@@ -2100,15 +2105,15 @@ export const AdminDashboard: React.FC = () => {
                        </div>
                      )}
                   </div>
-                  <div className="flex items-center pt-6">
+                  <div className="flex flex-col">
                     {(() => {
                       const isEditing = !!editingProduct.slug;
                       const isAlreadyDestaque = editingProduct.destaque;
                       const limitReached = destaqueAtual >= MAX_DESTAQUE && !isAlreadyDestaque;
                       return (
-                        <div className="w-full">
-                          <label className={`flex items-center gap-3 w-full ${limitReached ? 'cursor-not-allowed opacity-50' : 'cursor-pointer group'}`}>
-                            <div className="relative shrink-0">
+                        <div className="w-full bg-[#0E1117] border border-slate-800 p-4 rounded-xl">
+                          <label className={`flex flex-col sm:flex-row sm:items-center gap-4 w-full ${limitReached ? 'cursor-not-allowed opacity-50' : 'cursor-pointer group'}`}>
+                            <div className="relative shrink-0 flex items-center">
                               <input type="checkbox" checked={!!editingProduct.destaque}
                                 disabled={limitReached}
                                 onChange={e => {
@@ -2117,26 +2122,26 @@ export const AdminDashboard: React.FC = () => {
                                 }}
                                 className="sr-only" />
                               <div className={`block w-14 h-8 rounded-full transition-colors ${editingProduct.destaque ? 'bg-amber-500' : 'bg-slate-700'}`}></div>
-                              <div className={`dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform ${editingProduct.destaque ? 'translate-x-6' : ''}`}></div>
+                              <div className={`dot absolute left-1 bg-white w-6 h-6 rounded-full transition-transform ${editingProduct.destaque ? 'translate-x-6' : ''}`}></div>
                             </div>
-                            <div className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">
-                              <div className="flex items-center gap-2">
-                                Destacar na Home
-                                <span className={`text-[10px] px-2 py-0.5 rounded-full ${limitReached ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-slate-800 text-slate-400'}`}>
-                                  {destaqueAtual}/{MAX_DESTAQUE}
+                            <div className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors flex-1">
+                              <div className="flex flex-wrap items-center gap-2 mb-1">
+                                <span className="text-sm">Destacar na Home</span>
+                                <span className={`text-[10px] px-2 py-0.5 rounded-full font-black ${limitReached ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-slate-800 text-slate-400'}`}>
+                                  {destaqueAtual} / {MAX_DESTAQUE}
                                 </span>
                               </div>
-                              <span className="block text-[10px] text-slate-500 font-normal mt-0.5">
+                              <p className="text-[11px] text-slate-500 font-normal leading-snug">
                                 {limitReached 
-                                  ? 'Remova um destaque existente para selecionar este.'
-                                  : 'Aparece na vitrine principal do site.'}
-                              </span>
+                                  ? 'O limite máximo de produtos na vitrine principal foi atingido.'
+                                  : 'Ao ativar, este produto aparecerá com prioridade na vitrine principal da loja.'}
+                              </p>
                             </div>
                           </label>
                           {limitReached && (
-                            <div className="mt-2 flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-bold px-3 py-1.5 rounded-lg">
-                              <span className="material-symbols-outlined text-[14px]">warning</span>
-                              Máximo de {MAX_DESTAQUE} produtos em destaque atingido
+                            <div className="mt-4 flex items-start gap-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold px-3 py-2.5 rounded-lg">
+                              <span className="material-symbols-outlined text-[16px] shrink-0 mt-0.5">error</span>
+                              <span>Para destacar este produto, você precisa remover o destaque de outro produto primeiro.</span>
                             </div>
                           )}
                         </div>

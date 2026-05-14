@@ -155,7 +155,8 @@ const CatalogGrid: React.FC = () => {
     if (validActiveAplicacoes.length > 0) {
       result = result.filter((p) => {
         if (!p.aplicacao || p.aplicacao.length === 0) return false;
-        return validActiveAplicacoes.some(slug => p.aplicacao.includes(slug));
+        const normalizedAplicacoes = p.aplicacao.map(a => generateSlug(a));
+        return validActiveAplicacoes.some(slug => normalizedAplicacoes.includes(slug));
       });
     }
 
@@ -164,7 +165,8 @@ const CatalogGrid: React.FC = () => {
     if (validActiveTipos.length > 0) {
       result = result.filter((p) => {
         if (!p.tipo || p.tipo.length === 0) return false;
-        return validActiveTipos.some(slug => p.tipo.includes(slug));
+        const normalizedTipos = p.tipo.map(t => generateSlug(t));
+        return validActiveTipos.some(slug => normalizedTipos.includes(slug));
       });
     }
 

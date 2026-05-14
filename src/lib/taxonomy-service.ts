@@ -108,6 +108,47 @@ export async function updateTaxonomyItem(id: string, label: string): Promise<voi
   await fetchTaxonomy();
 }
 
+export async function revalidateTaxonomy(): Promise<void> {
+  invalidateTaxonomyCache();
+  await fetchTaxonomy();
+}
+
+export async function syncProductTaxonomies(tipo: string[] = [], aplicacao: string[] = []): Promise<void> {
+  if (!supabase) return;
+  const currentTaxonomy = taxonomyStore.getSnapshot();
+  const currentTipos = new Set(currentTaxonomy.filter(t => t.group_name === 'TIPO').map(t => t.slug));
+  const currentApps = new Set(currentTaxonomy.filter(t => t.group_name === 'APLICACAO').map(t => t.slug));
+
+  const toInsert: { group_name: 'TIPO'|'APLICACAO', label: string, slug: string }[] = [];
+
+  for (const t of tipo) {
+    const slug = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    if (!currentTipos.has(slug)) {
+      toInsert.push({ group_name: 'TIPO', label: t, slug });
+      currentTipos.add(slug);
+    }
+  }
+
+  for (const a of aplicacao) {
+    const slug = a.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    if (!currentApps.has(slug)) {
+      toInsert.push({ group_name: 'APLICACAO', label: a, slug });
+      currentApps.add(slug);
+    }
+  }
+
+  if (toInsert.length > 0) {
+    const { error } = await supabase.from('catalog_taxonomy').insert(toInsert);
+    if (error) {
+      console.error('[taxonomy-service] Error syncing taxonomies:', error);
+    }
+  }
+
+  // Always invalidate and fetch to ensure local cache matches DB, even if there was an error (e.g. duplicate key) or no inserts needed but we just want to be sure.
+  invalidateTaxonomyCache();
+  await fetchTaxonomy();
+}
+
 if (typeof window !== 'undefined') {
   fetchTaxonomy().catch(err => console.error('[taxonomy-service] Initial fetch failed:', err));
 }

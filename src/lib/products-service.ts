@@ -77,6 +77,30 @@ const ProductSchema = z.object({
   parent_id: z.string().nullable().optional(),
 });
 
+// ─── Helper: Sanitize Arrays ───────────────────────────────────────────────────
+function sanitizeStringArray(arr: any[] | null | undefined): string[] {
+  if (!Array.isArray(arr)) return [];
+  const result: string[] = [];
+  for (const item of arr) {
+    if (typeof item === 'string') {
+      const trimmed = item.trim();
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          if (Array.isArray(parsed)) {
+            result.push(...parsed.filter(i => typeof i === 'string'));
+            continue;
+          }
+        } catch (e) {
+          // Fall through
+        }
+      }
+      if (trimmed) result.push(trimmed);
+    }
+  }
+  return result;
+}
+
 // ─── DB Row Mapper ────────────────────────────────────────────────────────────
 
 function mapToProduct(rawRow: any, staticMatch?: Product): Product {
@@ -121,9 +145,9 @@ function mapToProduct(rawRow: any, staticMatch?: Product): Product {
     imagens: images.length > 0 ? images : ((base as Product).imagens ?? []),
     resumo: dbRow.description || (base as Product).resumo || '',
     // Rich fields: DB JSON takes priority, fall back to static
-    tipo: (Array.isArray(dbRow.tipo) ? dbRow.tipo : null) ?? (base as Product).tipo ?? [],
-    aplicacao: (Array.isArray(dbRow.aplicacao) ? dbRow.aplicacao : null) ?? (base as Product).aplicacao ?? [],
-    comoUsar: (Array.isArray(dbRow.como_usar) ? dbRow.como_usar : null) ?? (base as Product).comoUsar ?? [],
+    tipo: sanitizeStringArray((Array.isArray(dbRow.tipo) ? dbRow.tipo : null) ?? (base as Product).tipo ?? []),
+    aplicacao: sanitizeStringArray((Array.isArray(dbRow.aplicacao) ? dbRow.aplicacao : null) ?? (base as Product).aplicacao ?? []),
+    comoUsar: sanitizeStringArray((Array.isArray(dbRow.como_usar) ? dbRow.como_usar : null) ?? (base as Product).comoUsar ?? []),
     especificacoes: dbRow.specs ?? (base as Product).especificacoes,
     destaque: dbRow.highlight ?? (base as Product).destaque ?? false,
     ativo: dbRow.active !== false,
@@ -223,13 +247,19 @@ export async function searchCatalogViaRPC(tipos: string[] = [], aplicacoes: stri
       let pass = true;
       if (tipos.length > 0) {
         if (!p.tipo || p.tipo.length === 0) pass = false;
-        else if (matchAll && !tipos.every(t => p.tipo!.includes(t))) pass = false;
-        else if (!matchAll && !tipos.some(t => p.tipo!.includes(t))) pass = false;
+        else {
+          const normTipos = p.tipo.map(generateSlug);
+          if (matchAll && !tipos.every(t => normTipos.includes(t))) pass = false;
+          else if (!matchAll && !tipos.some(t => normTipos.includes(t))) pass = false;
+        }
       }
       if (pass && aplicacoes.length > 0) {
         if (!p.aplicacao || p.aplicacao.length === 0) pass = false;
-        else if (matchAll && !aplicacoes.every(a => p.aplicacao!.includes(a))) pass = false;
-        else if (!matchAll && !aplicacoes.some(a => p.aplicacao!.includes(a))) pass = false;
+        else {
+          const normAplicacoes = p.aplicacao.map(generateSlug);
+          if (matchAll && !aplicacoes.every(a => normAplicacoes.includes(a))) pass = false;
+          else if (!matchAll && !aplicacoes.some(a => normAplicacoes.includes(a))) pass = false;
+        }
       }
       return pass;
     });
