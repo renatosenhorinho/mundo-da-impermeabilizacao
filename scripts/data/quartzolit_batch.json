@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "quartzolit-tecbond-tix-adesivo-epoxi-estrutural-tixotropico-1kg",
+    "aplicacao": "Recuperação estrutural vertical e no teto, colagem de concretos, aço e pedras.",
+    "como_usar": "Misturar os componentes. A consistência de pasta (tixotrópica) permite aplicação com espátula em tetos sem escorrer.",
+    "description": "Adesivo epóxi de altíssima resistência mecânica. Em formato de pasta densa que não escorre na aplicação.",
+    "specs": { "Embalagem": "1kg", "Tipo": "Epóxi Tixotrópico (Não escorre)", "Cura Inicial": "24h" }
+  },
+  {
+    "slug": "quartzolit-espuma-expansiva-pu-500ml",
+    "aplicacao": "Instalação de portas, esquadrias e isolamento de ar-condicionado e dutos de elétrica.",
+    "como_usar": "Umedecer levemente a cavidade. Preencher 1/3 do volume, pois a espuma se expande rapidamente.",
+    "description": "Espuma de poliuretano que preenche e veda frestas proporcionando isolamento acústico e térmico imediato.",
+    "specs": { "Volume": "500ml", "Expansão": "Alta", "Acabamento": "Cortável e lixável" }
+  },
+  {
+    "slug": "quartzolit-supergraute-graute-estrutural-25kg",
+    "aplicacao": "Reparos em pilares, vigas, fixação de chumbadores e maquinário industrial sujeito a vibrações.",
+    "como_usar": "Misturar com água até obter calda fluida. Despejar nas fôrmas, preenchendo todos os vazios pela própria gravidade.",
+    "description": "Graute industrial cimentício fluido de pega rápida e sem retração. Chega a altíssima resistência compressiva.",
+    "specs": { "Embalagem": "25kg", "Pega": "Rápida e sem retração", "Resistência Mínima": "50 MPa a 28 dias" }
+  },
+  {
+    "slug": "rejunte-quartzolit",
+    "name": "Rejunte Quartzolit 5KG",
+    "aplicacao": "Preenchimento de juntas entre placas cerâmicas, porcelanatos e pedras naturais em áreas secas ou úmidas.",
+    "como_usar": "Preparar a massa homogênea, aplicar diagonalmente sobre as juntas com espátula de EVA, removendo o excesso.",
+    "description": "Rejunte cimentício tradicional flexível. Previne fissuras e possui agentes que retardam a formação de mofo.",
+    "specs": { "Embalagem": "5kg", "Acabamento": "Liso", "Proteção": "Fungicida" }
+  },
+  {
+    "slug": "quartzolit-acrifast-manta-liquida-acrilica-18kg",
+    "aplicacao": "Impermeabilização exposta e pintura térmica reflexiva em telhados metálicos, de fibrocimento e lajes sem trânsito.",
+    "como_usar": "Aplicação a frio com rolo de lã. Aplicar no mínimo 3 demãos, cruzando o sentido de aplicação.",
+    "description": "Membrana acrílica superelástica resistente aos raios solares. Funciona como um escudo contra água e diminui o calor interno.",
+    "specs": { "Embalagem": "18kg", "Cor": "Branco", "Resistência UV": "Máxima" }
+  },
+  {
+    "slug": "reparo-estrutural-quartzolit-25kg",
+    "aplicacao": "Conserto de falhas no concreto (bicheiras), recuperação de quinas de vigas e pilares danificados.",
+    "como_usar": "Aplicar manualmente com colher de pedreiro pressionando vigorosamente sobre a armadura previamente limpa.",
+    "description": "Argamassa de alta resistência para consertos pontuais no concreto armado, com altíssima aderência e tixotropia.",
+    "specs": { "Embalagem": "25kg", "Uso": "Reparo estrutural vertical/horizontal", "Acabamento": "Pode ser lixado" }
+  },
+  {
+    "slug": "chapisco-colante-quartzolit-25kg",
+    "aplicacao": "Aplicação sobre concreto liso, gesso ou pintura antiga para criar uma base super aderente antes do reboco.",
+    "como_usar": "Espalhar com desempenadeira dentada. Dispensa o uso do chapisco tradicional rolado ou atirado.",
+    "description": "Argamassa adesiva inovadora que substitui o chapisco convencional com muito menos sujeira e desperdício.",
+    "specs": { "Embalagem": "25kg", "Tipo": "Argamassa colante ponte de aderência", "Aplicação": "Desempenadeira" }
+  },
+  {
+    "slug": "quartzolit-tecbond-mf-adesivo-epoxi-estrutural-fluido-1kg",
+    "aplicacao": "Injeção em trincas estruturais, ancoragem de chumbadores em furos e colagem forte de concreto novo ao antigo.",
+    "como_usar": "Misturar A e B. Aplicar por derramamento em superfícies horizontais para excelente penetração nas fissuras.",
+    "description": "Resina epóxi estrutural em versão líquida (fluida), projetada para alcançar profundidades e garantir ancoragem total.",
+    "specs": { "Embalagem": "1kg", "Tipo": "Epóxi Fluido", "Pega": "Alta velocidade e força mecânica extrema" }
+  }
+]

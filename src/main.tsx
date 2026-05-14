@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './styles.css';
 import { Header } from './components/ui/header-2';
 import { initAnalytics } from './lib/analytics';
+import { ErrorBoundary } from './components/ui/error-boundary';
 
 // ── Maintenance mode check — admin can toggle via Sistema tab ────────────────
 if (typeof window !== 'undefined' && localStorage.getItem('mdi_maintenance') === 'true') {
@@ -54,9 +55,11 @@ const mountWithSuspense = (containerId: string, Component: React.ComponentType) 
     const mount = () => {
         createRoot(container).render(
             <React.StrictMode>
-                <Suspense fallback={<div className="min-h-screen bg-background-dark/5 animate-pulse" />}>
-                    <Component />
-                </Suspense>
+                <ErrorBoundary name={Component.displayName || Component.name || 'LazyComponent'}>
+                    <Suspense fallback={<div className="min-h-screen bg-background-dark/5 animate-pulse" />}>
+                        <Component />
+                    </Suspense>
+                </ErrorBoundary>
             </React.StrictMode>
         );
     };
@@ -107,11 +110,13 @@ if (document.getElementById('featured-products-root')) {
     if (container) {
         createRoot(container).render(
             <React.StrictMode>
-                <Suspense fallback={<div className="h-64 animate-pulse bg-slate-50" />}>
-                    <BrowserRouter>
-                        <FeaturedProducts />
-                    </BrowserRouter>
-                </Suspense>
+                <ErrorBoundary name="FeaturedProducts">
+                    <Suspense fallback={<div className="h-64 animate-pulse bg-slate-50" />}>
+                        <BrowserRouter>
+                            <FeaturedProducts />
+                        </BrowserRouter>
+                    </Suspense>
+                </ErrorBoundary>
             </React.StrictMode>
         );
     }
@@ -137,9 +142,11 @@ if (typeof window !== 'undefined' && sessionStorage.getItem('mdi_show_heatmap') 
     
     createRoot(heatmapRoot).render(
         <React.StrictMode>
-            <Suspense fallback={null}>
-                <HeatmapOverlay active={true} />
-            </Suspense>
+            <ErrorBoundary name="HeatmapOverlay">
+                <Suspense fallback={null}>
+                    <HeatmapOverlay active={true} />
+                </Suspense>
+            </ErrorBoundary>
         </React.StrictMode>
     );
 }

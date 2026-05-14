@@ -1,0 +1,108 @@
+**Sucesso:** 20 | **Pulados:** 0 | **Erros:** 0
+---
+# Relatório de Enriquecimento de Conteúdo - VIAPOL
+Data: 2026-05-13T20:57:31.357Z
+Modo: DRY-RUN
+
+## Resumo das Atualizações
+
+- **Manta Asfáltica Viapol 4mm** (`manta-asfaltica-viapol-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ⏭️ `specs` mantidas.
+- **Contra Umidade Aditivo Impermeabilizante 18L** (`contra-umidade-aditivo-impermeabilizante-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapoxi Adesivo Epóxi Estrutural** (`viapoxi-adesivo-epoxi-estrutural-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viafix Aditivo para Argamassa e Chapisco (18kg)** (`viafix-adesivo-chapisco-balde-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viafix Adesivo para Chapisco (200kg)** (`viafix-adesivo-chapisco-tambor-200kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Betumanta 3 PP Manta Asfáltica** (`viapol-betumanta-3-pp-manta-asfaltica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaplus 5000 Argamassa Polimérica (18kg)** (`viapol-viaplus-5000-argamassa-polimerica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vitpoli Primer Epóxi Piscina** (`viapol-vitpoli-primer-epoxi-15kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Manta Premium Ardósia Cinza 3mm** (`viapol-manta-premium-ardosia-cinza-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Manta Premium Ardósia Verde 4mm** (`viapol-manta-premium-ardosia-verde-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Manta Premium Ardósia Vermelho 3mm** (`viapol-manta-premium-ardosia-vermelho-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Heydicryl Mástique Acrílico (5kg)** (`viapol-heydicryl-mastique-acrilico-5kg`):
+  - ⏭️ `aplicacao` mantida (já existente).
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Ecoprimer Asfáltico** (`viapol-ecoprimer-asfaltico-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Ecoprimer Asfáltico** (`viapol-ecoprimer-asfaltico-3-6kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Fiberstrand 100 1/2 Fibra de Polipropileno para Concreto (600g)** (`fiberstrand-100-1-2-fibra-polipropileno-concreto`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vedalage Plus Manta Líquida ** (`viapol-vedalage-plus-manta-liquida-telha-12kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vedalage Manta Líquida Branca** (`viapol-vedalage-manta-liquida-branca-14l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Eucon Vandex Aditivo Impermeabilizante** (`viapol-eucon-vandex-aditivo-impermeabilizante-20kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Desforma Plus Desmoldante (18L)** (`desforma-plus-desmoldante-formas-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Desforma Plus Desmoldante (200L)** (`desforma-plus-desmoldante-formas-200l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.

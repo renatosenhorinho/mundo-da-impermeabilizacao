@@ -92,7 +92,10 @@ export interface Product {
   /** Descrição curta para card (~120 chars) */
   resumo: string;
 
-  /** Onde/como o produto é aplicado — renderizado como <ul> */
+  /** Tipos normatizados do produto para filtros dinâmicos (slugs) */
+  tipo?: string[];
+
+  /** Onde/como o produto é aplicado — renderizado como <ul> ou usado para filtros */
   aplicacao: string[];
 
   /** Passo a passo de uso — renderizado como <ol> numerada */

@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "manta-asfaltica-viapol-4mm",
+    "aplicacao": "Lajes de cobertura, terraços, áreas molhadas e piscinas.",
+    "como_usar": "Aplicação a quente com maçarico sobre a superfície previamente imprimada com primer asfáltico.",
+    "description": "Manta Asfáltica Viapol 4mm é ideal para impermeabilização de lajes e áreas frias. Oferece alta resistência e durabilidade.",
+    "specs": { "espessura": "4mm", "base": "asfáltica elastomérica", "acabamento": "polietileno" }
+  },
+  {
+    "slug": "contra-umidade-aditivo-impermeabilizante-18l",
+    "aplicacao": "Argamassas de assentamento, rebocos em áreas internas e externas, baldrames e fundações.",
+    "como_usar": "Adicionar na água de amassamento da argamassa na proporção recomendada.",
+    "description": "Aditivo impermeabilizante de alta performance para argamassas, ideal para evitar a umidade ascendente em rebocos e fundações.",
+    "specs": { "embalagem": "18L", "funcao": "aditivo impermeabilizante para argamassa" }
+  },
+  {
+    "slug": "viapoxi-adesivo-epoxi-estrutural-1kg",
+    "aplicacao": "Ancoragem de armaduras, colagem de concreto novo com concreto velho, chumbamentos e fixações estruturais.",
+    "como_usar": "Misturar os dois componentes (A e B) até obter cor uniforme e aplicar sobre a superfície limpa e seca.",
+    "description": "Adesivo estrutural à base de epóxi de alta fluidez, ideal para colagens e chumbamentos em concreto com secagem rápida.",
+    "specs": { "embalagem": "1kg", "base": "epóxi", "secagem": "rápida" }
+  },
+  {
+    "slug": "viafix-adesivo-chapisco-balde-18kg",
+    "aplicacao": "Chapiscos convencionais e rolados, argamassas de reparo, e fixação de EPS.",
+    "como_usar": "Misturar o aditivo na água de amassamento na proporção 1:2 (Viafix : água).",
+    "description": "Adesivo sintético de alto desempenho que proporciona maior aderência das argamassas e chapiscos em diversas superfícies.",
+    "specs": { "embalagem": "18kg", "base": "resina sintética PVA" }
+  },
+  {
+    "slug": "viafix-adesivo-chapisco-tambor-200kg",
+    "aplicacao": "Obras de grande porte para chapiscos convencionais, argamassas de reparo e ponte de aderência.",
+    "como_usar": "Misturar na água de amassamento na proporção recomendada (1:2).",
+    "description": "Viafix é um adesivo de base PVA para aumentar a aderência de argamassas e chapiscos. Embalagem em tambor ideal para grandes obras.",
+    "specs": { "embalagem": "200kg", "base": "resina sintética PVA" }
+  },
+  {
+    "slug": "viapol-betumanta-3-pp-manta-asfaltica",
+    "aplicacao": "Impermeabilização de lajes, varandas, terraços, áreas frias e fundações.",
+    "como_usar": "Aplicação a quente com maçarico sobre superfície tratada com primer.",
+    "description": "Manta asfáltica Tipo II de excelente performance, produzida com asfalto modificado e estruturada com poliéster.",
+    "specs": { "espessura": "3mm", "acabamento": "polietileno (PP)", "tipo": "Manta asfáltica Tipo II" }
+  },
+  {
+    "slug": "viapol-viaplus-5000-argamassa-polimerica-18kg",
+    "aplicacao": "Caixas d'água, reservatórios, piscinas e áreas frias sujeitas a movimentação estrutural.",
+    "como_usar": "Misturar os dois componentes (pó e líquido) e aplicar em demãos cruzadas com trincha ou vassoura de pelo.",
+    "description": "Impermeabilizante flexível cimentício ideal para locais com pequenas movimentações. Protege contra umidade e infiltrações.",
+    "specs": { "embalagem": "18kg", "tipo": "Argamassa polimérica semiflexível", "demãos": "3 a 4" }
+  },
+  {
+    "slug": "viapol-vitpoli-primer-epoxi-15kg",
+    "aplicacao": "Pintura de proteção e impermeabilização em piscinas de concreto, caixas d'água e reservatórios.",
+    "como_usar": "Misturar os componentes A e B e aplicar com rolo de lã curta ou trincha sobre a superfície limpa e seca.",
+    "description": "Primer epóxi de alta resistência para selamento e preparação de superfícies que ficarão imersas, como piscinas.",
+    "specs": { "embalagem": "15kg", "base": "epóxi poliuretano", "aplicação": "pintura" }
+  },
+  {
+    "slug": "viapol-manta-premium-ardosia-cinza-3mm",
+    "aplicacao": "Telhados, cúpulas, abóbadas e lajes com tráfego eventual onde não haverá revestimento.",
+    "como_usar": "Aplicação com maçarico a quente, com as emendas sobrepostas em 10 cm.",
+    "description": "Manta asfáltica com acabamento em ardósia cinza, autoprotegida contra os raios solares para áreas sem trânsito de pessoas.",
+    "specs": { "espessura": "3mm", "acabamento": "ardósia cinza", "proteção": "UV" }
+  },
+  {
+    "slug": "viapol-manta-premium-ardosia-verde-4mm",
+    "aplicacao": "Coberturas expostas, telhados, abóbadas e marquises sem trânsito.",
+    "como_usar": "Aplicação a quente com maçarico sobre superfície previamente imprimada com primer.",
+    "description": "Manta asfáltica com acabamento mineral em ardósia verde. Oferece estética e proteção UV em um único produto.",
+    "specs": { "espessura": "4mm", "acabamento": "ardósia verde", "proteção": "autoprotegida contra raios UV" }
+  },
+  {
+    "slug": "viapol-manta-premium-ardosia-vermelho-3mm",
+    "aplicacao": "Lajes expostas sem tráfego, telhados e marquises.",
+    "como_usar": "Aplicação com maçarico a quente após secagem do primer asfáltico.",
+    "description": "Manta impermeabilizante com camada de acabamento em ardósia vermelha. Dispensa revestimento mecânico.",
+    "specs": { "espessura": "3mm", "acabamento": "ardósia vermelha", "proteção": "UV" }
+  },
+  {
+    "slug": "viapol-heydicryl-mastique-acrilico-5kg",
+    "aplicacao": "Calafetação de trincas e fissuras ativas, juntas de movimentação e vedação de caixilharias.",
+    "como_usar": "Aplicar o mástique com pistola de aplicação ou espátula preenchendo toda a cavidade.",
+    "description": "Selante acrílico flexível de fácil aplicação para preenchimento de juntas e fissuras em diversas superfícies.",
+    "specs": { "embalagem": "5kg", "base": "acrílica", "tipo": "mástique selante" }
+  },
+  {
+    "slug": "viapol-ecoprimer-asfaltico-18kg",
+    "aplicacao": "Imprimação de superfícies para aplicação de mantas asfálticas e fitas autoadesivas.",
+    "como_usar": "Aplicar uma demão com rolo ou trincha sobre a superfície limpa e aguardar a secagem.",
+    "description": "Primer ecológico à base de asfalto emulsionado em água. Excelente aderência sem solventes agressivos ao meio ambiente.",
+    "specs": { "embalagem": "18kg", "base": "asfalto emulsionado em água (ecológico)", "rendimento": "aprox. 0,4 L/m²" }
+  },
+  {
+    "slug": "viapol-ecoprimer-asfaltico-3-6kg",
+    "aplicacao": "Imprimação preparatória para colagem de fitas asfálticas e mantas em pequenas áreas.",
+    "como_usar": "Aplicar puro com rolo ou trincha e aguardar a secagem total antes de colar a manta.",
+    "description": "Primer asfáltico à base de água para uso rápido em pequenos reparos. Amigo do meio ambiente e sem cheiro forte.",
+    "specs": { "embalagem": "3,6L", "base": "emulsão asfáltica à base d'água" }
+  },
+  {
+    "slug": "fiberstrand-100-1-2-fibra-polipropileno-concreto",
+    "aplicacao": "Concretos e argamassas para controle de fissuração por retração plástica, pisos industriais e pavimentos.",
+    "como_usar": "Adicionar diretamente ao misturador de concreto na proporção recomendada por m³.",
+    "description": "Fibra de polipropileno de alto desempenho para evitar fissuras e aumentar a durabilidade do concreto.",
+    "specs": { "embalagem": "600g", "material": "fibras de polipropileno", "comprimento": "12mm (1/2\")" }
+  },
+  {
+    "slug": "viapol-vedalage-plus-manta-liquida-telha-12kg",
+    "aplicacao": "Impermeabilização de lajes expostas sem trânsito, abóbadas, marquises e telhados.",
+    "como_usar": "Aplicar a primeira demão diluída em 10% de água e as seguintes puras em demãos cruzadas.",
+    "description": "Manta líquida acrílica que forma uma membrana contínua e flexível. Protege o telhado e reduz absorção de calor.",
+    "specs": { "embalagem": "12kg", "base": "resina acrílica", "acabamento": "flexível" }
+  },
+  {
+    "slug": "viapol-vedalage-manta-liquida-branca-14l",
+    "aplicacao": "Lajes, telhados de fibrocimento e abóbadas que não sofrem trânsito de pessoas.",
+    "como_usar": "Aplicar com rolo de lã em 3 a 6 demãos cruzadas, respeitando o intervalo de secagem.",
+    "description": "Impermeabilizante líquido branco que, além de vedar, contribui para a redução de temperatura no ambiente interno.",
+    "specs": { "embalagem": "14L", "cor": "Branca", "benefício": "Redução térmica" }
+  },
+  {
+    "slug": "viapol-eucon-vandex-aditivo-impermeabilizante-20kg",
+    "aplicacao": "Concretos para túneis, estações de tratamento de água, fundações e reservatórios.",
+    "como_usar": "Adicionado diretamente na central de concreto ou no caminhão betoneira.",
+    "description": "Aditivo impermeabilizante por cristalização capilar. Torna o concreto imune à penetração de água estruturalmente.",
+    "specs": { "embalagem": "20kg", "tecnologia": "cristalização integral no concreto" }
+  },
+  {
+    "slug": "desforma-plus-desmoldante-formas-18l",
+    "aplicacao": "Formas de madeira, compensado e metálicas para facilitar a desforma do concreto.",
+    "como_usar": "Aplicar com rolo, broxa ou pulverizador em camada fina e uniforme antes do lançamento do concreto.",
+    "description": "Desmoldante de alto desempenho para proteger as formas e garantir um acabamento liso e perfeito do concreto.",
+    "specs": { "embalagem": "18L", "base": "óleos minerais e vegetais", "uso": "formas em geral" }
+  },
+  {
+    "slug": "desforma-plus-desmoldante-formas-200l",
+    "aplicacao": "Obras de grande porte com uso intensivo de formas para concreto.",
+    "como_usar": "Aplicação por pulverização ou rolo em camada fina sobre a forma limpa.",
+    "description": "Versão em tambor do desmoldante Desforma Plus, para grandes volumes. Economia e praticidade em canteiros de obras.",
+    "specs": { "embalagem": "200L", "base": "emulsão de óleos" }
+  }
+]

@@ -1,4 +1,6 @@
 import { supabase } from './supabase';
+import { z } from 'zod';
+import { logger } from './logger';
 import {
   products as fallbackProducts,
   type Product,
@@ -54,9 +56,38 @@ export async function revalidateProducts(): Promise<void> {
   await fetchProducts();
 }
 
+// ─── Zod Validation ─────────────────────────────────────────────────────────────
+
+const ProductSchema = z.object({
+  id: z.string().optional(),
+  slug: z.string(),
+  name: z.string(),
+  category: z.string(),
+  brand: z.string().nullable().optional(),
+  image: z.string().nullable().optional(),
+  images: z.array(z.string()).nullable().optional(),
+  description: z.string().nullable().optional(),
+  highlight: z.boolean().nullable().optional(),
+  active: z.boolean().nullable().optional(),
+  available: z.boolean().nullable().optional(),
+  tipo: z.array(z.string()).nullable().optional(),
+  aplicacao: z.array(z.string()).nullable().optional(),
+  como_usar: z.array(z.string()).nullable().optional(),
+  specs: z.record(z.string()).nullable().optional(),
+  parent_id: z.string().nullable().optional(),
+});
+
 // ─── DB Row Mapper ────────────────────────────────────────────────────────────
 
-function mapToProduct(dbRow: any, staticMatch?: Product): Product {
+function mapToProduct(rawRow: any, staticMatch?: Product): Product {
+  // Safe Parse via Zod to ensure runtime safety
+  const parseResult = ProductSchema.safeParse(rawRow);
+  const dbRow = parseResult.success ? parseResult.data : rawRow; // Graceful fallback
+
+  if (!parseResult.success && DEV) {
+    logger.warn(`Zod validation failed for product ${rawRow.slug}`, { error: parseResult.error });
+  }
+
   // Parse images array robustly
   let images: string[] = [];
   if (Array.isArray(dbRow.images) && dbRow.images.length > 0) {
@@ -90,6 +121,7 @@ function mapToProduct(dbRow: any, staticMatch?: Product): Product {
     imagens: images.length > 0 ? images : ((base as Product).imagens ?? []),
     resumo: dbRow.description || (base as Product).resumo || '',
     // Rich fields: DB JSON takes priority, fall back to static
+    tipo: (Array.isArray(dbRow.tipo) ? dbRow.tipo : null) ?? (base as Product).tipo ?? [],
     aplicacao: (Array.isArray(dbRow.aplicacao) ? dbRow.aplicacao : null) ?? (base as Product).aplicacao ?? [],
     comoUsar: (Array.isArray(dbRow.como_usar) ? dbRow.como_usar : null) ?? (base as Product).comoUsar ?? [],
     especificacoes: dbRow.specs ?? (base as Product).especificacoes,
@@ -156,9 +188,9 @@ export async function fetchProducts(): Promise<Product[]> {
     }
 
     // Supabase returned empty — use static fallback but don't cache aggressively
-    if (DEV) console.warn('[products-service] Supabase returned 0 products — falling back to static.');
+    if (DEV) logger.info('Supabase returned 0 products — falling back to static.');
   } catch (err) {
-    if (DEV) console.error('[products-service] Supabase fetch failed, using fallback:', err);
+    logger.error(err as Error, { source: 'fetchProducts', detail: 'Supabase fetch failed, using fallback' });
   }
 
   // Resilient fallback
@@ -167,6 +199,47 @@ export async function fetchProducts(): Promise<Product[]> {
   updateMemoryProducts(productsCache);
   emitChange();
   return productsCache;
+}
+
+// ─── RPC GIN Search ────────────────────────────────────────────────────────
+
+/**
+ * Executes a server-side search using the GIN JSONB index and Postgres ?| / @> operators.
+ * Used for deep backend filtering (SEO/SSR safe)
+ */
+export async function searchCatalogViaRPC(tipos: string[] = [], aplicacoes: string[] = [], matchAll = false): Promise<Product[]> {
+  if (!supabase) return productsStore.getSnapshot();
+
+  const { data, error } = await supabase.rpc('search_catalog', {
+    p_tipos: tipos,
+    p_aplicacoes: aplicacoes,
+    p_match_all: matchAll
+  });
+
+  if (error) {
+    logger.error(error as Error, { source: 'searchCatalogViaRPC', message: 'RPC Search Failed, falling back to memory filtering' });
+    const snapshot = productsStore.getSnapshot();
+    return snapshot.filter(p => {
+      let pass = true;
+      if (tipos.length > 0) {
+        if (!p.tipo || p.tipo.length === 0) pass = false;
+        else if (matchAll && !tipos.every(t => p.tipo!.includes(t))) pass = false;
+        else if (!matchAll && !tipos.some(t => p.tipo!.includes(t))) pass = false;
+      }
+      if (pass && aplicacoes.length > 0) {
+        if (!p.aplicacao || p.aplicacao.length === 0) pass = false;
+        else if (matchAll && !aplicacoes.every(a => p.aplicacao!.includes(a))) pass = false;
+        else if (!matchAll && !aplicacoes.some(a => p.aplicacao!.includes(a))) pass = false;
+      }
+      return pass;
+    });
+  }
+
+  const staticMap = new Map(fallbackProducts.map(p => [p.slug, p]));
+  return data.map((dbItem: any) => {
+    const staticMatch = staticMap.get(dbItem.slug) || staticMap.get(dbItem.id);
+    return mapToProduct(dbItem, staticMatch);
+  });
 }
 
 /**
@@ -181,7 +254,10 @@ export async function saveProductToSupabase(product: Product): Promise<void> {
     .from('products')
     .upsert(row, { onConflict: 'slug' });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    logger.error(error as Error, { source: 'saveProductToSupabase', productSlug: product.slug });
+    throw new Error(error.message);
+  }
 }
 
 function productToDbRow(p: Product): Record<string, unknown> {
@@ -198,8 +274,9 @@ function productToDbRow(p: Product): Record<string, unknown> {
     highlight: p.destaque ?? false,
     active: p.ativo !== false,
     available: (p.quantidadeEstoque ?? 0) > 0,
-    aplicacao: p.aplicacao && p.aplicacao.length > 0 ? p.aplicacao : null,
-    como_usar: p.comoUsar && p.comoUsar.length > 0 ? p.comoUsar : null,
+    tipo: p.tipo ? p.tipo : [],
+    aplicacao: p.aplicacao ? p.aplicacao : [],
+    como_usar: p.comoUsar ? p.comoUsar : [],
     specs: p.especificacoes ?? null,
     parent_id: parentExists ? p.parentId.trim() : null,
     updated_at: new Date().toISOString(),

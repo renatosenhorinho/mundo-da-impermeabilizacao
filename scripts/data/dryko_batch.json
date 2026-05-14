@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "dryko-camada-separadora-200x1m",
+    "aplicacao": "Instalada diretamente sobre a manta asfáltica pronta, antes da colocação de argamassa ou contrapiso de proteção.",
+    "como_usar": "Desenrolar o filme de polietileno sobre toda a área impermeabilizada fazendo sobreposição simples nas emendas.",
+    "description": "Filme plástico resistente utilizado para desvincular estruturalmente a impermeabilização do contrapiso, evitando atritos.",
+    "specs": { "Dimensões": "200m x 1m", "Material": "Polietileno", "Uso": "Camada Deslizante" }
+  },
+  {
+    "slug": "dryko-drykomanta-antiraiz-tipo-iii-4mm",
+    "aplicacao": "Impermeabilização de jardineiras, floreiras, lajes de teto verde e calhas sujeitas à vegetação.",
+    "como_usar": "Aplicação a quente com maçarico de gás GLP. Conta com aditivo especial que impede perfurações por raízes.",
+    "description": "Manta asfáltica premium estruturada com poliéster (Tipo III) aditivada com repelente químico de raízes.",
+    "specs": { "Espessura": "4mm", "Tipo": "Tipo III", "Aditivo": "Antirraiz" }
+  },
+  {
+    "slug": "dryko-espuma-expansiva-pu-500ml",
+    "aplicacao": "Instalação ágil de batentes, caixilhos, ar-condicionado, e calafetação profunda em dutos.",
+    "como_usar": "Aplicar de baixo para cima com o tubo invertido, ocupando parcialmente o buraco. Aguardar a expansão natural e curar.",
+    "description": "Espuma de poliuretano expansiva de altíssimo rendimento para fixação rápida e preenchimento de frestas largas.",
+    "specs": { "Embalagem": "500ml", "Secagem ao toque": "Rapida", "Acabamento": "Flexível rígido (aceita pintura)" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-60cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Recuperação abrangente de grandes coberturas, baús de caminhões, containers e fechamento amplo de rufos.",
+    "como_usar": "Remover o filme plástico protetor inferior, colar na superfície limpa e fazer forte pressão para aderência imediata.",
+    "description": "A versão mais larga (60cm) da fita asfáltica autoadesiva Dryko, capaz de realizar grandes reparos com uma única passagem.",
+    "specs": { "Largura": "60cm", "Acabamento superficial": "Filme de alumínio flexível", "Autoadesiva": "Sim" }
+  },
+  {
+    "slug": "dryko-drykomanta-tipo-iii-pp-4mm",
+    "aplicacao": "Lajes maciças e pré-moldadas de médio e grande porte, piscinas elevadas, espelhos d'água e cortinas de contenção.",
+    "como_usar": "Colagem total a fogo utilizando maçarico e cilindro de gás. Requer aplicação de argamassa de proteção após instalação.",
+    "description": "Manta asfáltica elastomérica flexível e espessa (4mm) estruturada com poliéster Tipo III para máxima segurança.",
+    "specs": { "Espessura": "4mm", "Tipo": "III", "Acabamento": "Polietileno em ambas as faces" }
+  },
+  {
+    "slug": "dryko-drykomanta-aluminio-tipo-iii-3mm",
+    "aplicacao": "Telhados, cúpulas, galpões e marquises que ficarão expostas ao sol sem trânsito de pessoas.",
+    "como_usar": "Aplicar o primer asfáltico e soldar a quente com maçarico de GLP. O lado do alumínio deve ficar voltado para cima.",
+    "description": "Manta asfáltica (3mm) Tipo III estruturada com poliéster, contendo película superficial de alumínio resistente aos raios UV.",
+    "specs": { "Espessura": "3mm", "Tipo": "III", "Face Externa": "Alumínio refletor de calor" }
+  },
+  {
+    "slug": "dryko-drykomanta-top-tipo-iv-pp-4mm",
+    "aplicacao": "Grandes obras viárias, pontes, viadutos, piscinas olímpicas e lajes sujeitas a vibração severa constante.",
+    "como_usar": "Uso exclusivamente profissional a quente (maçarico). Seguir rigorosamente normas de transpasso e biselamento de juntas.",
+    "description": "A manta de mais alta resistência mecânica da linha (Tipo IV). Excepcional resposta elástica e durabilidade estrutural.",
+    "specs": { "Espessura": "4mm", "Tipo": "IV (Máxima exigência)", "Estruturante": "Poliéster de alta gramatura" }
+  },
+  {
+    "slug": "dryko-drykoprimer-acqua-asfaltico-18l",
+    "aplicacao": "Preparação e ligação (primer) para recebimento de mantas asfálticas e fitas autoadesivas em lajes e calhas.",
+    "como_usar": "Aplicar a frio com rolo de lã ou trincha em única demão e aguardar secagem total antes de soldar a manta.",
+    "description": "Primer asfáltico diluído em base aquosa, ideal para locais fechados devido à total ausência de cheiro de solvente.",
+    "specs": { "Embalagem": "18L", "Base": "Água (Eco-friendly)", "Odor": "Baixo" }
+  },
+  {
+    "slug": "dryko-drykolaje-top-manta-liquida-branca-12kg",
+    "aplicacao": "Impermeabilização de lajes abobadadas, telhados, coberturas e varandas expostas sem tráfego de pedestres.",
+    "como_usar": "Pronto para uso. Aplicar 3 a 4 demãos cruzadas com rolo de pelo curto. A cor branca reflete o sol reduzindo calor.",
+    "description": "Manta líquida elastomérica acrílica premium de alta flexibilidade e excelente conforto térmico.",
+    "specs": { "Embalagem": "12kg", "Base": "Acrílica a frio", "Acabamento": "Exposto (Branco)" }
+  },
+  {
+    "slug": "dryko-drykofix-aditivo-adesivo-chapisco-18l",
+    "aplicacao": "Aditivo adesivo de altíssimo desempenho para colagem de chapisco e argamassas em alvenarias e tetos.",
+    "como_usar": "Adicionar à água de amassamento do traço de chapisco, proporcionando ancoragem perfeita e forte liga.",
+    "description": "Adesivo sintético versátil utilizado para reforçar a adesão de argamassas sobre bases de concreto liso.",
+    "specs": { "Embalagem": "18L", "Base": "Polímeros sintéticos (PVA)", "Uso": "Ponte de aderência" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-30cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Proteção e conserto rápido de calhas maiores, união de rufos com paredes e emendas críticas em toldos.",
+    "como_usar": "Limpar qualquer vestígio de areia ou óleo, soltar o filme protetor e friccionar a fita sobre o local.",
+    "description": "Rolo de fita asfáltica adesiva com média largura (30cm) e reforço superior aluminizado, muito versátil em obras civis.",
+    "specs": { "Largura": "30cm", "Aplicação": "A frio (Autoadesiva)", "Comprimento": "10 metros" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-15cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Vedação econômica de cabeças de parafusos de telhados, pequenas trincas em caixas d'água e junções de coifas.",
+    "como_usar": "Cortar no tamanho desejado, puxar a película antiaderente e colar pressionando o centro para as pontas.",
+    "description": "Fita de 15cm altamente flexível. Perfeita para resolver goteiras do dia a dia e realizar arremates detalhados.",
+    "specs": { "Largura": "15cm", "Cor Externa": "Alumínio Reflexivo", "Autoadesiva": "Sim" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-10cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Acabamentos precisos de funilaria civil, selagem de cantos de telhas e frestas estreitas.",
+    "como_usar": "Garantir substrato perfeitamente limpo e seco antes da colagem direta com as mãos ou rolete.",
+    "description": "A fita asfáltica aluminizada mais fina da linha (10cm). Ideal para detalhes curvos e remendos de alta precisão.",
+    "specs": { "Largura": "10cm", "Uso Recomendado": "Reparos expostos ao sol" }
+  },
+  {
+    "slug": "dryko-epoxi-tx-adesivo-estrutural-tixotropico-1kg",
+    "aplicacao": "Colagens de concreto-aço, concreto-concreto e recuperação pontual de elementos estruturais verticais ou em tetos.",
+    "como_usar": "Misturar rigidamente A e B e aplicar com espátula formando fina camada homogênea nas duas faces.",
+    "description": "Adesivo epóxi super resistente que não escorre (tixotrópico), ideal para trabalhos complexos contra a gravidade.",
+    "specs": { "Embalagem": "1kg", "Tipo": "Epóxi em pasta", "Pega": "Lenta/Média garantindo força final" }
+  },
+  {
+    "slug": "dryko-camada-separadora",
+    "aplicacao": "Separação física entre a manta de impermeabilização finalizada e a argamassa do contrapiso ou piso.",
+    "como_usar": "Estender desenrolando o filme por cima da manta asfáltica antes de realizar o cimentado de proteção.",
+    "description": "Proteção contra aderência do cimento e pequenos atritos, salvaguardando o sistema impermeabilizante durante e após a obra.",
+    "specs": { "Material": "Polietileno", "Uso": "Deslizante" }
+  },
+  {
+    "slug": "dryko-epoxi-mf-adesivo-estrutural-fluido-1kg",
+    "aplicacao": "Selamento de trincas horizontais, injeção em fissuras estabilizadas e colagem de concreto velho com o novo (ponte de aderência).",
+    "como_usar": "Verter o líquido misturado diretamente dentro da cavidade estrutural limpa e seca.",
+    "description": "Resina epóxi fluida que penetra facilmente em espaços microscópicos, formando amarração de altíssima resistência.",
+    "specs": { "Embalagem": "1kg", "Consistência": "Líquida/Fluida", "Secagem": "Alta resistência mecânica" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-20cm-fita-asfaltica-aluminizada",
+    "aplicacao": "União de telhas cerâmicas e metálicas, vedação de exaustores e domos de iluminação em coberturas.",
+    "como_usar": "Limpar toda sujeira. Retirar a proteção e assentar firmemente a fita de modo que acompanhe os relevos da telha.",
+    "description": "Solução prática em 20cm, a medida padrão e mais procurada para consertos gerais e manutenções de telhados industriais e residenciais.",
+    "specs": { "Largura": "20cm", "Face Superior": "Alumínio que reflete raios UV" }
+  },
+  {
+    "slug": "dryko-drykomanta-vedatudo-al-tipo-i-manta-adesiva",
+    "aplicacao": "Alternativa autoadesiva avançada em rolo de 1 metro de largura para cobrir grandes extensões de telhados expostos sem o uso de fogo.",
+    "como_usar": "Remover progressivamente a película antiaderente de baixo, colando o rolo diretamente sobre a superfície bem curada e limpa.",
+    "description": "Manta asfáltica inovadora autoadesiva com capa de alumínio. Dispensa maçarico, otimizando velocidade e segurança.",
+    "specs": { "Largura": "1 metro", "Tipo": "I Autoadesiva", "Acabamento": "Alumínio Exposto" }
+  },
+  {
+    "slug": "dryko-asfalto-oxidado",
+    "aplicacao": "Impermeabilização tradicional de lajes à base de asfalto derretido (colagem de mantas), mastiques e juntas estruturais.",
+    "como_usar": "Aquecer em caldeiras próprias até o ponto de fusão correto e aplicar quente vertendo sobre o local.",
+    "description": "Cimento asfáltico sólido e rígido em temperatura ambiente que atua como adesivo e bloqueador quando fundido.",
+    "specs": { "Aplicação": "Somente a quente (Derretimento)", "Uso Recomendado": "Fixação de mantas e preenchimento de juntas" }
+  },
+  {
+    "slug": "dryko-drykomanta-tipo-iii-pp-3mm",
+    "aplicacao": "Áreas frias grandes, sacadas extensas, floreiras longas e lajes submetidas a movimentação constante.",
+    "como_usar": "Aderência térmica tradicional com uso de maçarico. Demanda aplicação obrigatória de camada separadora e argamassa final.",
+    "description": "Manta asfáltica armada com poliéster. O modelo 3mm concilia excelente durabilidade e economia com segurança certificada (Tipo III).",
+    "specs": { "Espessura": "3mm", "Estruturante": "Poliéster", "Tipo": "III" }
+  },
+  {
+    "slug": "drykopren-preto-impermeabilizante-asfaltico",
+    "aplicacao": "Bloqueio eficiente de umidade em cortinas de contenção, lajes abertas, floreiras e pisos úmidos de banheiro.",
+    "como_usar": "Aplicação facilitada a frio com trincha larga em 3 ou mais demãos cruzadas.",
+    "description": "Impermeabilizante líquido que forma uma camada emborrachada asfáltica robusta sem emendas ou soldas.",
+    "specs": { "Base": "Asfáltica emulsionada", "Cor": "Preta", "Diluição": "Água" }
+  },
+  {
+    "slug": "dryko-drykomanta-flex-tipo-ii-pp-3mm",
+    "aplicacao": "Obras residenciais em lajes convencionais de proporções intermediárias, cozinhas, lavabos e áreas de serviço.",
+    "como_usar": "Processo de aplicação a fogo (maçarico a gás). Para garantir vida longa, realizar imediatamente a proteção mecânica do local.",
+    "description": "Manta asfáltica flexível de linha com estruturação elástica e espessura 3mm. Qualidade premium para obras corriqueiras.",
+    "specs": { "Espessura": "3mm", "Tipo": "II", "Instalação": "A quente" }
+  },
+  {
+    "slug": "dryko-fita-vedatudo-45cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Selagem larga em sobreposições estruturais de telhados de fibrocimento, fachadas metálicas e caixas de ventilação.",
+    "como_usar": "Como as demais medidas autoadesivas, remover o plástico traseiro aos poucos para não enrugar e pressionar vigorosamente.",
+    "description": "Rolo adesivo de largura estendida (45cm), capaz de resolver calhas muito largas e danos expressivos com alta velocidade de obra.",
+    "specs": { "Largura": "45cm", "Acabamento": "Película aluminizada" }
+  }
+]

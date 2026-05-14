@@ -1,0 +1,123 @@
+**Sucesso:** 23 | **Pulados:** 0 | **Erros:** 0
+---
+# Relatório de Enriquecimento de Conteúdo - DRYKO
+Data: 2026-05-13T21:44:04.908Z
+Modo: APPLY
+
+## Resumo das Atualizações
+
+- **Dryko Camada Separadora 200x1m** (`dryko-camada-separadora-200x1m`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Antiraiz Tipo III 4mm** (`dryko-drykomanta-antiraiz-tipo-iii-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Espuma Expansiva de PU (500ml)** (`dryko-espuma-expansiva-pu-500ml`):
+  - ⏭️ `aplicacao` mantida (já existente).
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 60cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-60cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Tipo III PP 4mm** (`dryko-drykomanta-tipo-iii-pp-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Alumínio Tipo III 3mm** (`dryko-drykomanta-aluminio-tipo-iii-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Top Tipo IV PP 4mm** (`dryko-drykomanta-top-tipo-iv-pp-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykoprimer Acqua Asfáltico** (`dryko-drykoprimer-acqua-asfaltico-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykolaje Top Manta Líquida Branca** (`dryko-drykolaje-top-manta-liquida-branca-12kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykofix Aditivo Adesivo (Chapisco)** (`dryko-drykofix-aditivo-adesivo-chapisco-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 30cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-30cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 15cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-15cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 10cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-10cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Epóxi TX Adesivo Estrutural (Tixotrópico)** (`dryko-epoxi-tx-adesivo-estrutural-tixotropico-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Camada Separadora** (`dryko-camada-separadora`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Epóxi MF Adesivo Estrutural (Fluido)** (`dryko-epoxi-mf-adesivo-estrutural-fluido-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 20cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-20cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Vedatudo AL Tipo I Manta Adesiva** (`dryko-drykomanta-vedatudo-al-tipo-i-manta-adesiva`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Asfalto Oxidado** (`dryko-asfalto-oxidado`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Tipo III PP 3mm** (`dryko-drykomanta-tipo-iii-pp-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Drykopren Preto Impermeabilizante Asfáltico** (`drykopren-preto-impermeabilizante-asfaltico`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Drykomanta Flex Tipo II PP 3mm** (`dryko-drykomanta-flex-tipo-ii-pp-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Dryko Fita Vedatudo 45cm Fita Asfáltica Aluminizada** (`dryko-fita-vedatudo-45cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.

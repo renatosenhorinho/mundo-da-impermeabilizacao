@@ -7,10 +7,11 @@ import {
 } from '@/lib/products-service';
 import { generateSlug } from '@/data/products';
 import { getBrands } from '@/lib/brands-service';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { WHATSAPP_NUMBER } from '@/config/constants';
 import { buildWhatsAppUrl } from '@/utils/buildWhatsAppUrl';
 import { getSessionId } from '@/lib/analytics';
+import { taxonomyStore } from '@/lib/taxonomy-service';
 
 const ProductCard = React.lazy(() => import('./product-card'));
 
@@ -39,19 +40,54 @@ interface CatalogGridProps {
 const CatalogGrid: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   const catalog = React.useSyncExternalStore(catalogStore.subscribe, catalogStore.getSnapshot);
+  const taxonomy = React.useSyncExternalStore(taxonomyStore.subscribe, taxonomyStore.getSnapshot);
 
   // Derive categorias and marcas from the live catalog — updates reactively on any store change
   const categorias = React.useMemo(() => getCategorias(), [catalog]);
   const marcas = React.useMemo(() => getBrands(), [catalog]);
 
+  const TIPOS = React.useMemo(() => taxonomy.filter(t => t.group_name === 'TIPO'), [taxonomy]);
+  const APLICACOES = React.useMemo(() => taxonomy.filter(t => t.group_name === 'APLICACAO'), [taxonomy]);
+
   const [searchQuery, setSearchQuery] = React.useState('');
   const [activeCategoria, setActiveCategoria] = React.useState<string | null>(categorySlug ?? null);
   const [activeMarca, setActiveMarca] = React.useState<string | null>(null);
-  const [activeAplicacao, setActiveAplicacao] = React.useState<string | null>(null);
-  const [activeTipo, setActiveTipo] = React.useState<string | null>(null);
   const [sortBy, setSortBy] = React.useState<'relevance' | 'name' | 'stock'>('relevance');
   const [visibleCount, setVisibleCount] = React.useState(ITEMS_PER_PAGE);
+
+  // URL State multi-select
+  const activeTiposStr = searchParams.getAll('tipo').join(',');
+  const activeAplicacoesStr = searchParams.getAll('aplicacao').join(',');
+
+  const activeTipos = React.useMemo(() => (activeTiposStr ? activeTiposStr.split(',') : []), [activeTiposStr]);
+  const activeAplicacoes = React.useMemo(() => (activeAplicacoesStr ? activeAplicacoesStr.split(',') : []), [activeAplicacoesStr]);
+
+  const toggleTipo = (slug: string) => {
+    const next = new URLSearchParams(searchParams);
+    const current = next.getAll('tipo');
+    next.delete('tipo');
+    if (current.includes(slug)) {
+      current.filter(t => t !== slug).forEach(t => next.append('tipo', t));
+    } else {
+      [...current, slug].forEach(t => next.append('tipo', t));
+    }
+    setSearchParams(next);
+  };
+
+  const toggleAplicacao = (slug: string) => {
+    const next = new URLSearchParams(searchParams);
+    const current = next.getAll('aplicacao');
+    next.delete('aplicacao');
+    if (current.includes(slug)) {
+      current.filter(a => a !== slug).forEach(a => next.append('aplicacao', a));
+    } else {
+      [...current, slug].forEach(a => next.append('aplicacao', a));
+    }
+    setSearchParams(next);
+  };
 
   // Sync state with URL when browser back/forward is used
   React.useEffect(() => {
@@ -114,29 +150,21 @@ const CatalogGrid: React.FC = () => {
       });
     }
 
-    // 3. Aplicação Inteligente (Cumulativo)
-    // Considera: aplicacao, palavrasChave, nome e subcategoria
-    if (activeAplicacao) {
-      const q = activeAplicacao.toLowerCase();
+    // 3. Aplicação Inteligente (Cumulativo / Multi-select)
+    const validActiveAplicacoes = activeAplicacoes.filter(slug => APLICACOES.some(opt => opt.slug === slug));
+    if (validActiveAplicacoes.length > 0) {
       result = result.filter((p) => {
-        const queryNorm = q.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const content = [
-          ...p.aplicacao,
-          ...(p.palavrasChave ?? []),
-          p.nome,
-          p.subcategoriaLabel ?? ''
-        ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        
-        return content.includes(queryNorm);
+        if (!p.aplicacao || p.aplicacao.length === 0) return false;
+        return validActiveAplicacoes.some(slug => p.aplicacao.includes(slug));
       });
     }
 
-    // 4. Tipo de Produto (Cumulativo)
-    if (activeTipo) {
-      const q = activeTipo.toLowerCase();
+    // 4. Tipo de Produto (Cumulativo / Multi-select)
+    const validActiveTipos = activeTipos.filter(slug => TIPOS.some(opt => opt.slug === slug));
+    if (validActiveTipos.length > 0) {
       result = result.filter((p) => {
-        const nameAndSub = `${p.nome} ${p.subcategoriaLabel ?? ''}`.toLowerCase();
-        return nameAndSub.includes(q);
+        if (!p.tipo || p.tipo.length === 0) return false;
+        return validActiveTipos.some(slug => p.tipo.includes(slug));
       });
     }
 
@@ -147,7 +175,7 @@ const CatalogGrid: React.FC = () => {
       // relevance = order defined in data
       return a.ordem - b.ordem;
     });
-  }, [debouncedQuery, activeCategoria, activeMarca, activeAplicacao, activeTipo, sortBy, catalog]);
+  }, [debouncedQuery, activeCategoria, activeMarca, activeAplicacoesStr, activeTiposStr, sortBy, catalog]);
 
   const visibleProducts = React.useMemo(
     () => filteredProducts.slice(0, visibleCount),
@@ -159,7 +187,7 @@ const CatalogGrid: React.FC = () => {
   // Reset pagination on any filter change
   React.useEffect(() => { 
     setVisibleCount(ITEMS_PER_PAGE); 
-  }, [debouncedQuery, activeCategoria, activeMarca, activeAplicacao, activeTipo]);
+  }, [debouncedQuery, activeCategoria, activeMarca, activeTiposStr, activeAplicacoesStr]);
 
   const handleCategoriaClick = React.useCallback((slug: string | null) => {
     setActiveCategoria(slug);
@@ -171,10 +199,9 @@ const CatalogGrid: React.FC = () => {
     setDebouncedQuery('');
     setActiveCategoria(null);
     setActiveMarca(null);
-    setActiveAplicacao(null);
-    setActiveTipo(null);
+    setSearchParams(new URLSearchParams());
     navigate('/produtos');
-  }, [navigate]);
+  }, [navigate, setSearchParams]);
 
   const handleLoadMore = React.useCallback(() => {
     setVisibleCount((prev) => prev + ITEMS_PER_PAGE);
@@ -184,10 +211,9 @@ const CatalogGrid: React.FC = () => {
     ? categorias.find((c) => c.slug === activeCategoria)
     : null;
 
-  const hasActiveFilters = Boolean(activeCategoria || activeMarca || activeAplicacao || activeTipo || debouncedQuery);
-
-  const APLICACOES = ['Laje', 'Parede', 'Telhado', 'Piscina', 'Fundação', 'Banheiro', 'Reservatório'];
-  const TIPOS = ['Manta', 'Selante', 'Aditivo', 'Argamassa', 'Primer', 'Fita', 'Dreno', 'Maçarico'];
+  const hasActiveFilters = Boolean(
+    activeCategoria || activeMarca || activeTipos.length > 0 || activeAplicacoes.length > 0 || debouncedQuery
+  );
 
   return (
     <section className="py-12 md:py-16 bg-background-light min-h-screen">
@@ -346,15 +372,15 @@ const CatalogGrid: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mr-1 flex-shrink-0">Aplicação:</span>
             {APLICACOES.map((app) => (
               <button
-                key={app}
-                onClick={() => setActiveAplicacao(app === activeAplicacao ? null : app)}
+                key={app.slug}
+                onClick={() => toggleAplicacao(app.slug)}
                 className={`filter-chip flex-shrink-0 px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all ${
-                  activeAplicacao === app
+                  activeAplicacoes.includes(app.slug)
                     ? 'bg-slate-800 text-white shadow-md'
                     : 'bg-white text-slate-500 border border-slate-200 hover:border-slate-400 hover:text-slate-700'
                 }`}
               >
-                {app}
+                {app.label}
               </button>
             ))}
           </div>
@@ -368,15 +394,15 @@ const CatalogGrid: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mr-1 flex-shrink-0">Tipo:</span>
             {TIPOS.map((tipo) => (
               <button
-                key={tipo}
-                onClick={() => setActiveTipo(tipo === activeTipo ? null : tipo)}
+                key={tipo.slug}
+                onClick={() => toggleTipo(tipo.slug)}
                 className={`filter-chip flex-shrink-0 px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all ${
-                  activeTipo === tipo
+                  activeTipos.includes(tipo.slug)
                     ? 'bg-slate-800 text-white shadow-md'
                     : 'bg-white text-slate-500 border border-slate-200 hover:border-slate-400 hover:text-slate-700'
                 }`}
               >
-                {tipo}
+                {tipo.label}
               </button>
             ))}
           </div>

@@ -1,0 +1,254 @@
+[
+  {
+    "slug": "tela-poliester-viapol-1-00x50m",
+    "aplicacao": "Reforço em sistemas de impermeabilização aplicados a frio (mantas líquidas, argamassas poliméricas).",
+    "como_usar": "Intercalar a tela estruturante entre a primeira e a segunda demão do impermeabilizante, garantindo total cobertura.",
+    "description": "Tela de poliéster de alta resistência para estruturação e reforço de membranas de impermeabilização.",
+    "specs": { "dimensao": "1,00m x 50m", "material": "fios de poliéster", "uso": "reforço estrutural" }
+  },
+  {
+    "slug": "viapol-vedamat-100-argamassa-polimerica-18kg",
+    "aplicacao": "Impermeabilização de baldrames, fundações, poços de elevador, muros de arrimo e estruturas enterradas.",
+    "como_usar": "Misturar os componentes A e B até obter massa homogênea. Aplicar em 3 a 4 demãos cruzadas com trincha.",
+    "description": "Impermeabilizante cimentício semiflexível para áreas sujeitas a umidade do solo e pressões d'água.",
+    "specs": { "embalagem": "18kg", "base": "cimentícia e polimérica", "demãos": "3 a 4 demãos cruzadas" }
+  },
+  {
+    "slug": "viaboc-ralo-duplo-epdm-geotextil-150mm",
+    "aplicacao": "Escoamento e drenagem de águas pluviais em lajes, jardins suspensos e áreas impermeabilizadas.",
+    "como_usar": "Posicionar no ponto de escoamento da laje e soldar a manta asfáltica ou aplicar membrana líquida sobre a aba do ralo.",
+    "description": "Ralo duplo fabricado em EPDM flexível para perfeita vedação e escoamento em lajes impermeabilizadas.",
+    "specs": { "diametro": "150mm", "material": "EPDM e Geotêxtil", "tipo": "Ralo de drenagem" }
+  },
+  {
+    "slug": "viapol-fuseprotec-parede-protecao-de-concreto-18l",
+    "aplicacao": "Proteção e acabamento de fachadas, muros, concreto aparente, tijolos à vista e blocos de concreto.",
+    "como_usar": "Aplicar com rolo, trincha ou pistola airless em 2 ou mais demãos sobre superfície limpa e seca.",
+    "description": "Verniz acrílico à base de água que protege superfícies de concreto e alvenaria contra intempéries e manchas.",
+    "specs": { "embalagem": "18L", "base": "resina acrílica estirenada", "acabamento": "incolor e brilhante" }
+  },
+  {
+    "slug": "viapol-betufita-94cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Vedação de encontros de telhas, rufos, calhas, cumeeiras, domos e reparos em carrocerias.",
+    "como_usar": "Remover o filme plástico protetor e aplicar a fita sobre a superfície limpa e seca, pressionando do centro para as bordas.",
+    "description": "Fita asfáltica autoadesiva multiuso com face aluminizada para reparos e vedações de áreas largas (94cm).",
+    "specs": { "largura": "94cm", "acabamento": "filme de alumínio flexível", "base": "asfalto modificado" }
+  },
+  {
+    "slug": "viapol-viapolseca-po-2-cimento-rapido-4kg",
+    "aplicacao": "Tamponamento imediato de jorros de água sob pressão, reparos de emergência em caixas d'água e galerias.",
+    "como_usar": "Misturar rapidamente com água, formar uma 'rolha' na mão e pressionar contra o vazamento por 1 minuto.",
+    "description": "Cimento de pega ultrarrápida para paralisar vazamentos de água instantaneamente sob alta pressão.",
+    "specs": { "embalagem": "4kg", "tempo_de_pega": "15 a 60 segundos", "uso": "tamponamento de jorros d'água" }
+  },
+  {
+    "slug": "viapol-viamix-aditivo-expansor-15kg",
+    "aplicacao": "Produção de argamassas expansivas para preenchimento de frestas, encunhamento de alvenarias e fixação de tubos.",
+    "como_usar": "Adicionar à mistura seca de cimento e areia antes de colocar a água de amassamento.",
+    "description": "Aditivo em pó expansor e plastificante que compensa a retração do cimento, evitando fissuras e vazios.",
+    "specs": { "embalagem": "15kg", "função": "aditivo plastificante e expansor", "base": "pó mineral" }
+  },
+  {
+    "slug": "viapol-viaflex-sleeve-telha-fita-aluminizada-20cm",
+    "aplicacao": "Remendos rápidos em trincas de telhas de fibrocimento, metálicas ou cerâmicas e vedação de cabeças de parafusos.",
+    "como_usar": "Limpar a poeira e oleosidade da telha, retirar o liner e colar a fita pressionando firmemente.",
+    "description": "Fita adesiva asfáltica de 20cm com excelente aderência, ideal para o conserto pontual de telhados e dutos.",
+    "specs": { "largura": "20cm", "acabamento": "aluminizado", "proteção": "resiste ao sol" }
+  },
+  {
+    "slug": "viapol-vandex-super-impermeabilizacao-estrutural-20kg",
+    "aplicacao": "Estruturas de concreto sujeitas a grandes pressões hidrostáticas, como fundações pesadas, barragens e túneis.",
+    "como_usar": "Pode ser aspergido sobre o concreto fresco ou aplicado como argamassa/pintura em concreto endurecido e curado.",
+    "description": "Impermeabilizante por cristalização profunda que reage com a umidade do concreto tornando-o totalmente estanque.",
+    "specs": { "embalagem": "20kg", "tipo": "cristalizante de penetração", "resistência": "alta pressão positiva e negativa" }
+  },
+  {
+    "slug": "viaplus-1000",
+    "aplicacao": "Impermeabilização de baldrames, muros de arrimo, estruturas enterradas, piscinas e reservatórios enterrados.",
+    "como_usar": "Umedecer levemente o substrato e aplicar de 3 a 4 demãos cruzadas do produto misturado.",
+    "description": "Argamassa polimérica semiflexível para áreas enterradas e úmidas sujeitas a baixa movimentação.",
+    "specs": { "tipo": "Argamassa polimérica", "base": "Cimento e polímeros acrílicos", "aplicação": "Trincha ou vassoura de pelo" }
+  },
+  {
+    "slug": "viapol-viaplus-2000-fibras-argamassa-polimerica-18kg",
+    "aplicacao": "Lajes de pequenas dimensões, sacadas, banheiros, cozinhas e reservatórios elevados não aparentes.",
+    "como_usar": "Misturar parte A e parte B sem adicionar água. Aplicar as demãos com intercalação de tela de poliéster quando necessário.",
+    "description": "Argamassa polimérica flexível, enriquecida com fibras, ideal para suportar maiores variações térmicas.",
+    "specs": { "embalagem": "18kg", "tipo": "Flexível com fibras", "consumo_médio": "3kg/m²" }
+  },
+  {
+    "slug": "viaplus-10000-viapol-viaplus-protec-argamassa-polimerica",
+    "aplicacao": "Áreas frias (banheiros, cozinhas, lavanderias) e caixas d'água elevadas sujeitas à movimentação estrutural.",
+    "como_usar": "Misturar o líquido e o pó formando uma consistência pastosa. Aplicar em demãos cruzadas aguardando a secagem entre elas.",
+    "description": "Solução de alta flexibilidade em argamassa polimérica para vedação total sob cerâmicas e pisos.",
+    "specs": { "classificação": "Argamassa polimérica de alta flexibilidade", "uso": "Interno e externo coberto" }
+  },
+  {
+    "slug": "viapol-vedalage-manta-liquida-preta-asfaltica-18l",
+    "aplicacao": "Impermeabilização de lajes com posterior aplicação de contrapiso, calhas de concreto, marquises e jardineiras.",
+    "como_usar": "Aplicar a frio com trincha ou rolo. A primeira demão atua como primer. Estruturar com tela de poliéster se necessário.",
+    "description": "Manta asfáltica líquida (emulsão elastomérica) pronta para uso. Forma uma membrana flexível sem emendas e juntas.",
+    "specs": { "embalagem": "18L", "base": "emulsão asfáltica modificada", "cor": "Preta" }
+  },
+  {
+    "slug": "massa-para-madeira-mf-12-branca-viapol",
+    "aplicacao": "Correção e nivelamento de falhas, furos, buracos e trincas rasas em superfícies de madeira.",
+    "como_usar": "Limpar o local, aplicar a massa com espátula nivelando a superfície. Lixar e pintar após a secagem completa.",
+    "description": "Massa sintética para nivelar e corrigir imperfeições em madeiras maciças ou compensadas antes da pintura.",
+    "specs": { "cor": "Branca", "secagem": "Rápida", "acabamento": "Permite lixamento e pintura" }
+  },
+  {
+    "slug": "betuplast-impermeabilizante-asfaltico-viapol-18l",
+    "aplicacao": "Pintura de proteção asfáltica contra umidade de solo em baldrames, fundações, alicerces e muros de contenção.",
+    "como_usar": "Pode ser aplicado sobre substrato úmido ou seco, em demãos com broxa ou trincha.",
+    "description": "Asfalto emulsionado com aditivos (Betuplast) de alta aderência, ideal para impermeabilização básica de contato com solo.",
+    "specs": { "embalagem": "18L (ou 25kg)", "base": "Asfalto emulsionado", "uso": "A frio" }
+  },
+  {
+    "slug": "viabit-lt-viapol-18l",
+    "aplicacao": "Primer de aderência para aplicação de mantas asfálticas e fitas autoadesivas, além de proteção de tubulações metálicas.",
+    "como_usar": "Aplicar em demão única com rolo de lã ou broxa. Aguardar a secagem ao toque antes de colar a manta.",
+    "description": "Tinta asfáltica (primer) à base de solvente de secagem muito rápida e alto poder de penetração.",
+    "specs": { "embalagem": "18L", "base": "asfáltica com solvente", "secagem": "Ao toque em 30 min a 2 horas" }
+  },
+  {
+    "slug": "betufrio-impermeabilizante-asfaltico-viapol-18l",
+    "aplicacao": "Impermeabilização de lajes maciças, calhas, áreas molhadas e lajes de cobertura sob contrapiso.",
+    "como_usar": "Aplicar a frio com rolo ou trincha em demãos sucessivas, estruturando com véu de fibra de vidro ou poliéster se necessário.",
+    "description": "Asfalto elastomérico modificado para aplicação a frio (sem fogo). Confere uma membrana monolítica super flexível.",
+    "specs": { "embalagem": "20KG (Aprox 18L)", "aplicação": "A frio", "flexibilidade": "Alta elásticidade" }
+  },
+  {
+    "slug": "viapol-viacal-aditivo-plastificante-substituto-cal-18l",
+    "aplicacao": "Argamassas de assentamento de blocos, tijolos e rebocos internos ou externos.",
+    "como_usar": "Diluir o Viacal na água de amassamento da argamassa, dispensando totalmente o uso da cal convencional.",
+    "description": "Aditivo plastificante que substitui o uso de cal na obra, evitando trincas, melhorando a liga e a aderência da argamassa.",
+    "specs": { "embalagem": "18L", "rendimento": "100 a 200 ml por saco de cimento", "benefício": "Substitui a cal" }
+  },
+  {
+    "slug": "viapol-viaplus-5000-fibras-argamassa-polimerica-18kg",
+    "aplicacao": "Piscinas elevadas, terraços, sacadas, floreiras e caixas d'água de grande capacidade.",
+    "como_usar": "Misturar resina liquida e pó mecanicamente e aplicar com trincha, sobrepondo tela de poliéster nos rodapés e cantos.",
+    "description": "Argamassa super flexível estruturada com fibras sintéticas. Absorve movimentações estruturais e protege as ferragens.",
+    "specs": { "embalagem": "18kg", "tipo": "Flexível com Fibras (Viaplus 7000)", "uso": "Áreas de alta movimentação" }
+  },
+  {
+    "slug": "viapol-betumanta-2-e-manta-asfaltica",
+    "aplicacao": "Lajes pequenas, banheiros, cozinhas, áreas de serviço e fundações rasas.",
+    "como_usar": "Colagem a quente utilizando maçarico sobre a superfície previamente preparada com primer asfáltico.",
+    "description": "Manta asfáltica elastomérica tipo II, estruturada com não-tecido de poliéster. Para lajes que receberão proteção mecânica.",
+    "specs": { "tipo": "Tipo II (E)", "estruturante": "Poliéster", "espessura_referência": "3mm ou 4mm" }
+  },
+  {
+    "slug": "viapol-manta-premium-ardosia-verde-3mm",
+    "aplicacao": "Coberturas expostas sem trânsito, telhados, marquises, galpões e telhas metálicas.",
+    "como_usar": "Aplicar a quente com maçarico de gás GLP garantindo o transpasso de 10cm nas emendas.",
+    "description": "Manta asfáltica impermeável e autoprotegida com ardósia mineral na cor verde. Reflete raios UV e embeleza o telhado.",
+    "specs": { "acabamento": "Ardósia Verde", "espessura": "3mm", "proteção": "Resistente aos raios solares (UV)" }
+  },
+  {
+    "slug": "curacreto-pa-10-agente-de-cura-200l",
+    "aplicacao": "Pisos industriais, pavimentos de concreto, lajes de grande superfície e calçadas.",
+    "como_usar": "Aplicar com pulverizador imediatamente após a exsudação da água do concreto fresco.",
+    "description": "Agente de cura química que forma uma película impermeável para evitar a perda rápida de água durante a secagem do concreto.",
+    "specs": { "embalagem": "200L (Tambor)", "base": "Parafínica / Resinas", "uso": "Obras industriais" }
+  },
+  {
+    "slug": "adeflex-impermeabilizante-asfaltico-18l",
+    "aplicacao": "Impermeabilização de baldrames, fundações rasas, cortinas de contenção e pintura anticorrosiva.",
+    "como_usar": "Aplicar a frio sobre superfície seca usando rolo de lã ou broxa em 2 demãos cruzadas.",
+    "description": "Tinta asfáltica protetora de secagem rápida e forte aderência, que forma uma película bloqueadora de umidade capilar.",
+    "specs": { "embalagem": "18L", "secagem": "Rápida", "acabamento": "Película asfáltica protetora" }
+  },
+  {
+    "slug": "viaplus-6000-viapol-viaplus-protec-argamassa-polimerica",
+    "aplicacao": "Áreas sujeitas à extrema exposição solar e variações de temperatura.",
+    "como_usar": "Preparo da base conforme instrução e aplicação de demãos com intervalo adequado de secagem.",
+    "description": "Revestimento polimérico avançado de alta tecnologia para uso como acabamento ou sob revestimento pesado.",
+    "specs": { "tipo": "Polimérica", "aplicação": "Impermeabilização fina", "base": "Cimento modificado" }
+  },
+  {
+    "slug": "viaboc-ralo-duplo-epdm-geotextil-100mm",
+    "aplicacao": "Drenagem segura de ralos e escoamentos em áreas com manta asfáltica (jardineiras, lajes de teto, varandas).",
+    "como_usar": "Embutir o corpo do ralo na laje e integrar a aba de EPDM à manta asfáltica soldando a fogo.",
+    "description": "Ralo especial de 100mm em EPDM flexível que assegura compatibilidade química e estanqueidade ao soldar a manta.",
+    "specs": { "diametro": "100mm", "material": "Borracha EPDM e Geotêxtil", "resistência": "A quente e flexível" }
+  },
+  {
+    "slug": "viapol-betufita-20cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Reparos em trincas, junção de telhas e paredes, rufos metálicos e toldos rasgados.",
+    "como_usar": "Tirar o filme protetor e colar sobre a região limpa e bem seca, fazendo forte pressão em toda a fita.",
+    "description": "Rolo de fita asfáltica autoadesiva de 20cm com a face externa revestida em filme de alumínio reflexivo.",
+    "specs": { "largura": "20cm", "comprimento": "Padrão 10m", "base": "Elastomérica asfáltica" }
+  },
+  {
+    "slug": "viaplus-protect-18kg",
+    "aplicacao": "Fundações, baldrames, muros de contenção, banheiros de pavimentos térreos e piscinas.",
+    "como_usar": "Misturar o líquido (resina) e o pó (cimento) rigorosamente. Aplicar com vassoura de pelo duro em 3 demãos.",
+    "description": "Produto cimentício ideal para combater tanto a pressão positiva da água da chuva quanto a negativa do solo.",
+    "specs": { "embalagem": "18kg", "tipo": "Cimentício semiflexível", "base": "Pó e resina líquida" }
+  },
+  {
+    "slug": "viapol-viapolseca-po-2-cimento-rapido-15kg",
+    "aplicacao": "Interrupção de fugas de água ativas, enchimento de chumbamentos e vedação de caixas d'água de grande porte.",
+    "como_usar": "Misturar pequena porção com água rapidamente e vedar a fissura manualmente segurando até a secagem.",
+    "description": "Versão em caixa de 15kg do cimento de secagem ultrarrápida (15-60 seg) para manutenção pesada de estruturas hidráulicas.",
+    "specs": { "embalagem": "15kg", "tempo_pega": "Ultrarrápido", "uso": "Bloqueador de jorros d'água" }
+  },
+  {
+    "slug": "viabit-acqua-viapol-18l",
+    "aplicacao": "Imprimação ecológica e pintura protetora contra umidade de alicerces, jardineiras e muros de contenção.",
+    "como_usar": "Aplicar a frio com rolo, broxa ou trincha diretamente sobre o substrato seco.",
+    "description": "Emulsão asfáltica diluída em água. Totalmente ecológica, sem solventes e segura para aplicação em locais confinados.",
+    "specs": { "embalagem": "18L", "base": "Asfalto emulsionado em água", "aplicação": "Primer ou pintura impermeável" }
+  },
+  {
+    "slug": "viapol-eucorepair-ferroprotec-protecao-anticorrosiva-1kg",
+    "aplicacao": "Pintura de proteção ativa anticorrosiva das armaduras (ferragens) expostas no processo de recuperação estrutural.",
+    "como_usar": "Misturar a resina epóxi/cimentícia e pincelar sobre a armadura previamente escovada e limpa.",
+    "description": "Revestimento rico em polímeros cimentícios inibidor de corrosão para proteger o aço do concreto armado em consertos estruturais.",
+    "specs": { "embalagem": "1kg", "tipo": "Ponte de aderência e inibidor de corrosão", "base": "Cimentícia e epóxi" }
+  },
+  {
+    "slug": "viapol-torodin-3500-3-pp-manta-asfaltica",
+    "aplicacao": "Lajes maciças e pré-moldadas de médio a grande porte, viadutos, varandas e lajes térreas.",
+    "como_usar": "Aderência total a quente utilizando maçarico sobre a superfície bem nivelada e seca após a aplicação do primer.",
+    "description": "Manta asfáltica premium estruturada com forte não-tecido de poliéster. Indicada para áreas sujeitas a movimentação moderada.",
+    "specs": { "espessura": "3mm", "acabamento": "Polietileno em ambas as faces", "resistência": "Alta tração" }
+  },
+  {
+    "slug": "superstop-1-2-x1-x-rl-6-1mt",
+    "aplicacao": "Vedação estanque em juntas de concretagem ativas de reservatórios, lajes de subpressão e barragens.",
+    "como_usar": "Colar o perfil expansivo no meio da junta fria antes de iniciar a nova concretagem. Quando a água penetrar, o cordão se expande vedando a falha.",
+    "description": "Fita hidroexpansiva bentonítica que reage e incha no contato com a água, bloqueando imediatamente vazamentos nas juntas.",
+    "specs": { "tamanho": "Rolo 6,1 metros", "material": "Bentonita e butil", "expansão": "Alta" }
+  },
+  {
+    "slug": "viaboc-ralo-duplo-epdm-geotextil-75mm",
+    "aplicacao": "Captação de água de ralos menores em banheiros, varandas e sacadas que levam impermeabilização por manta asfáltica.",
+    "como_usar": "Embutir o cano no tubo de PVC e fazer a fusão da manta na aba superior do ralo para garantir estanqueidade total.",
+    "description": "Ralo especial de aba flexível EPDM e manta geotêxtil. Ideal para instalações menores de 75mm sem arriscar vazamentos nas bordas.",
+    "specs": { "diametro": "75mm", "material": "Borracha EPDM", "compatibilidade": "Mantas asfálticas a quente" }
+  },
+  {
+    "slug": "viapol-betufita-15cm-fita-asfaltica-aluminizada",
+    "aplicacao": "Vedação ágil e barata de pingadeiras, canos rompidos sem pressão, ar condicionado e pequenas goteiras.",
+    "como_usar": "Limpar completamente o local, tirar a película e aplicar a fita esticando bem e esfregando para ativar a cola asfáltica.",
+    "description": "A versão mais fina (15cm) e versátil da fita autoadesiva aluminizada. Um verdadeiro salva-vidas em dias de goteira na casa.",
+    "specs": { "largura": "15cm", "comprimento": "10 metros", "autoadesiva": "Sim" }
+  },
+  {
+    "slug": "viafix-aditivo-para-chapisco-200kg",
+    "aplicacao": "Super obras: aditivação de chapiscos sobre concreto liso e argamassas de ponte de aderência.",
+    "como_usar": "Misturar na água na proporção de 1 parte de resina Viafix para 2 ou 3 partes de água.",
+    "description": "Emulsão sintética em tambor que atua como adesivo forte para dar extrema 'liga' ao chapisco em pilares e vigas.",
+    "specs": { "embalagem": "Tambor 200kg", "base": "PVA / Polímeros acrílicos", "função": "Adesivo para argamassas" }
+  },
+  {
+    "slug": "viapol-viaplus-protec-argamassa-polimerica-18kg",
+    "aplicacao": "Áreas frias térreas (banheiro, lavabo), muros de contenção e pequenas floreiras sob a cerâmica.",
+    "como_usar": "Misturar o balde e o saco, umedecer bem a base antes de aplicar a primeira demão cruzada.",
+    "description": "Argamassa impermeável cimentícia clássica da Viapol para acabar com a umidade no rodapé e evitar infiltrações básicas.",
+    "specs": { "embalagem": "18kg", "tipo": "Rigida/Semiflexível", "base": "Cimento" }
+  }
+]

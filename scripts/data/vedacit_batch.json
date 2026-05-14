@@ -1,0 +1,226 @@
+[
+  {
+    "slug": "vedacit-pro-primer-asfaltico-solvente-18l",
+    "aplicacao": "Preparo de substratos de concreto e argamassa para colagem de mantas asfálticas e fitas autoadesivas.",
+    "como_usar": "Aplicar a frio, utilizando rolo de lã de carneiro curto ou trincha em demão única. Aguardar secagem mínima de 6 horas antes de soldar a manta.",
+    "description": "Primer asfáltico à base de solvente de secagem rápida para garantir ancoragem total da manta asfáltica ao substrato.",
+    "specs": { "Cor": "Preto", "Base": "Solvente orgânico e asfaltos", "Rendimento": "Aproximadamente 300 ml/m²", "Secagem": "Mínimo de 6 horas", "Uso": "Áreas externas" }
+  },
+  {
+    "slug": "vedacit-espuma-expansiva-pu-340g",
+    "aplicacao": "Fixação de batentes de portas e janelas, vedação de passagens de dutos e tubulações, e isolamento térmico e acústico.",
+    "como_usar": "Agitar vigorosamente, umedecer levemente o local, inverter a lata e aplicar preenchendo apenas um terço do vão.",
+    "description": "Espuma de poliuretano expansiva multiuso para preenchimento, fixação e vedação com altíssimo rendimento.",
+    "specs": { "Embalagem": "340g / 500ml", "Secagem ao toque": "10 minutos", "Cura total": "24 horas", "Expansão": "Até 30 litros", "Acabamento": "Pode ser cortada e lixada" }
+  },
+  {
+    "slug": "vedacit-pro-ii-b-aluminio-poliester-3mm",
+    "aplicacao": "Lajes de cobertura não transitáveis de pequenas proporções, telhados, marquises e abóbadas.",
+    "como_usar": "Aderência a quente com maçarico sobre primer seco, observando sobreposição mínima de 10cm nas emendas.",
+    "description": "Manta asfáltica Tipo II com autoproteção de filme de alumínio que reflete o sol, dispensando contrapiso de proteção.",
+    "specs": { "Espessura": "3mm", "Estruturante": "Poliéster flexível", "Acabamento": "Alumínio", "Tipo": "Tipo II" }
+  },
+  {
+    "slug": "vedacit-pro-iii-b-poliester-4mm",
+    "aplicacao": "Lajes maciças e pré-moldadas sujeitas a alta movimentação estrutural que receberão proteção mecânica (contrapiso).",
+    "como_usar": "Aplicação a quente com uso de maçarico. Requer proteção mecânica com argamassa logo após os testes de estanqueidade.",
+    "description": "Manta asfáltica elastomérica Premium (Tipo III) de 4mm. Confere máxima durabilidade e elasticidade para grandes vãos.",
+    "specs": { "Espessura": "4mm", "Tipo": "Tipo III", "Estruturante": "Poliéster" }
+  },
+  {
+    "slug": "vedacit-pro-iii-b-poliester-3mm",
+    "aplicacao": "Lajes, terraços, varandas, cozinhas e banheiros que necessitam de alta flexibilidade e cobertura com pisos.",
+    "como_usar": "Aplicar o primer asfáltico, aguardar secagem e desenrolar a manta soldando a fogo com maçarico de GLP.",
+    "description": "Manta asfáltica premium de 3mm com armadura de poliéster de alta tração (Tipo III).",
+    "specs": { "Espessura": "3mm", "Estruturante": "Poliéster", "Tipo": "Tipo III" }
+  },
+  {
+    "slug": "vedacit-pro-iii-b-aluminio-3mm",
+    "aplicacao": "Impermeabilização exposta ao tempo sem trânsito: telhas metálicas, pré-moldados e galpões de grande extensão.",
+    "como_usar": "Colar a quente com maçarico. O filme de alumínio atua como barreira refletiva aos raios UV.",
+    "description": "Manta asfáltica Tipo III autoprotegida com alumínio. Alta performance para estruturas complexas expostas ao sol.",
+    "specs": { "Espessura": "3mm", "Acabamento": "Filme de Alumínio Refletivo", "Tipo": "Tipo III" }
+  },
+  {
+    "slug": "vedacit-pro-ii-b-poliester-4mm",
+    "aplicacao": "Áreas sujeitas a cargas médias e movimentação: estacionamentos, lajes de cobertura e rampas com contrapiso.",
+    "como_usar": "Colagem total a fogo sobre primer adequado, com transpasse nas emendas.",
+    "description": "Manta asfáltica estruturada com poliéster de 4mm de espessura (Tipo II), garantindo espessura constante de impermeabilização.",
+    "specs": { "Espessura": "4mm", "Tipo": "Tipo II", "Estruturante": "Poliéster" }
+  },
+  {
+    "slug": "vedacit-pro-iii-b-aluminio-4mm-manta-asfaltica",
+    "aplicacao": "Coberturas expostas sujeitas a severas movimentações, vibrações e temperaturas extremas.",
+    "como_usar": "Aplicação a quente por profissional especializado. Requer sobreposição e biselamento de emendas rigoroso.",
+    "description": "A manta asfáltica com alumínio de mais alta performance do mercado. 4mm de espessura e elastômeros Tipo III.",
+    "specs": { "Espessura": "4mm", "Acabamento": "Alumínio", "Tipo": "Tipo III" }
+  },
+  {
+    "slug": "vedacit-pro-ii-b-aluminio-glass-3mm",
+    "aplicacao": "Pequenas lajes não transitáveis, telhados, marquises e calhas de concreto sujeitas a pouca movimentação.",
+    "como_usar": "Aplicada com maçarico sobre superfícies limpas e imprimadas com primer asfáltico.",
+    "description": "Manta asfáltica aluminizada estruturada com véu de fibra de vidro. Solução econômica para áreas expostas.",
+    "specs": { "Espessura": "3mm", "Estruturante": "Fibra de Vidro (Glass)", "Acabamento": "Alumínio" }
+  },
+  {
+    "slug": "vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg",
+    "aplicacao": "Impermeabilização sob contrapiso de lajes maciças, calhas de concreto, floreiras e marquises.",
+    "como_usar": "Diluir a primeira demão em 10% de água e aplicar as demais puras com rolo ou trincha (intervalo de 8h).",
+    "description": "Asfalto elastomérico para aplicação a frio. Forma uma manta contínua preta altamente elástica sem juntas.",
+    "specs": { "Embalagem": "18kg", "Base": "Asfalto emulsionado com elastômeros", "Cor": "Preto", "Demãos": "Mínimo de 3" }
+  },
+  {
+    "slug": "vedacit-pro-vedapren-pintura-impermeavel-parede-18kg",
+    "aplicacao": "Selagem e impermeabilização de paredes externas expostas à chuva e rebocos de fachada.",
+    "como_usar": "Aplicar com rolo de lã alta em 2 a 3 demãos sobre reboco curado. Aceita pintura acrílica por cima.",
+    "description": "Pintura impermeável acrílica elástica que combate microfissuras e repele a água da chuva nas paredes.",
+    "specs": { "Embalagem": "18kg", "Base": "Acrílica", "Acabamento": "Fosco", "Uso": "Paredes Externas" }
+  },
+  {
+    "slug": "vedacit-pro-vedatop-1000-18kg",
+    "aplicacao": "Alicerces, baldrames, muros de arrimo, paredes de encosta e fundações em contato com o solo.",
+    "como_usar": "Umedecer bem a base. Aplicar com vassoura de cerdas duras em 3 demãos cruzadas (intervalo de 6h).",
+    "description": "Argamassa polimérica clássica de base cimentícia para eliminação da umidade que sobe do solo.",
+    "specs": { "Embalagem": "18kg", "Tipo": "Revestimento Cimentício", "Mistura": "Pó + Líquido" }
+  },
+  {
+    "slug": "vedacit-compound-mf-adesivo-epoxi-estrutural-fluido-1kg",
+    "aplicacao": "Colagem de concreto novo com velho, fixação de chumbadores e recuperação estrutural de precisão.",
+    "como_usar": "Misturar resina e endurecedor. Aplicar de forma fluida (derramando) em áreas horizontais ou furos.",
+    "description": "Adesivo estrutural à base de epóxi fluido. Altíssimo poder de colagem e endurecimento rápido para estruturas.",
+    "specs": { "Embalagem": "1kg", "Tipo": "Epóxi Fluido", "Resistência": "Alta compressão e tração" }
+  },
+  {
+    "slug": "vedacit-compound-tix-adesivo-epoxi-estrutural-tixotropico-1kg",
+    "aplicacao": "Colagem de chapas de metal no concreto, fixação de tirantes em tetos e paredes (não escorre).",
+    "como_usar": "Misturar bem os dois componentes e aplicar com espátula. Sendo tixotrópico, não pinga durante a aplicação.",
+    "description": "Adesivo epóxi estrutural com textura de pasta (tixotrópico). Ideal para colagens na vertical e tetos.",
+    "specs": { "Embalagem": "1kg", "Tipo": "Epóxi Tixotrópico (não escorre)" }
+  },
+  {
+    "slug": "vedacit-pro-ii-b-poliester-3mm",
+    "aplicacao": "Áreas frias, sacadas, terraços e lajes sob piso que terão proteção mecânica.",
+    "como_usar": "Colagem a fogo com maçarico de gás GLP sobre a superfície imprimada.",
+    "description": "Manta asfáltica de 3mm com base de poliéster. Proporciona excelente custo-benefício em áreas de movimentação.",
+    "specs": { "Espessura": "3mm", "Tipo": "Tipo II", "Estruturante": "Poliéster" }
+  },
+  {
+    "slug": "vedacit-pro-aditivo-impermeabilizante-18l",
+    "aplicacao": "Adição em argamassas de reboco, assentamento de tijolos, contrapisos e concretos não estruturais.",
+    "como_usar": "Diluir o produto na água de amassamento (aproximadamente 2 litros para cada saco de cimento de 50kg).",
+    "description": "O famoso Vedacit Líquido: aditivo hidrófugo que reduz a permeabilidade de concretos e argamassas bloqueando a capilaridade.",
+    "specs": { "Embalagem": "18L", "Ação": "Redutor de permeabilidade capilar", "Consumo": "4% sobre a massa do cimento" }
+  },
+  {
+    "slug": "vedacit-pro-emulsao-asfaltica-cargas-20kg",
+    "aplicacao": "Fundações rasas, muros de arrimo e proteção de estruturas de concreto enterradas.",
+    "como_usar": "Aplicar a frio com trincha, sobre superfície umedecida, em no mínimo 3 demãos cruzadas.",
+    "description": "Tinta asfáltica encorpada base água. Ideal para bloqueio prático e sustentável de umidade do solo.",
+    "specs": { "Embalagem": "20KG", "Base": "Emulsão asfáltica (água)", "Secagem": "Rápida" }
+  },
+  {
+    "slug": "neutrol-tinta-asfaltica-vedacit",
+    "aplicacao": "Proteção contra umidade em baldrames, floreiras, madeiras não expostas e elementos metálicos sob a terra.",
+    "como_usar": "Aplicar com rolo ou pincel sobre a superfície totalmente seca. São indicadas pelo menos 2 demãos.",
+    "description": "A tinta asfáltica mais tradicional do Brasil. Cria uma película protetora impenetrável contra a umidade e raízes finas.",
+    "specs": { "Base": "Solvente", "Cor": "Preta", "Secagem ao toque": "Mínimo 4 horas" }
+  },
+  {
+    "slug": "vedacit-pro-bianco-aditivo-adesivo-chapisco-18kg",
+    "aplicacao": "Aditivo promotor de aderência para chapiscos, argamassas de conserto e pontes de colagem.",
+    "como_usar": "Misturar na água do traço. Para chapisco rolado: 1 parte de Bianco para 2 partes de água.",
+    "description": "Adesivo sintético superforte em balde de 18kg. Aumenta absurdamente a fixação e liga do cimento.",
+    "specs": { "Embalagem": "18kg", "Base": "Polímero Acrílico / PVA", "Uso": "Chapísco de alta resistência" }
+  },
+  {
+    "slug": "vedapren-manta-liquida-asfaltica",
+    "aplicacao": "Lajes maciças prontas para receber contrapiso e varandas com calhas.",
+    "como_usar": "A frio, como uma pintura em três demãos. Se o piso apresentar trincas ativas, inserir tela estruturante.",
+    "description": "Manta líquida elastomérica tradicional, formulada com asfaltos de alto grau para flexibilidade contínua.",
+    "specs": { "Aplicação": "A frio", "Cor": "Preto", "Proteção": "Necessita proteção mecânica (contrapiso)" }
+  },
+  {
+    "slug": "manta-asfaltica-vedacit-3mm",
+    "aplicacao": "Lajes de cobertura térrea, pequenas jardineiras e baldrames estruturados.",
+    "como_usar": "Uso obrigatório de primer asfáltico antes da soldagem térmica por maçarico.",
+    "description": "Manta de espessura 3mm estruturada para evitar vazamentos em construções civis padrão.",
+    "specs": { "Espessura": "3 mm", "Comprimento": "10 m", "Temperatura de aplicação": "A Quente" }
+  },
+  {
+    "slug": "manta-asfaltica-vedacit-4mm",
+    "aplicacao": "Impermeabilização de reservatórios de água não potável, piscinas e lajes de tráfego (com contrapiso pesado).",
+    "como_usar": "Técnica de aderência a fogo (maçarico). Exige profissional capacitado para soldagem e biselamento de emendas.",
+    "description": "Robusta manta de 4mm. A espessura extra garante máxima estanqueidade contra perfurações casuais.",
+    "specs": { "Espessura": "4 mm", "Resistência": "Extra Forte", "Aplicação": "A quente" }
+  },
+  {
+    "slug": "neutrol-b-acqua-vedacit-18l",
+    "aplicacao": "Impermeabilização ecológica em áreas com pouca ventilação (caixas cegas, porões) ou madeira.",
+    "como_usar": "A superfície deve estar curada. Aplicar 2 demãos com broxa a frio.",
+    "description": "Versão 'Base Água' do tradicional Neutrol. Sem cheiro forte, seguro e lavável durante a limpeza dos materiais.",
+    "specs": { "Embalagem": "18L", "Base": "Água (Ecológico)", "Cor": "Preto" }
+  },
+  {
+    "slug": "protetor-base-zinco-vedacit-6l",
+    "aplicacao": "Galvanização a frio para estruturas metálicas, portões, cercas e ferragens antes de concretagem.",
+    "como_usar": "Lixar a ferrugem solta e aplicar diretamente no metal limpo. Age como um fundo isolante catódico.",
+    "description": "Zinco puro para máxima proteção anticorrosiva de metais ferrosos expostas ao clima rigoroso.",
+    "specs": { "Embalagem": "6L", "Cor": "Cinza Fosco", "Função": "Protetivo de metais" }
+  },
+  {
+    "slug": "vedacit-polif-aditivo-plastificante-pega-normal",
+    "aplicacao": "Confecção de massas de assentamento e rebocos finos e macios.",
+    "como_usar": "Usar em substituição à cal na mistura de areia e cimento.",
+    "description": "Plastificante líquido que melhora a trabalhabilidade da argamassa e evita o surgimento de fissuras pós-secagem.",
+    "specs": { "Benefício": "Massa leve e econômica", "Pega": "Tempo Normal de secagem" }
+  },
+  {
+    "slug": "vedacit-vedalit-aditivo-plastificante-18l",
+    "aplicacao": "Assentamento de alvenaria e rebocos de fachada e ambientes úmidos.",
+    "como_usar": "Misturar Vedalit à água do amassamento, na proporção indicada para cada saco de cimento.",
+    "description": "Aditivo concentrado que substitui a cal com vantagens, proporcionando ligas duráveis e menos porosas.",
+    "specs": { "Embalagem": "18L", "Efeito": "Reduz água do traço", "Uso": "Substituto de cal" }
+  },
+  {
+    "slug": "vedacit-neutrol-b-acqua-18l",
+    "aplicacao": "Pintura betuminosa para contato em solo, floreiras e bases asfálticas de estruturas pré-moldadas.",
+    "como_usar": "Uso a frio com rolo ou trincha. Dispensa solventes para diluição.",
+    "description": "Bloqueador de umidade seguro, de secagem limpa e ecologicamente amigável.",
+    "specs": { "Embalagem": "18L", "Odor": "Baixo (livre de solventes aromáticos)" }
+  },
+  {
+    "slug": "vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg",
+    "aplicacao": "Impermeabilização exposta em lajes que não recebem tráfego frequente e coberturas abobadadas.",
+    "como_usar": "Aplicação a frio em 3 demãos. A cor branca reflete o sol reduzindo a temperatura interna do ambiente.",
+    "description": "Manta acrílica branca altamente elástica e resistente a UV. Dispensa cobertura mecânica, deixando a laje limpa e termicamente isolada.",
+    "specs": { "Embalagem": "18kg", "Cor": "Branco", "Base": "Acrílica base água", "Uso": "Exposto (sem tráfego)" }
+  },
+  {
+    "slug": "cama-separadora-vedacit-pro-24mm",
+    "aplicacao": "Aplicação imediata acima da manta asfáltica antes da colocação da argamassa de contrapiso.",
+    "como_usar": "Desenrolar sobre a manta instalada deixando transpasse simples. Evita que o cimento grude e rasgue a manta.",
+    "description": "Filme de polietileno premium que garante a independência estrutural entre a manta e a laje de piso, preservando o sistema.",
+    "specs": { "Material": "Polietileno", "Uso": "Camada Separadora / Deslizante" }
+  },
+  {
+    "slug": "vedacit-vedatop-7000-fibras-18kg",
+    "aplicacao": "Piscinas aéreas, reservatórios de água e grandes lajes sob piso que pedem resistência ao trincamento.",
+    "como_usar": "Misturar o balde, aplicar em demãos cruzadas. As fibras integradas funcionam como uma armadura natural.",
+    "description": "Argamassa polimérica semiflexível estruturada com microfibras sintéticas, oferecendo resistência tridimensional.",
+    "specs": { "Embalagem": "18kg", "Reforço": "Fibras de polipropileno" }
+  },
+  {
+    "slug": "vedacit-pro-vedatop-5000-18kg",
+    "aplicacao": "Caixas d'água, umidade de rodapés e paredes de subsolos.",
+    "como_usar": "Aplicação simples de demãos fartas cruzadas. Necessário umedecer a parede se estiver seca.",
+    "description": "Revestimento impermeável rígido/semiflexível. Aderência suprema que bloqueia a umidade positiva e negativa.",
+    "specs": { "Embalagem": "18kg", "Componentes": "Resina (líquido) + Cimento modificado (pó)" }
+  },
+  {
+    "slug": "vedacit-pro-adesivo-elastomerico-fita-aluminizada-10m",
+    "aplicacao": "Fechamento de goteiras pontuais, vedações de dutos de ventilação, junção de paredes com telhados.",
+    "como_usar": "Tirar o liner (plástico de baixo) e espremer firmemente contra a superfície para aderência asfáltica total.",
+    "description": "Fita de conserto rápido e prático de altíssima adesão e durabilidade exposta ao sol.",
+    "specs": { "Acabamento": "Alumínio super flexível", "Comprimento": "10m", "Uso": "Reparos expostos a frio" }
+  }
+]

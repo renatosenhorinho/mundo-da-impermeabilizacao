@@ -1,0 +1,168 @@
+**Sucesso:** 32 | **Pulados:** 0 | **Erros:** 0
+---
+# Relatório de Enriquecimento de Conteúdo - VEDACIT
+Data: 2026-05-13T21:41:11.352Z
+Modo: APPLY
+
+## Resumo das Atualizações
+
+- **Vedacit Pro Primer Asfáltico Solvente (18L)** (`vedacit-pro-primer-asfaltico-solvente-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ⏭️ `specs` mantidas.
+- **Vedacit Espuma Expansiva de PU (340g / 500ml)** (`vedacit-espuma-expansiva-pu-340g`):
+  - ⏭️ `aplicacao` mantida (já existente).
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro II B Alumínio Poliéster 3mm** (`vedacit-pro-ii-b-aluminio-poliester-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro III B Aluminio Poliéster 4mm** (`vedacit-pro-iii-b-poliester-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro III B Poliéster 3mm** (`vedacit-pro-iii-b-poliester-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro III B Alumínio 3mm** (`vedacit-pro-iii-b-aluminio-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro II B Poliéster 4mm** (`vedacit-pro-ii-b-poliester-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro III B Alumínio 4mm Manta Asfáltica** (`vedacit-pro-iii-b-aluminio-4mm-manta-asfaltica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro II B Alumínio Glass 3mm** (`vedacit-pro-ii-b-aluminio-glass-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedapren Manta Líquida Asfáltica Preta** (`vedacit-pro-vedapren-manta-liquida-asfaltica-preta-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedapren Pintura Impermeável para Parede (18kg)** (`vedacit-pro-vedapren-pintura-impermeavel-parede-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Vedatop 1000 (18kg)** (`vedacit-pro-vedatop-1000-18kg`):
+  - ⏭️ `aplicacao` mantida (já existente).
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Compound MF Adesivo Epóxi Estrutural (1kg)** (`vedacit-compound-mf-adesivo-epoxi-estrutural-fluido-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Compound TIX Adesivo Epóxi Estrutural (1kg)** (`vedacit-compound-tix-adesivo-epoxi-estrutural-tixotropico-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro II B Poliéster 3mm** (`vedacit-pro-ii-b-poliester-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Aditivo Impermeabilizante** (`vedacit-pro-aditivo-impermeabilizante-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Emulsão Asfáltica com Cargas 20KG** (`vedacit-pro-emulsao-asfaltica-cargas-20kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Neutrol Tinta Asfáltica Vedacit** (`neutrol-tinta-asfaltica-vedacit`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Bianco Aditivo Adesivo para Chapisco** (`vedacit-pro-bianco-aditivo-adesivo-chapisco-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedapren Manta Líquida Asfáltica** (`vedapren-manta-liquida-asfaltica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Manta Asfáltica Vedacit 3mm** (`manta-asfaltica-vedacit-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ⏭️ `specs` mantidas.
+- **Manta Asfáltica Vedacit 4mm** (`manta-asfaltica-vedacit-4mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ⏭️ `specs` mantidas.
+- **Neutrol B Acqua Vedacit 18L** (`neutrol-b-acqua-vedacit-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Protetor Base Zinco Vedacit 6L** (`protetor-base-zinco-vedacit-6l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Polif Aditivo Plastificante (Pega Normal)** (`vedacit-polif-aditivo-plastificante-pega-normal`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Aditivo Plastificante para Concreto** (`vedacit-vedalit-aditivo-plastificante-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Neutrol B Acqua 18L** (`vedacit-neutrol-b-acqua-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedapren Manta Líquida Branca Acrílica (18kg)** (`vedacit-pro-vedapren-manta-liquida-branca-acrilica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Cama separadora Vedacit PRO 24mm** (`cama-separadora-vedacit-pro-24mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Vedatop 7000 Fibras (18kg)** (`vedacit-vedatop-7000-fibras-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Vedatop 5000 (18kg)** (`vedacit-pro-vedatop-5000-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Vedacit Pro Adesivo Elastomérico Fita Aluminizada** (`vedacit-pro-adesivo-elastomerico-fita-aluminizada-10m`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.

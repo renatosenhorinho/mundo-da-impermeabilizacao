@@ -12,6 +12,7 @@ import {
   invalidateProductsCache,
   fetchProducts,
 } from '@/lib/products-service';
+import { taxonomyStore, addTaxonomyItem, removeTaxonomyItem } from '@/lib/taxonomy-service';
 import { getBrands, deleteBrand, mergeBrands } from '@/lib/brands-service';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth';
@@ -186,20 +187,17 @@ export const AdminDashboard: React.FC = () => {
   const [showManageBrandsModal, setShowManageBrandsModal] = useState(false);
   const [showNormalizeBrandsModal, setShowNormalizeBrandsModal] = useState(false);
 
-  // Dynamic aplicacao options: APLICACAO_OPTS + custom added by admin
+  // Taxonomy logic via service
+  const taxonomy = React.useSyncExternalStore(taxonomyStore.subscribe, taxonomyStore.getSnapshot);
+  const TIPO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'TIPO').map(t => t.slug), [taxonomy]);
+  const APLICACAO_OPTS = useMemo(() => taxonomy.filter(t => t.group_name === 'APLICACAO').map(t => t.slug), [taxonomy]);
+
+  const [tipoInput, setTipoInput] = useState<string[]>([]);
+  const [customTipoOpts, setCustomTipoOpts] = useState<string[]>([]);
+  const [newTipoOpt, setNewTipoOpt] = useState('');
+
   const [customAplicacaoOpts, setCustomAplicacaoOpts] = useState<string[]>([]);
   const [newAplicacaoOpt, setNewAplicacaoOpt] = useState('');
-
-  const APLICACAO_OPTS = [
-    'Lajes planas e inclinadas',
-    'Coberturas e telhados',
-    'Terraços e varandas',
-    'Calhas e rufos',
-    'Reservatórios e piscinas',
-    'Paredes e fachadas',
-    'Banheiros e áreas molhadas',
-    'Piscinas e tanques',
-  ];
 
   // Hot Lead Alert listener
   useEffect(() => {
@@ -863,6 +861,21 @@ export const AdminDashboard: React.FC = () => {
     setNewAplicacaoOpt('');
   };
 
+  /** Adiciona opção de Tipo e auto-seleciona */
+  const handleAddTipoOpt = () => {
+    const val = newTipoOpt.trim();
+    if (!val || tipoInput.includes(val)) {
+      setNewTipoOpt('');
+      return;
+    }
+    const newOpts = [...customTipoOpts, val];
+    const newSelected = [...tipoInput, val];
+    setCustomTipoOpts(newOpts);
+    setTipoInput(newSelected);
+    setEditingProduct(prev => ({ ...prev, tipo: newSelected }));
+    setNewTipoOpt('');
+  };
+
   /** Toggle de disponibilidade — update otimista imediato + salva em background */
   const handleToggleDisponivel = async (slug: string, currentActive: boolean) => {
     const novoEstado = !currentActive;
@@ -976,11 +989,13 @@ export const AdminDashboard: React.FC = () => {
       unidade: 'un',
       quantidadeEstoque: 100,
       aplicacao: [],
+      tipo: [],
       comoUsar: []
     });
     setSpecsInput([{key: '', val: ''}]);
     setComoUsarInput(['']);
     setAplicacaoInput([]);
+    setTipoInput([]);
     setModalTab('basico');
     setIsModalOpen(true);
   };
@@ -988,6 +1003,7 @@ export const AdminDashboard: React.FC = () => {
   const openEditProductModal = (product: Product) => {
     setEditingProduct({ ...product });
     setAplicacaoInput(product.aplicacao || []);
+    setTipoInput(product.tipo || []);
     setComoUsarInput(product.comoUsar?.length ? product.comoUsar : ['']);
     const specs = product.especificacoes ? Object.entries(product.especificacoes).map(([k,v]) => ({key:k, val:v})) : [];
     setSpecsInput(specs.length ? specs : [{key:'',val:''}]);
@@ -2024,28 +2040,50 @@ export const AdminDashboard: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Categoria *</label>
-                    <select value={editingProduct.categoria}
-                       onChange={e => {
-                         const val = e.target.value;
-                         if (val === '__new__') { setShowNewCategoryInput(true); return; }
-                         const label = CATEGORIAS[val]?.nome || customCategories[val] || val;
-                         setEditingProduct({ ...editingProduct, categoria: val as any, categoriaLabel: label });
-                       }}
-                       className="w-full bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none">
-                       <optgroup label="Categorias padrão">
-                         {Object.keys(CATEGORIAS).map(key => (
-                           <option key={key} value={key}>{CATEGORIAS[key].nome}</option>
-                         ))}
-                       </optgroup>
-                       {Object.keys(customCategories).length > 0 && (
-                         <optgroup label="Categorias personalizadas">
-                           {Object.keys(customCategories).map(slug => (
-                             <option key={slug} value={slug}>{customCategories[slug]}</option>
+                    <div className="relative flex gap-2">
+                      <select value={editingProduct.categoria}
+                         onChange={e => {
+                           const val = e.target.value;
+                           if (val === '__new__') { setShowNewCategoryInput(true); return; }
+                           const label = CATEGORIAS[val]?.nome || customCategories[val] || val;
+                           setEditingProduct({ ...editingProduct, categoria: val as any, categoriaLabel: label });
+                         }}
+                         className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-indigo-500 transition-all outline-none">
+                         <optgroup label="Categorias padrão">
+                           {Object.keys(CATEGORIAS).map(key => (
+                             <option key={key} value={key}>{CATEGORIAS[key].nome}</option>
                            ))}
                          </optgroup>
+                         {Object.keys(customCategories).length > 0 && (
+                           <optgroup label="Categorias personalizadas">
+                             {Object.keys(customCategories).map(slug => (
+                               <option key={slug} value={slug}>{customCategories[slug]}</option>
+                             ))}
+                           </optgroup>
+                         )}
+                         <option value="__new__">➕ Nova categoria...</option>
+                       </select>
+                       
+                       {customCategories[editingProduct.categoria || ''] && (
+                         <button
+                           type="button"
+                           onClick={() => {
+                             const slugToRemove = editingProduct.categoria;
+                             if (window.confirm(`Remover categoria customizada "${customCategories[slugToRemove]}" globalmente?`)) {
+                               const next = { ...customCategories };
+                               delete next[slugToRemove];
+                               setCustomCategories(next);
+                               localStorage.setItem('mdi_custom_categories', JSON.stringify(next));
+                               setEditingProduct({ ...editingProduct, categoria: '', categoriaLabel: '' });
+                             }
+                           }}
+                           title="Remover Categoria Customizada"
+                           className="bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 border border-rose-500/20 px-3 rounded-lg flex items-center justify-center transition-colors"
+                         >
+                           <span className="material-symbols-outlined text-[18px]">delete</span>
+                         </button>
                        )}
-                       <option value="__new__">➕ Nova categoria...</option>
-                     </select>
+                    </div>
                      {showNewCategoryInput && (
                        <div className="mt-2 flex gap-2">
                          <input
@@ -2216,13 +2254,114 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Tipo de Produto — dinâmico */}
+                <div className="border-t border-slate-800 pt-4 mb-6">
+                  <p className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-sm">category</span>Taxonomia Dinâmica
+                  </p>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Tipo do Produto</label>
+                  <p className="text-[10px] text-slate-600 mb-3">Usado para os filtros da loja. Escolha as categorias que representam este produto.</p>
+
+                  <div className="space-y-1.5 mb-3">
+                    {tipoInput.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 group">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                        <input
+                          type="text"
+                          value={item}
+                          readOnly
+                          className="flex-1 bg-transparent border-0 border-b border-slate-800 text-sm text-slate-300 outline-none py-1"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = tipoInput.filter((_, i) => i !== idx);
+                            setTipoInput(next);
+                            setEditingProduct({ ...editingProduct, tipo: next });
+                          }}
+                          className="opacity-0 group-hover:opacity-100 text-rose-500 hover:text-rose-400 transition-all p-1 shrink-0"
+                        >
+                          <span className="material-symbols-outlined text-[16px]">remove_circle</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {(() => {
+                    const suggestions = [...TIPO_OPTS, ...customTipoOpts].filter(o => !tipoInput.includes(o));
+                    return suggestions.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {suggestions.map(opt => {
+                          const isCustom = customTipoOpts.includes(opt);
+                          return (
+                            <div key={opt} className="flex items-center border border-slate-700 rounded-full group hover:border-emerald-500 transition-all overflow-hidden bg-[#0E1117]">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const next = [...tipoInput, opt];
+                                  setTipoInput(next);
+                                  setEditingProduct({ ...editingProduct, tipo: next });
+                                }}
+                                className="px-2.5 py-1 text-[11px] font-bold text-slate-400 group-hover:text-emerald-300 transition-colors"
+                              >+ {opt}</button>
+                              <button
+                                type="button"
+                                onClick={async (e) => {
+                                  e.stopPropagation();
+                                  if (!window.confirm(`Remover "${opt}" globalmente do sistema?`)) return;
+                                  
+                                  if (isCustom) {
+                                    setCustomTipoOpts(prev => prev.filter(x => x !== opt));
+                                  } else {
+                                    const taxItem = taxonomy.find(t => t.slug === opt && t.group_name === 'TIPO');
+                                    if (taxItem) {
+                                      try {
+                                        await removeTaxonomyItem(taxItem.id);
+                                      } catch (err) {
+                                        console.error('Failed to remove taxonomy item', err);
+                                      }
+                                    }
+                                  }
+                                }}
+                                className="px-1.5 py-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors border-l border-slate-700 group-hover:border-emerald-500 flex items-center justify-center"
+                                title="Remover globalmente"
+                              >
+                                <span className="material-symbols-outlined text-[12px]">close</span>
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : null;
+                  })()}
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={newTipoOpt}
+                      onChange={e => setNewTipoOpt(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddTipoOpt(); } }}
+                      placeholder="Adicionar novo tipo..."
+                      className="flex-1 bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-white text-xs focus:border-emerald-500 outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddTipoOpt}
+                      disabled={!newTipoOpt.trim()}
+                      className="px-3 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded-lg transition-colors disabled:opacity-40"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">add_circle</span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Indicado Para — dinâmico */}
                 <div className="border-t border-slate-800 pt-4">
                   <p className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                     <span className="material-symbols-outlined text-sm">web</span>Conteúdo da Página
                   </p>
-                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Indicado Para</label>
-                  <p className="text-[10px] text-slate-600 mb-3">Aparece como chips na página do produto. Edite, adicione ou remova opções.</p>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Aplicação (Indicado Para)</label>
+                  <p className="text-[10px] text-slate-600 mb-3">Usado também nos filtros da loja.</p>
 
                   {/* Itens já selecionados — editáveis inline */}
                   <div className="space-y-1.5 mb-3">
@@ -2273,19 +2412,30 @@ export const AdminDashboard: React.FC = () => {
                                 }}
                                 className="px-2.5 py-1 text-[11px] font-bold text-slate-400 group-hover:text-indigo-300 transition-colors"
                               >+ {opt}</button>
-                              {isCustom && (
-                                <button
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
+                              <button
+                                type="button"
+                                onClick={async (e) => {
+                                  e.stopPropagation();
+                                  if (!window.confirm(`Remover "${opt}" globalmente do sistema?`)) return;
+
+                                  if (isCustom) {
                                     setCustomAplicacaoOpts(prev => prev.filter(x => x !== opt));
-                                  }}
-                                  title="Remover sugestão"
-                                  className="px-1.5 py-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors border-l border-slate-700 group-hover:border-indigo-500 flex items-center justify-center"
-                                >
-                                  <span className="material-symbols-outlined text-[12px]">close</span>
-                                </button>
-                              )}
+                                  } else {
+                                    const taxItem = taxonomy.find(t => t.slug === opt && t.group_name === 'APLICACAO');
+                                    if (taxItem) {
+                                      try {
+                                        await removeTaxonomyItem(taxItem.id);
+                                      } catch (err) {
+                                        console.error('Failed to remove taxonomy item', err);
+                                      }
+                                    }
+                                  }
+                                }}
+                                className="px-1.5 py-1 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors border-l border-slate-700 group-hover:border-indigo-500 flex items-center justify-center"
+                                title="Remover globalmente"
+                              >
+                                <span className="material-symbols-outlined text-[12px]">close</span>
+                              </button>
                             </div>
                           );
                         })}

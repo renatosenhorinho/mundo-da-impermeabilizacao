@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "denver-denvermanta-elastic-tipo-iii-4mm",
+    "aplicacao": "Lajes maciças e pré-moldadas, terraços, varandas, piscinas elevadas, espelhos d'água e cortinas.",
+    "como_usar": "Aderir com maçarico de gás GLP sobre a superfície previamente tratada com primer asfáltico Denver.",
+    "description": "Manta asfáltica de altíssima flexibilidade (Elastomérica) estruturada em poliéster para estruturas com fortes movimentações.",
+    "specs": { "Espessura": "4mm", "Estruturante": "Poliéster", "Tipo": "III" }
+  },
+  {
+    "slug": "denver-impermanta-max-tipo-ii-pp-3mm",
+    "aplicacao": "Impermeabilização de lajes pequenas e médias, calhas, áreas frias, varandas e sacadas.",
+    "como_usar": "Aplicar a quente (maçarico) garantindo sobreposição de 10cm nas emendas. Requer proteção mecânica.",
+    "description": "Manta asfáltica elastomérica flexível padrão (3mm) ideal para construções civis gerais sob contrapiso.",
+    "specs": { "Espessura": "3mm", "Acabamento": "Polietileno (PP)", "Tipo": "II" }
+  },
+  {
+    "slug": "soprema-alsan-acril-manta-liquida-acrilica-12kg",
+    "aplicacao": "Impermeabilização exposta ao tempo sem tráfego, como lajes de cobertura, abóbadas e marquises.",
+    "como_usar": "Aplicação a frio com rolo em 3 a 4 demãos cruzadas. A última demão atua como refletor térmico.",
+    "description": "Manta líquida acrílica impermeável na cor branca, flexível e resistente à ação direta do sol (UV).",
+    "specs": { "Embalagem": "12kg", "Base": "Acrílica base água", "Uso": "Exposto (sem trânsito)" }
+  },
+  {
+    "slug": "denver-denvertec-540-argamassa-polimerica-flexivel-18kg",
+    "aplicacao": "Piscinas suspensas, caixas d'água elevadas, terraços e sacadas que exigem alta capacidade de acomodação estrutural.",
+    "como_usar": "Misturar parte A e B mecanicamente e aplicar com trincha ou vassoura de pelo em 3 a 4 demãos cruzadas.",
+    "description": "Revestimento polimérico super flexível de base acrílica/cimentícia para estruturas sujeitas a movimentação térmica.",
+    "specs": { "Embalagem": "18kg", "Flexibilidade": "Alta", "Base": "Acrílico e cimento especial" }
+  },
+  {
+    "slug": "denver-elastic-hp-poliuretano-18kg",
+    "aplicacao": "Lajes de cobertura expostas, telhados metálicos, floreiras e recuperação de mantas asfálticas antigas.",
+    "como_usar": "Produto monocomponente pronto para uso. Aplicar com rolo de epóxi ou rodo em 2 a 3 demãos.",
+    "description": "Membrana líquida de poliuretano de alta performance. Extrema elasticidade, cura com a umidade e máxima resistência UV.",
+    "specs": { "Embalagem": "18kg", "Base": "Poliuretano (PU)", "Acabamento": "Exposto com resistência ao sol" }
+  },
+  {
+    "slug": "denverfix-adesivo-chapisco-18l",
+    "aplicacao": "Adesivo promotor de aderência para chapiscos, argamassas de revestimento, assentamento e reparos.",
+    "como_usar": "Adicionar à água de amassamento do chapisco na diluição recomendada pelo fabricante.",
+    "description": "Adesivo líquido base PVA de alto desempenho para aumentar a aderência e a plasticidade das argamassas.",
+    "specs": { "Embalagem": "18L", "Base": "PVA", "Função": "Adesivo para cimento" }
+  },
+  {
+    "slug": "denver-denverprimer-acqua-asfaltico-18l",
+    "aplicacao": "Imprimação de lajes e fundações antes da aplicação de mantas asfálticas ou fitas autoadesivas.",
+    "como_usar": "Aplicar a frio com rolo ou trincha sobre o substrato curado. Produto à base de água, isento de solventes inflamáveis.",
+    "description": "Primer asfáltico base água, ecologicamente seguro, com secagem rápida para ambientes internos e confinados.",
+    "specs": { "Embalagem": "18L", "Base": "Água", "Odor": "Baixo" }
+  },
+  {
+    "slug": "denver-impermanta-max-tipo-ii-aluminio-3mm",
+    "aplicacao": "Impermeabilização aparente e telhados com baixíssima declividade onde não há trânsito regular.",
+    "como_usar": "Aplicação a quente com maçarico de gás GLP. O alumínio deve ficar voltado para cima, refletindo o sol.",
+    "description": "Manta asfáltica (3mm) com proteção superficial de filme de alumínio reflexivo. Ideal para isolamento térmico e hídrico.",
+    "specs": { "Espessura": "3mm", "Acabamento": "Alumínio", "Tipo": "II" }
+  },
+  {
+    "slug": "denver-denvertec-100-argamassa-polimerica-18kg",
+    "aplicacao": "Impermeabilização rígida em contato com o solo: baldrames, poços de elevador, muros de arrimo e fundações.",
+    "como_usar": "Sobre superfície úmida, aplicar em demãos fartas cruzadas com vassoura de pelo duro.",
+    "description": "Revestimento impermeabilizante semiflexível de alta resistência a pressões hidrostáticas positivas e negativas.",
+    "specs": { "Embalagem": "18kg", "Tipo": "Rígido / Semiflexível", "Resistência": "Subsolo" }
+  },
+  {
+    "slug": "denverfrio-asfalto-20kg",
+    "aplicacao": "Fundações rasas, paredes de contato com a terra, madeiras e proteções anticorrosivas pontuais.",
+    "como_usar": "Produto de aplicação a frio, com secagem rápida por evaporação do solvente. Utilizar trincha grossa.",
+    "description": "Tinta asfáltica de base solvente que penetra profundamente, blindando o material contra água e umidade.",
+    "specs": { "Embalagem": "20kg", "Base": "Solvente", "Cor": "Preta" }
+  },
+  {
+    "slug": "denver-denvertec-540-argamassa-polimerica-fibras-18kg",
+    "aplicacao": "Muros de contenção estruturais, piscinas enterradas de grandes proporções e tanques industriais.",
+    "como_usar": "Misturar o conjunto. Aplicar em 3 ou mais demãos cruzadas. As fibras funcionam como microarmadura que dispensa tela em vários casos.",
+    "description": "Revestimento cimentício elástico de ultra-alta resistência enriquecido com fibras estruturais de polipropileno.",
+    "specs": { "Embalagem": "18kg", "Reforço": "Fibras de polipropileno", "Flexibilidade": "Alta" }
+  },
+  {
+    "slug": "denverfix-chapisco-18l",
+    "aplicacao": "Reforço adesivo extremo para rebocos externos sujeitos à ação do vento e da chuva, e concretos lisos.",
+    "como_usar": "Misturar o Denverfix na água do chapisco. Para áreas críticas, misturar puro com cimento para pintura adesiva.",
+    "description": "Emulsão adesiva avançada. Evita que o reboco descole, criando pontes de aderência definitivas no concreto.",
+    "specs": { "Embalagem": "18L", "Ação": "Cola para chapisco e argamassa" }
+  }
+]

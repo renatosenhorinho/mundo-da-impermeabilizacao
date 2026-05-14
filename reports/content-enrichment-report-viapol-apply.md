@@ -1,0 +1,188 @@
+**Sucesso:** 36 | **Pulados:** 0 | **Erros:** 0
+---
+# Relatório de Enriquecimento de Conteúdo - VIAPOL
+Data: 2026-05-13T21:39:01.999Z
+Modo: APPLY
+
+## Resumo das Atualizações
+
+- **Tela Poliester Viapol 1,00x50m ** (`tela-poliester-viapol-1-00x50m`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vedamat 100 Argamassa Polimérica** (`viapol-vedamat-100-argamassa-polimerica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viaboc Ralo Duplo de EPDM com Geotêxtil 150mm** (`viaboc-ralo-duplo-epdm-geotextil-150mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Fuseprotec Parede (Proteção de Concreto)** (`viapol-fuseprotec-parede-protecao-de-concreto-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Betufita 94cm Fita Asfáltica Aluminizada** (`viapol-betufita-94cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viapolseca Pó 2 Instantâneo ** (`viapol-viapolseca-po-2-cimento-rapido-4kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viamix Aditivo Expansor** (`viapol-viamix-aditivo-expansor-15kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaflex Sleeve Telha Fita Aluminizada** (`viapol-viaflex-sleeve-telha-fita-aluminizada-20cm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vandex Super (Impermeabilização Estrutural)** (`viapol-vandex-super-impermeabilizacao-estrutural-20kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ✅ `description` (descricao_curta) adicionada.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaplus 1000 Fibras Argamassa Polimérica** (`viaplus-1000`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaplus 2000 Fibras Argamassa Polimérica** (`viapol-viaplus-2000-fibras-argamassa-polimerica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **VIAPLUS 10000 Viapol Viaplus Protec Argamassa Polimérica** (`viaplus-10000-viapol-viaplus-protec-argamassa-polimerica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Vedalage Manta Líquida Preta Asfáltica** (`viapol-vedalage-manta-liquida-preta-asfaltica-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Massa para Madeira MF-12 Branca Viapol** (`massa-para-madeira-mf-12-branca-viapol`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Asfalto Modificado Cimento Asfaltico Viapol 25KG** (`betuplast-impermeabilizante-asfaltico-viapol-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viabit LT Viapol 18L** (`viabit-lt-viapol-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Betufrio Impermeabilizante Asfáltico Viapol 20KG** (`betufrio-impermeabilizante-asfaltico-viapol-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viacal Aditivo Plastificante** (`viapol-viacal-aditivo-plastificante-substituto-cal-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaplus 7000 Fibras Argamassa Polimérica (18kg)** (`viapol-viaplus-5000-fibras-argamassa-polimerica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Betumanta 2 E Manta Asfáltica** (`viapol-betumanta-2-e-manta-asfaltica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Manta Premium Ardósia Verde 3mm** (`viapol-manta-premium-ardosia-verde-3mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Curacreto PA 10 (Agente de Cura)** (`curacreto-pa-10-agente-de-cura-200l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Adeflex Impermeabilizante Asfáltico 18L** (`adeflex-impermeabilizante-asfaltico-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **VIAPLUS 6000 Viapol Viaplus Protec Argamassa Polimérica** (`viaplus-6000-viapol-viaplus-protec-argamassa-polimerica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viaboc Ralo Duplo de EPDM com Geotêxtil 100mm** (`viaboc-ralo-duplo-epdm-geotextil-100mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Betufita 20cm Fita Asfáltica Aluminizada** (`viapol-betufita-20cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viaplus Protect 18KG** (`viaplus-protect-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viapolseca Pó 2 Caixa** (`viapol-viapolseca-po-2-cimento-rapido-15kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viabit Acqua Aditivo Plastificante para Argamassa 18L** (`viabit-acqua-viapol-18l`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Eucorepair Ferroprotec (Proteção Anticorrosiva)** (`viapol-eucorepair-ferroprotec-protecao-anticorrosiva-1kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Torodin 3500 3 PP Manta Asfáltica** (`viapol-torodin-3500-3-pp-manta-asfaltica`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **SUPERSTOP 1/2"x1"x - RL 6,1MT** (`superstop-1-2-x1-x-rl-6-1mt`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viaboc Ralo Duplo de EPDM com Geotêxtil 75mm** (`viaboc-ralo-duplo-epdm-geotextil-75mm`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Betufita 15cm Fita Asfáltica Aluminizada** (`viapol-betufita-15cm-fita-asfaltica-aluminizada`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viafix Aditivo para Argamassa e Chapisco (200kg)** (`viafix-aditivo-para-chapisco-200kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
+- **Viapol Viaplus Protec Argamassa Polimérica** (`viapol-viaplus-protec-argamassa-polimerica-18kg`):
+  - ✅ `aplicacao` adicionada.
+  - ✅ `como_usar` adicionado.
+  - ⏭️ `description` mantida.
+  - ✅ `specs` (especificações) adicionadas.
