@@ -11,6 +11,10 @@ import {
   saveProductToSupabase,
   invalidateProductsCache,
   fetchProducts,
+  fetchAllProductsForAdmin,
+  invalidateAdminCache,
+  removeProductFromAdminCache,
+  patchProductInAdminCache,
 } from '@/lib/products-service';
 import { taxonomyStore, addTaxonomyItem, removeTaxonomyItem, syncProductTaxonomies } from '@/lib/taxonomy-service';
 import { getBrands, deleteBrand, mergeBrands } from '@/lib/brands-service';
@@ -148,6 +152,7 @@ export const AdminDashboard: React.FC = () => {
   const [catalogSearch, setCatalogSearch] = useState('');
   const [catalogBrandFilter, setCatalogBrandFilter] = useState('todas');
   const [catalogFeatureFilter, setCatalogFeatureFilter] = useState<'todos' | 'destaques'>('todos');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
   const [catalogSort, setCatalogSort] = useState<'recentes' | 'nome' | 'destaque'>('recentes');
   const [deleteConfirmSlug, setDeleteConfirmSlug] = useState<string | null>(null);
   const [hotLeadAlert, setHotLeadAlert] = useState<Lead | null>(null);
@@ -212,10 +217,9 @@ export const AdminDashboard: React.FC = () => {
   useEffect(() => {
     // Component is protected, so we assume auth is valid here
     setEvents(getAnalyticsEvents());
-      // Initialise with the live store snapshot, then revalidate from Supabase
-      setCatalogItems(productsStore.getSnapshot());
-      revalidateProducts().then(() => {
-        setCatalogItems(productsStore.getSnapshot());
+      // Initialise: Admin must see ALL products (active + inactive)
+      fetchAllProductsForAdmin().then(all => {
+        setCatalogItems(all);
       }).catch(console.error);
 
       // Load Leads
@@ -673,10 +677,9 @@ export const AdminDashboard: React.FC = () => {
       // ── Step 3.5: Sync taxonomies (Tipo and Aplicação) to global store ───
       await syncProductTaxonomies(finalProduct.tipo || [], finalProduct.aplicacao || []);
 
-      // ── Step 4: Invalidate cache and refetch — frontend syncs instantly ──
-      await revalidateProducts();
-      // Refresh admin view with the freshly reloaded store
-      setCatalogItems(productsStore.getSnapshot());
+      // ── Step 4: Invalidate cache and refetch — Admin sees all (including inactive) ──
+      invalidateProductsCache(); invalidateAdminCache();
+      fetchAllProductsForAdmin().then(all => setCatalogItems(all)).catch(console.error);
 
       setSaveToast({ type: 'success', msg: isNew ? '✅ Produto criado com sucesso!' : '✅ Produto atualizado com sucesso!' });
       setTimeout(() => setSaveToast(null), 3000);
@@ -716,11 +719,18 @@ export const AdminDashboard: React.FC = () => {
     const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
     await saveCustomProducts(dynamicOnly);
     if (supabase && produto) {
-      try { await supabase.from('products').update({ active: false }).eq('slug', slug); } catch { /* silent */ }
+      try {
+        const { error } = await supabase.from('products').update({ active: false }).eq('slug', slug);
+        if (error) {
+          if (import.meta.env.DEV) console.error('[ADMIN CRUD] SOFT_DELETE Supabase error:', error);
+        } else {
+          if (import.meta.env.DEV) console.log('[ADMIN CRUD] SOFT_DELETE OK:', { slug });
+        }
+      } catch { /* silent - optimistic update already applied */ }
     }
-    // Sync frontend cache
+    // Patch cache in-place — no refetch to avoid race condition
+    patchProductInAdminCache(slug, { ativo: false });
     invalidateProductsCache();
-    fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
     await logAdminAction('SOFT_DELETE', `Produto '${produto?.nome || slug}' movido para lixeira`);
     setSaveToast({ type: 'success', msg: `🗑️ "${produto?.nome || slug}" movido para lixeira. Pode ser restaurado.` });
     setTimeout(() => setSaveToast(null), 5000);
@@ -741,9 +751,9 @@ export const AdminDashboard: React.FC = () => {
     if (supabase) {
       try { await supabase.from('products').update({ active: true, deleted_at: null }).eq('slug', slug); } catch { /* silent */ }
     }
-    // Sync frontend cache
-    invalidateProductsCache();
-    fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
+    // Sync frontend cache — Admin sees ALL products (active + inactive)
+    invalidateProductsCache(); invalidateAdminCache();
+    fetchAllProductsForAdmin().then(all => setCatalogItems(all)).catch(console.error);
     await logAdminAction('RESTORE', `Produto '${produto?.nome || slug}' restaurado da lixeira`);
     setSaveToast({ type: 'success', msg: `✅ "${produto?.nome || slug}" restaurado com sucesso!` });
     setTimeout(() => setSaveToast(null), 3000);
@@ -757,8 +767,18 @@ export const AdminDashboard: React.FC = () => {
     const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
     await saveCustomProducts(dynamicOnly);
     if (supabase) {
-      try { await supabase.from('products').delete().eq('slug', slug); } catch { /* silent */ }
+      try {
+        const { error } = await supabase.from('products').delete().eq('slug', slug);
+        if (error) {
+          if (import.meta.env.DEV) console.error('[ADMIN CRUD] PERMANENT_DELETE Supabase error:', error);
+        } else {
+          if (import.meta.env.DEV) console.log('[ADMIN CRUD] PERMANENT_DELETE OK:', { slug });
+        }
+      } catch { /* silent */ }
     }
+    // Remove from both caches so it never reappears on re-render or next fetch
+    removeProductFromAdminCache(slug);
+    invalidateProductsCache();
     await logAdminAction('PERMANENT_DELETE', `Produto '${produto?.nome || slug}' excluído permanentemente`);
     setSaveToast({ type: 'error', msg: `🗑️ "${produto?.nome || slug}" excluído permanentemente.` });
     setTimeout(() => setSaveToast(null), 3000);
@@ -880,37 +900,47 @@ export const AdminDashboard: React.FC = () => {
     setNewTipoOpt('');
   };
 
-  /** Toggle de disponibilidade — update otimista imediato + salva em background */
-  const handleToggleDisponivel = async (slug: string, currentActive: boolean) => {
-    const novoEstado = !currentActive;
-    // Optimistic UI: muda instantaneamente
+  /** Toggle ativo/inativo — corrigido para usar p.ativo (campo real do banco) */
+  const handleToggleDisponivel = async (slug: string, currentAtivo: boolean) => {
+    const novoEstado = !currentAtivo;
+    const snapshotBeforeChange = catalogItems;
+
+    if (import.meta.env.DEV) console.log('[ADMIN CRUD] toggleAtivo', { slug, currentAtivo, novoEstado });
+
+    // Optimistic update
     const updatedCatalog = catalogItems.map(p =>
       p.slug === slug ? { ...p, ativo: novoEstado, isCustom: true } : p
     );
     setCatalogItems(updatedCatalog);
 
-    setSaveToast({
-      type: novoEstado ? 'success' : 'error',
-      msg: novoEstado ? '✅ Produto reativado — visível no site.' : '🚫 Produto desativado — oculto do site.'
-    });
-    setTimeout(() => setSaveToast(null), 3000);
-
-    // Persiste em background
     try {
-      const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
-      await saveCustomProducts(dynamicOnly);
-
       if (supabase) {
-        await supabase.from('products').update({ active: novoEstado }).eq('slug', slug);
+        const { error } = await supabase
+          .from('products')
+          .update({ active: novoEstado })
+          .eq('slug', slug);
+
+        if (error) {
+          if (import.meta.env.DEV) console.error('[ADMIN CRUD] toggleAtivo Supabase error:', error);
+          throw new Error(error.message);
+        }
+        if (import.meta.env.DEV) console.log('[ADMIN CRUD] toggleAtivo OK — banco atualizado:', { slug, active: novoEstado });
       }
-      // Sync frontend cache after persisting
+
+      // Patch cache in-place (sem refetch para evitar race condition)
+      patchProductInAdminCache(slug, { ativo: novoEstado });
       invalidateProductsCache();
-      fetchProducts().then(() => setCatalogItems(productsStore.getSnapshot())).catch(console.error);
-    } catch (e) {
-      // Revert on failure
-      setCatalogItems(catalogItems);
-      setSaveToast({ type: 'error', msg: 'Erro ao salvar. Tente novamente.' });
+
+      setSaveToast({
+        type: novoEstado ? 'success' : 'error',
+        msg: novoEstado ? '✅ Produto reativado — visível no site.' : '🚫 Produto desativado — oculto do site.'
+      });
       setTimeout(() => setSaveToast(null), 3000);
+    } catch (e: any) {
+      // Revert on failure
+      setCatalogItems(snapshotBeforeChange);
+      setSaveToast({ type: 'error', msg: `Erro ao salvar: ${e?.message || 'Tente novamente.'}` });
+      setTimeout(() => setSaveToast(null), 4000);
     }
   };
 
@@ -1076,12 +1106,17 @@ export const AdminDashboard: React.FC = () => {
   }, [leads, leadStatusFilter, leadStageFilter, leadSearchQuery, leadSortOrder]);
 
   const filteredCatalog = useMemo(() => {
-    let list = catalogItems.filter(p => p.ativo);
+    let list = [...catalogItems]; // Admin shows ALL products, active and inactive
     if (catalogBrandFilter !== 'todas') {
       list = list.filter(p => normalizeBrandName(p.marca) === catalogBrandFilter);
     }
     if (catalogFeatureFilter === 'destaques') {
       list = list.filter(p => p.destaque);
+    }
+    if (statusFilter === 'active') {
+      list = list.filter(p => p.ativo !== false);
+    } else if (statusFilter === 'inactive') {
+      list = list.filter(p => p.ativo === false);
     }
     if (catalogSearch) {
       const q = catalogSearch.toLowerCase();
@@ -1090,7 +1125,7 @@ export const AdminDashboard: React.FC = () => {
     if (catalogSort === 'nome') list = [...list].sort((a, b) => a.nome.localeCompare(b.nome));
     if (catalogSort === 'destaque') list = [...list].sort((a, b) => (b.destaque ? 1 : 0) - (a.destaque ? 1 : 0));
     return list;
-  }, [catalogItems, catalogSearch, catalogSort, catalogBrandFilter, catalogFeatureFilter]);
+  }, [catalogItems, catalogSearch, catalogSort, catalogBrandFilter, catalogFeatureFilter, statusFilter]);
 
   const destaqueAtual = catalogItems.filter(p => p.destaque && p.ativo).length;
 
@@ -1367,6 +1402,13 @@ export const AdminDashboard: React.FC = () => {
                   <option value="todos">Todos (Destaque e Normal)</option>
                   <option value="destaques">Apenas em Destaque</option>
                 </select>
+                {/* Status Filter */}
+                <select value={statusFilter} onChange={e => setStatusFilter(e.target.value as any)}
+                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-slate-300 text-sm outline-none focus:border-indigo-500 cursor-pointer">
+                  <option value="all">Todos os Status</option>
+                  <option value="active">Apenas Ativos</option>
+                  <option value="inactive">Apenas Desativados</option>
+                </select>
                 {/* Sort */}
                 <select value={catalogSort} onChange={e => setCatalogSort(e.target.value as any)}
                   className="bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-slate-300 text-sm outline-none focus:border-indigo-500 cursor-pointer">
@@ -1411,7 +1453,7 @@ export const AdminDashboard: React.FC = () => {
             {/* Mobile Cards */}
             <div className="md:hidden space-y-3">
               {filteredCatalog.map(p => (
-                <div key={p.slug} className="bg-[#161B22] border border-slate-800 rounded-xl p-4">
+                <div key={p.slug} className={`bg-[#161B22] border rounded-xl p-4 transition-opacity ${p.ativo === false ? 'border-rose-900/50 opacity-60' : 'border-slate-800'}`}>
                   <div className="flex gap-3 items-start">
                     <div className="w-14 h-14 bg-white rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-700 shrink-0">
                       <img src={p.imagem || '/images/products/placeholder.webp'} alt={p.nome} className="w-full h-full object-contain mix-blend-multiply" />
@@ -1419,28 +1461,33 @@ export const AdminDashboard: React.FC = () => {
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-slate-200 text-sm truncate">{p.nome}</p>
                       <p className="text-[11px] text-slate-500 truncate">{p.categoriaLabel} · {p.marca}</p>
-                      {p.destaque && (
-                        <span className="inline-flex items-center gap-1 bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-500/20 mt-1">
-                          <span className="material-symbols-outlined text-[11px]">star</span> Em destaque na Home
-                        </span>
-                      )}
+                       {p.destaque && (
+                          <span className="inline-flex items-center gap-1 bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full text-[10px] font-bold border border-amber-500/20 mt-1">
+                            <span className="material-symbols-outlined text-[11px]">star</span> Em destaque na Home
+                          </span>
+                        )}
+                        {p.ativo === false && (
+                          <span className="inline-flex items-center gap-1 bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded-full text-[10px] font-bold border border-rose-500/20 mt-1">
+                            <span className="material-symbols-outlined text-[11px]">visibility_off</span> Desativado
+                          </span>
+                        )}
                     </div>
                     <div className="flex gap-1 shrink-0 flex-col items-end">
-                      {/* Toggle de disponibilidade (mobile) */}
+                      {/* Toggle ativo/inativo (mobile) */}
                       <button
-                        onClick={() => handleToggleDisponivel(p.slug, (p as any).disponivel !== false)}
+                        onClick={() => handleToggleDisponivel(p.slug, p.ativo !== false)}
                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
-                          (p as any).disponivel !== false ? 'bg-emerald-500' : 'bg-slate-600'
+                          p.ativo !== false ? 'bg-emerald-500' : 'bg-slate-600'
                         }`}
-                        title={(p as any).disponivel !== false ? 'Desativar' : 'Ativar'}
+                        title={p.ativo !== false ? 'Desativar' : 'Ativar'}
                       >
                         <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
-                          (p as any).disponivel !== false ? 'translate-x-6' : 'translate-x-1'
+                          p.ativo !== false ? 'translate-x-6' : 'translate-x-1'
                         }`} />
                       </button>
                       <span className={`text-[9px] font-bold ${
-                        (p as any).disponivel !== false ? 'text-emerald-400' : 'text-rose-400'
-                      }`}>{(p as any).disponivel !== false ? 'Disponível' : 'Inativo'}</span>
+                        p.ativo !== false ? 'text-emerald-400' : 'text-rose-400'
+                      }`}>{p.ativo !== false ? 'Ativo' : 'Inativo'}</span>
                       <div className="flex gap-1 mt-1">
                         <button onClick={() => openEditProductModal(p)} className="p-2 text-indigo-400 hover:bg-indigo-500/10 rounded-lg transition-colors">
                           <span className="material-symbols-outlined text-[20px]">edit</span>
@@ -1480,7 +1527,7 @@ export const AdminDashboard: React.FC = () => {
                 <tbody className="divide-y divide-slate-800">
                   {filteredCatalog.map(p => (
                     <React.Fragment key={p.slug}>
-                      <tr className="hover:bg-slate-800/50 transition-colors">
+                      <tr className={`hover:bg-slate-800/50 transition-colors ${p.ativo === false ? 'opacity-60' : ''}`}>
                         <td className="px-6 py-4">
                           <div className="w-12 h-12 bg-white rounded-md overflow-hidden flex items-center justify-center p-1 border border-slate-700">
                             <img src={p.imagem || '/images/products/placeholder.webp'} alt={p.nome} className="w-full h-full object-contain mix-blend-multiply" />
@@ -1498,24 +1545,29 @@ export const AdminDashboard: React.FC = () => {
                                 <span className="material-symbols-outlined text-[12px]">star</span> Em destaque
                               </span>
                             )}
-                            {/* Toggle Disponibilidade */}
+                            {p.ativo === false && (
+                              <span className="inline-flex items-center gap-1 bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-full text-[10px] font-bold border border-rose-500/20">
+                                <span className="material-symbols-outlined text-[12px]">visibility_off</span> Desativado
+                              </span>
+                            )}
+                            {/* Toggle ativo/inativo (desktop) */}
                             <button
-                              onClick={() => handleToggleDisponivel(p.slug, (p as any).disponivel !== false)}
-                              title={(p as any).disponivel !== false ? 'Clique para desativar' : 'Clique para ativar'}
+                              onClick={() => handleToggleDisponivel(p.slug, p.ativo !== false)}
+                              title={p.ativo !== false ? 'Clique para desativar' : 'Clique para ativar'}
                               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none ${
-                                (p as any).disponivel !== false ? 'bg-emerald-500' : 'bg-slate-600'
+                                p.ativo !== false ? 'bg-emerald-500' : 'bg-slate-600'
                               }`}
                             >
                               <span
                                 className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
-                                  (p as any).disponivel !== false ? 'translate-x-6' : 'translate-x-1'
+                                  p.ativo !== false ? 'translate-x-6' : 'translate-x-1'
                                 }`}
                               />
                             </button>
                             <span className={`text-[10px] font-bold ${
-                              (p as any).disponivel !== false ? 'text-emerald-400' : 'text-rose-400'
+                              p.ativo !== false ? 'text-emerald-400' : 'text-rose-400'
                             }`}>
-                              {(p as any).disponivel !== false ? 'Disponível' : 'Indisponível'}
+                              {p.ativo !== false ? 'Ativo' : 'Inativo'}
                             </span>
                           </div>
                         </td>

@@ -317,6 +317,84 @@ function productToDbRow(p: Product): Record<string, unknown> {
   return row;
 }
 
+// ─── Admin: Fetch ALL products (active + inactive) ────────────────────────────
+// Separate from fetchProducts() to avoid polluting the public catalog cache.
+// Admin dashboard must call this instead of fetchProducts().
+
+let adminProductsCache: Product[] | null = null;
+let adminLastFetch = 0;
+const ADMIN_CACHE_TTL = 1000 * 30; // 30s — short TTL for admin responsiveness
+
+export async function fetchAllProductsForAdmin(): Promise<Product[]> {
+  const now = Date.now();
+
+  if (adminProductsCache && (now - adminLastFetch < ADMIN_CACHE_TTL)) {
+    return adminProductsCache;
+  }
+
+  if (!supabase) {
+    // Fallback: return all static products including inactive
+    adminProductsCache = fallbackProducts;
+    adminLastFetch = now;
+    return adminProductsCache;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false }); // NO .eq('active', true) filter
+
+    if (error) throw error;
+
+    if (data && data.length > 0) {
+      const staticMap = new Map(fallbackProducts.map(p => [p.slug, p]));
+      adminProductsCache = data.map(dbItem => {
+        const staticMatch = staticMap.get(dbItem.slug) || staticMap.get(dbItem.id);
+        return mapToProduct(dbItem, staticMatch);
+      });
+      adminLastFetch = now;
+      return adminProductsCache;
+    }
+  } catch (err) {
+    if (DEV) console.error('[products-service] fetchAllProductsForAdmin failed:', err);
+  }
+
+  // Fallback to all static products if Supabase fails
+  adminProductsCache = fallbackProducts;
+  adminLastFetch = now;
+  return adminProductsCache;
+}
+
+/** Invalidates the admin cache so next fetchAllProductsForAdmin() hits Supabase fresh. */
+export function invalidateAdminCache(): void {
+  adminProductsCache = null;
+  adminLastFetch = 0;
+}
+
+/**
+ * Removes a single product from the admin in-memory cache by slug.
+ * Use this instead of invalidate+refetch to avoid race conditions after delete.
+ * The product will be permanently gone from the cache without a round-trip to Supabase.
+ */
+export function removeProductFromAdminCache(slug: string): void {
+  if (adminProductsCache) {
+    adminProductsCache = adminProductsCache.filter(p => p.slug !== slug);
+  }
+}
+
+/**
+ * Patches a single product in the admin cache by slug (for soft-delete state update).
+ * Avoids triggering a refetch that could race with an in-flight Supabase write.
+ */
+export function patchProductInAdminCache(slug: string, patch: Partial<Product>): void {
+  if (adminProductsCache) {
+    adminProductsCache = adminProductsCache.map(p =>
+      p.slug === slug ? { ...p, ...patch } : p
+    );
+  }
+}
+
 // ─── Initial load on module mount ────────────────────────────────────────────
 
 const DEV = import.meta.env.DEV;
