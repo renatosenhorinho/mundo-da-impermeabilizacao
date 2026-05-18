@@ -707,33 +707,41 @@ export const AdminDashboard: React.FC = () => {
     }
   };
 
-  /** Soft delete: move produto para lixeira (deleted_at), NÃO apaga permanentemente */
+  /** Exclui o produto (remove do banco e do painel) */
   const handleDeleteProduct = async (slug: string) => {
     const produto = catalogItems.find(p => p.slug === slug);
-    const updatedCatalog = catalogItems.map(p =>
-      p.slug === slug
-        ? { ...p, ativo: false, isCustom: true, deleted_at: nowISO(), updated_at: nowISO() }
-        : p
-    );
+    const updatedCatalog = catalogItems.filter(p => p.slug !== slug);
+    
+    // Optimistic update
     setCatalogItems(updatedCatalog);
     const dynamicOnly = updatedCatalog.filter(p => (p as any).isCustom);
     await saveCustomProducts(dynamicOnly);
-    if (supabase && produto) {
+    
+    if (supabase) {
       try {
-        const { error } = await supabase.from('products').update({ active: false }).eq('slug', slug);
+        const { error } = await supabase.from('products').delete().eq('slug', slug);
         if (error) {
-          if (import.meta.env.DEV) console.error('[ADMIN CRUD] SOFT_DELETE Supabase error:', error);
+          if (import.meta.env.DEV) console.error('[ADMIN CRUD] DELETE Supabase error:', error);
+          throw new Error(error.message);
         } else {
-          if (import.meta.env.DEV) console.log('[ADMIN CRUD] SOFT_DELETE OK:', { slug });
+          if (import.meta.env.DEV) console.log('[ADMIN CRUD] DELETE OK:', { slug });
         }
-      } catch { /* silent - optimistic update already applied */ }
+      } catch (e: any) {
+        // Revert se falhar
+        setCatalogItems(catalogItems);
+        setSaveToast({ type: 'error', msg: `Erro ao excluir: ${e?.message || 'Tente novamente.'}` });
+        setTimeout(() => setSaveToast(null), 4000);
+        return;
+      }
     }
-    // Patch cache in-place — no refetch to avoid race condition
-    patchProductInAdminCache(slug, { ativo: false });
+    
+    // Remove do cache
+    removeProductFromAdminCache(slug);
     invalidateProductsCache();
-    await logAdminAction('SOFT_DELETE', `Produto '${produto?.nome || slug}' movido para lixeira`);
-    setSaveToast({ type: 'success', msg: `🗑️ "${produto?.nome || slug}" movido para lixeira. Pode ser restaurado.` });
-    setTimeout(() => setSaveToast(null), 5000);
+    
+    await logAdminAction('DELETE', `Produto '${produto?.nome || slug}' excluído`);
+    setSaveToast({ type: 'error', msg: `🗑️ "${produto?.nome || slug}" foi excluído.` });
+    setTimeout(() => setSaveToast(null), 4000);
     setDeleteConfirmSlug(null);
   };
 
