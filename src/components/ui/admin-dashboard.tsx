@@ -147,6 +147,7 @@ export const AdminDashboard: React.FC = () => {
   const [saveToast, setSaveToast] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [catalogSearch, setCatalogSearch] = useState('');
   const [catalogBrandFilter, setCatalogBrandFilter] = useState('todas');
+  const [catalogFeatureFilter, setCatalogFeatureFilter] = useState<'todos' | 'destaques'>('todos');
   const [catalogSort, setCatalogSort] = useState<'recentes' | 'nome' | 'destaque'>('recentes');
   const [deleteConfirmSlug, setDeleteConfirmSlug] = useState<string | null>(null);
   const [hotLeadAlert, setHotLeadAlert] = useState<Lead | null>(null);
@@ -1079,6 +1080,9 @@ export const AdminDashboard: React.FC = () => {
     if (catalogBrandFilter !== 'todas') {
       list = list.filter(p => normalizeBrandName(p.marca) === catalogBrandFilter);
     }
+    if (catalogFeatureFilter === 'destaques') {
+      list = list.filter(p => p.destaque);
+    }
     if (catalogSearch) {
       const q = catalogSearch.toLowerCase();
       list = list.filter(p => p.nome.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q));
@@ -1086,7 +1090,7 @@ export const AdminDashboard: React.FC = () => {
     if (catalogSort === 'nome') list = [...list].sort((a, b) => a.nome.localeCompare(b.nome));
     if (catalogSort === 'destaque') list = [...list].sort((a, b) => (b.destaque ? 1 : 0) - (a.destaque ? 1 : 0));
     return list;
-  }, [catalogItems, catalogSearch, catalogSort, catalogBrandFilter]);
+  }, [catalogItems, catalogSearch, catalogSort, catalogBrandFilter, catalogFeatureFilter]);
 
   const destaqueAtual = catalogItems.filter(p => p.destaque && p.ativo).length;
 
@@ -1356,6 +1360,12 @@ export const AdminDashboard: React.FC = () => {
                   {availableBrands.map(b => (
                     <option key={b} value={b}>{b}</option>
                   ))}
+                </select>
+                {/* Feature Filter */}
+                <select value={catalogFeatureFilter} onChange={e => setCatalogFeatureFilter(e.target.value as any)}
+                  className="bg-[#0E1117] border border-slate-700 rounded-lg px-3 py-2 text-slate-300 text-sm outline-none focus:border-indigo-500 cursor-pointer">
+                  <option value="todos">Todos (Destaque e Normal)</option>
+                  <option value="destaques">Apenas em Destaque</option>
                 </select>
                 {/* Sort */}
                 <select value={catalogSort} onChange={e => setCatalogSort(e.target.value as any)}

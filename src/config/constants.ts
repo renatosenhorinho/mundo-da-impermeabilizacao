@@ -7,7 +7,7 @@
 export const MAX_DESTAQUE = 8;
 
 /** Número de WhatsApp oficial. Formato internacional sem espaços. */
-export const WHATSAPP_NUMBER = '5581998008818';
+export const WHATSAPP_NUMBER = '5581973448726';
 
 /** Nome da empresa exibido em textos automáticos. */
 export const EMPRESA_NOME = 'Mundo da Impermeabilização';

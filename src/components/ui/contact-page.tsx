@@ -147,6 +147,8 @@ function PhoneRow() {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
+import { trackWhatsAppClick } from "@/lib/analytics";
+
 export default function ContactPage() {
     const [formData, setFormData] = useState({
         name: "",
@@ -173,6 +175,14 @@ ${formData.message}
 
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+        // Send explicitly to CRM tracking
+        trackWhatsAppClick({
+            product_slug: 'formulario-contato',
+            product_name: `Lead: ${formData.name}`,
+            category: 'contato',
+            brand: 'Lead Geração',
+        });
 
         setStatus("success");
         window.open(whatsappUrl, "_blank", "noopener,noreferrer");
@@ -291,7 +301,7 @@ ${formData.message}
                                     <div className="flex-1 space-y-3">
                                         <div>
                                             <h3 className="text-lg font-black text-slate-900 uppercase mb-0.5">WhatsApp Especialista 2</h3>
-                                            <p className="text-slate-500 font-medium text-sm">(81) 99800-8818</p>
+                                            <p className="text-slate-500 font-medium text-sm">(81) 97344-8726</p>
                                         </div>
                                         <WhatsAppButton
                                             href={WA_SPECIALIST_2}

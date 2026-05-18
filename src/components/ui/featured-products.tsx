@@ -86,7 +86,7 @@ const FeaturedProducts: React.FC = () => {
         {/* Grid de Produtos adaptável (Mobile: 2 cols x 3 rows = 6 itens | Desktop: 4 cols x 2 rows = 8 itens) */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-12">
           {visibleProducts.map((product) => (
-            <ProductCard key={product.slug} product={product} onClick={(slug) => navigate(`/produto/${slug}`)} />
+            <ProductCard key={product.slug} product={product} onClick={(slug) => window.location.href = `/produto/${slug}`} />
           ))}
         </div>
 

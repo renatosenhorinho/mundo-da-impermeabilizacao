@@ -7,7 +7,7 @@ const mpaRewritePlugin = () => ({
   name: 'mpa-rewrite',
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
-      if (req.url.startsWith('/produtos/') && !req.url.includes('.')) {
+      if ((req.url.startsWith('/produtos/') || req.url.startsWith('/produto/')) && !req.url.includes('.')) {
         req.url = '/produtos.html';
       }
       if (req.url.startsWith('/admin')) {

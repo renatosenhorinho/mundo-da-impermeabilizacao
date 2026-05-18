@@ -120,6 +120,46 @@ const END_THRESHOLD_MS  = 3 * 60_000;
 const BATCH_SIZE        = 15;
 const BATCH_INTERVAL_MS = 4_000;
 
+// ─── Safe Storage & Cleanup ───────────────────────────────────────────────────
+
+const performEmergencyCleanup = () => {
+  if (import.meta.env.DEV) console.warn('[Storage] Performing emergency cleanup due to quota limits');
+  try {
+    // 1. Timeline: Keep only last 50
+    const timeline = JSON.parse(localStorage.getItem(TIMELINE_KEY) || '[]');
+    if (timeline.length > 50) localStorage.setItem(TIMELINE_KEY, JSON.stringify(timeline.slice(-50)));
+
+    // 2. Local Analytics Events: Keep only last 500
+    const events = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if (events.length > 500) localStorage.setItem(STORAGE_KEY, JSON.stringify(events.slice(-500)));
+
+    // 3. Batch Queue: Keep only last 500
+    const batch = JSON.parse(localStorage.getItem(BATCH_QUEUE_KEY) || '[]');
+    if (batch.length > 500) localStorage.setItem(BATCH_QUEUE_KEY, JSON.stringify(batch.slice(-500)));
+    
+    // 4. Local CRM History (Leads): Keep only last 20 (does NOT touch sync queue)
+    const leads = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]');
+    if (leads.length > 20) localStorage.setItem(LEADS_KEY, JSON.stringify(leads.slice(-20)));
+  } catch {}
+};
+
+const safeSetStorage = (key: string, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e: any) {
+    if (e.name === 'QuotaExceededError' || (e.message && e.message.includes('quota')) || e.code === 22) {
+      performEmergencyCleanup();
+      try {
+        localStorage.setItem(key, value);
+      } catch {
+        if (import.meta.env.DEV) console.error(`[Storage] Fatal: Could not save ${key} even after cleanup.`);
+      }
+    } else {
+      if (import.meta.env.DEV) console.error(`[Storage] Failed to set ${key}`, e);
+    }
+  }
+};
+
 // ─── Listeners (for hot-lead alerts) ─────────────────────────────────────────
 
 type HotLeadListener = (lead: Lead) => void;
@@ -137,7 +177,7 @@ export const getSessionId = (): string => {
   let sid = localStorage.getItem(SESSION_KEY);
   if (!sid) {
     sid = 'sess_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
-    localStorage.setItem(SESSION_KEY, sid);
+    safeSetStorage(SESSION_KEY, sid);
   }
   return sid;
 };
@@ -154,7 +194,7 @@ export const captureUTMs = () => {
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
     if (params.has(key)) utms[key] = params.get(key)!;
   });
-  if (Object.keys(utms).length > 0) localStorage.setItem(UTM_KEY, JSON.stringify(utms));
+  if (Object.keys(utms).length > 0) safeSetStorage(UTM_KEY, JSON.stringify(utms));
 };
 
 export const getUTMs = (): Record<string, string> => {
@@ -184,18 +224,18 @@ const getBehavior = (): SessionBehavior => {
     last_active: Date.now(),
     session_status: 'active'
   };
-  localStorage.setItem(BEHAVIOR_KEY, JSON.stringify(fresh));
+  safeSetStorage(BEHAVIOR_KEY, JSON.stringify(fresh));
   return fresh;
 };
 
 const updateBehavior = (patch: Partial<SessionBehavior>) => {
   const current = getBehavior();
-  localStorage.setItem(BEHAVIOR_KEY, JSON.stringify({ ...current, ...patch }));
+  safeSetStorage(BEHAVIOR_KEY, JSON.stringify({ ...current, ...patch }));
 };
 
 const touchActivity = () => {
   const now = Date.now();
-  localStorage.setItem(LAST_ACTIVE_KEY, String(now));
+  safeSetStorage(LAST_ACTIVE_KEY, String(now));
   updateBehavior({ last_active: now, session_status: 'active' });
 };
 
@@ -233,7 +273,7 @@ const pushTimeline = (event: TimelineEvent) => {
   timeline.push(event);
   // Keep last 200 events
   if (timeline.length > 200) timeline.splice(0, timeline.length - 200);
-  localStorage.setItem(TIMELINE_KEY, JSON.stringify(timeline));
+  safeSetStorage(TIMELINE_KEY, JSON.stringify(timeline));
 };
 
 // ─── Multi-Touch Attribution & Intent ──────────────────────────────────────────
@@ -444,11 +484,16 @@ export const saveAnalyticsEvent = (
       return eHash === eventHash;
     });
 
-    if (isSpam) return;
+    if (isSpam) {
+      if (import.meta.env.DEV) console.log(`[CRM Deduplication] Blocked spam event: ${event.type}`);
+      return;
+    }
+
+    const eventId = crypto.randomUUID();
 
     const newEvent = {
       ...event,
-      id: Math.random().toString(36).substring(2, 15),
+      id: eventId,
       sessionId,
       device: getDevice(),
       viewportWidth: window.innerWidth,
@@ -456,7 +501,7 @@ export const saveAnalyticsEvent = (
       event_hash: eventHash // Save for auditing
     };
     events.push(newEvent);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+    safeSetStorage(STORAGE_KEY, JSON.stringify(events));
     
     // Add to batch queue for async Supabase insertion
     if (event.type !== 'heartbeat') {
@@ -464,6 +509,7 @@ export const saveAnalyticsEvent = (
       // otherwise build a basic payload for backward compatibility
       const richEventData = (event as any).event_data;
       enqueueAnalyticsEvent({
+        id: newEvent.id, // IDempotency key!
         event_type: newEvent.type,
         page_url: newEvent.page,
         session_id: newEvent.sessionId,
@@ -471,7 +517,8 @@ export const saveAnalyticsEvent = (
         event_data: richEventData ?? {
           x: newEvent.x, y: newEvent.y, target: newEvent.target,
           product: newEvent.product, duration: newEvent.duration,
-          scroll: newEvent.scrollPercentage
+          scroll: newEvent.scrollPercentage,
+          event_hash: newEvent.event_hash
         }
       });
     }
@@ -551,7 +598,7 @@ export const trackWhatsAppClick = (params: {
     console.log('[TRACK PRODUCT] whatsapp_click', eventData);
   }
 
-  localStorage.setItem('mdi_last_wa_page', sourcePage);
+  safeSetStorage('mdi_last_wa_page', sourcePage);
   saveLead(params.product_name, sourcePage);
 
   saveAnalyticsEvent({
@@ -571,7 +618,7 @@ export const getLocalLeads = (): Lead[] => {
 };
 
 const saveLocalLeads = (leads: Lead[]) => {
-  try { localStorage.setItem(LEADS_KEY, JSON.stringify(leads)); }
+  try { safeSetStorage(LEADS_KEY, JSON.stringify(leads)); }
   catch {}
 };
 
@@ -601,12 +648,19 @@ const flushBatchToSupabase = async () => {
   if (queue.length === 0) return;
   // Take up to BATCH_SIZE events
   const batch = queue.splice(0, BATCH_SIZE);
+  
+  // Optimistically remove from queue to avoid race conditions during async network call
+  safeSetStorage(BATCH_QUEUE_KEY, JSON.stringify(queue));
+
   try {
-    await supabase.from('analytics_events').insert(batch);
-    localStorage.setItem(BATCH_QUEUE_KEY, JSON.stringify(queue));
-  } catch {
-    // Requeue on failure — data preserved in localStorage
-    localStorage.setItem(BATCH_QUEUE_KEY, JSON.stringify([...batch, ...queue]));
+    // Upsert ensures that retries (which maintain the same ID) do not create duplicates
+    const { error } = await supabase.from('analytics_events').upsert(batch, { onConflict: 'id' });
+    if (error) throw error;
+    if (import.meta.env.DEV) console.log(`[CRM Deduplication] Synced ${batch.length} events to Supabase`);
+  } catch (err) {
+    // Requeue on failure by fetching latest queue and prepending
+    const currentQueue = getBatchQueue();
+    safeSetStorage(BATCH_QUEUE_KEY, JSON.stringify([...batch, ...currentQueue]));
   }
 };
 
@@ -615,10 +669,66 @@ function enqueueAnalyticsEvent(eventPayload: any) {
     const queue = getBatchQueue();
     queue.push(eventPayload);
     if (queue.length > 2000) queue.splice(0, queue.length - 2000);
-    localStorage.setItem(BATCH_QUEUE_KEY, JSON.stringify(queue));
+    safeSetStorage(BATCH_QUEUE_KEY, JSON.stringify(queue));
     // Schedule flush
     if (batchTimer) clearTimeout(batchTimer);
     batchTimer = setTimeout(flushBatchToSupabase, BATCH_INTERVAL_MS);
+  } catch {}
+};
+
+// ─── Lead Sync Queue ──────────────────────────────────────────────────────────
+
+const LEADS_SYNC_QUEUE_KEY = 'mdi_leads_sync_queue';
+let leadBatchTimer: ReturnType<typeof setTimeout> | null = null;
+
+const getLeadSyncQueue = (): any[] => {
+  try { return JSON.parse(localStorage.getItem(LEADS_SYNC_QUEUE_KEY) || '[]'); }
+  catch { return []; }
+};
+
+const flushLeadsToSupabase = async () => {
+  if (!supabase) return;
+  const queue = getLeadSyncQueue();
+  if (queue.length === 0) return;
+  
+  const batch = queue.splice(0, 10); // Sync up to 10 operations
+  safeSetStorage(LEADS_SYNC_QUEUE_KEY, JSON.stringify(queue));
+
+  const failedOps = [];
+
+  for (const op of batch) {
+    try {
+      if (op.action === 'insert') {
+        const { error } = await supabase.from('leads').upsert([op.payload], { onConflict: 'id' });
+        if (error) throw error;
+        if (import.meta.env.DEV) console.log(`[CRM Deduplication] Upserted lead ${op.payload.id}`);
+      } else if (op.action === 'update' && op.id) {
+        const { error } = await supabase.from('leads').update(op.payload).eq('id', op.id);
+        if (error) throw error;
+        if (import.meta.env.DEV) console.log(`[CRM Deduplication] Updated lead ${op.id}`);
+      }
+    } catch (err) {
+      if (import.meta.env.DEV) console.error(`[CRM Deduplication] Failed op ${op.action} for lead ${op.id || op.payload?.id}, requeuing.`);
+      failedOps.push(op);
+    }
+  }
+
+  if (failedOps.length > 0) {
+    const currentQueue = getLeadSyncQueue();
+    safeSetStorage(LEADS_SYNC_QUEUE_KEY, JSON.stringify([...failedOps, ...currentQueue]));
+  }
+};
+
+const enqueueLeadOp = (action: 'insert' | 'update', payload: any, id?: string) => {
+  try {
+    const queue = getLeadSyncQueue();
+    // Deduplicate updates for same lead ID
+    const cleanQueue = action === 'update' ? queue.filter(q => !(q.action === 'update' && q.id === id)) : queue;
+    cleanQueue.push({ action, payload, id });
+    safeSetStorage(LEADS_SYNC_QUEUE_KEY, JSON.stringify(cleanQueue));
+    
+    if (leadBatchTimer) clearTimeout(leadBatchTimer);
+    leadBatchTimer = setTimeout(flushLeadsToSupabase, 2000);
   } catch {}
 };
 
@@ -698,7 +808,7 @@ export const saveLead = async (product_name: string, page: string): Promise<void
         if (prevScore < 21 && breakdown.total >= 21) emitHotLead(updatedLead);
 
         if (supabase && existing.id) {
-          await supabase.from('leads').update({
+          enqueueLeadOp('update', {
             lead_score: breakdown.total,
             lead_stage: stage,
             lead_confidence: confidence,
@@ -711,7 +821,7 @@ export const saveLead = async (product_name: string, page: string): Promise<void
             human_summary: humanSummary,
             notes: notesStr,
             updated_at: now
-          }).eq('id', existing.id);
+          }, existing.id);
         }
         return;
       }
@@ -750,7 +860,7 @@ export const saveLead = async (product_name: string, page: string): Promise<void
       if (stage === 'quente') emitHotLead(newLead);
 
       if (supabase) {
-        await supabase.from('leads').insert([{
+        enqueueLeadOp('insert', {
           id: newLead.id,
           product_name,
           page,
@@ -768,7 +878,7 @@ export const saveLead = async (product_name: string, page: string): Promise<void
           purchase_intent: intent,
           recommended_action: recAction,
           converted: false
-        }]);
+        });
       }
     } catch (e) {
       console.error('saveLead failed', e);
@@ -811,13 +921,13 @@ export const markLeadConverted = async (leadId: string, value?: number): Promise
   saveLocalLeads(updated);
 
   if (supabase) {
-    await supabase.from('leads').update({
+    enqueueLeadOp('update', {
       converted: true,
       conversion_value: value ?? 0,
       conversion_date: now,
       status: 'convertido',
       updated_at: now
-    }).eq('id', leadId);
+    }, leadId);
   }
 };
 
@@ -963,7 +1073,7 @@ export const initAnalytics = () => {
       });
 
       if (eventType === 'whatsapp_click') {
-        localStorage.setItem('mdi_last_wa_page', page);
+        safeSetStorage('mdi_last_wa_page', page);
         saveLead(productSlug || 'Genérico', page);
       }
       return;
